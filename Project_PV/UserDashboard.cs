@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Project_PV
 {
-    public partial class Form1 : Form
+    public partial class UserDashboard : Form
     {
-        public Form1()
+        public UserDashboard()
         {
             InitializeComponent();
         }
