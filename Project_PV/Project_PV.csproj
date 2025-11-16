@@ -118,8 +118,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserAccessoriesControl.resx">
+      <DependentUpon>UserAccessoriesControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserCartControl.resx">
       <DependentUpon>UserCartControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserCatalogControl.resx">
+      <DependentUpon>UserCatalogControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDashboard.resx">
       <DependentUpon>UserDashboard.cs</DependentUpon>
