@@ -230,6 +230,7 @@ namespace Project_PV
             // 
             // contentPanel
             // 
+            this.contentPanel.AutoScroll = true;
             this.contentPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.contentPanel.Controls.Add(this.contentLabel);
             this.contentPanel.Location = new System.Drawing.Point(0, 60);
