@@ -15,6 +15,12 @@ namespace Project_PV
         public UserCartControl()
         {
             InitializeComponent();
+            if (true) // IF Cart empty
+            {
+                panel1.Location = new Point(0, 0);
+                panel1.Dock = DockStyle.Fill;
+                panel1.Visible = true;
+            }
         }
     }
 }
