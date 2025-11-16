@@ -66,11 +66,41 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserAccessoriesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserAccessoriesControl.Designer.cs">
+      <DependentUpon>UserAccessoriesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserCartControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserCartControl.Designer.cs">
+      <DependentUpon>UserCartControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserCatalogControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserCatalogControl.Designer.cs">
+      <DependentUpon>UserCatalogControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserDashboardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserDashboardControl.Designer.cs">
+      <DependentUpon>UserDashboardControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserDashboard.Designer.cs">
       <DependentUpon>UserDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserMembershipControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserMembershipControl.Designer.cs">
+      <DependentUpon>UserMembershipControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
@@ -87,6 +117,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserDashboard.resx">
+      <DependentUpon>UserDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDashboardControl.resx">
+      <DependentUpon>UserDashboardControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
