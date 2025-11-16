@@ -16,5 +16,20 @@ namespace Project_PV
         {
             InitializeComponent();
         }
+
+        private void AdminDashboard_Load(object sender, EventArgs e)
+        {
+            bookManagementPanel.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            bookManagementPanel.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            bookManagementPanel.Show();
+        }
     }
 }
