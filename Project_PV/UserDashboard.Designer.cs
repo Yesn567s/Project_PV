@@ -33,7 +33,7 @@ namespace Project_PV
         {
             this.headerPanel = new System.Windows.Forms.Panel();
             this.logoLabel = new System.Windows.Forms.Label();
-            this.brandLabel = new System.Windows.Forms.Label();
+            this.LabelBrand = new System.Windows.Forms.Label();
             this.navPanel = new System.Windows.Forms.Panel();
             this.homeButton = new System.Windows.Forms.Button();
             this.catalogButton = new System.Windows.Forms.Button();
@@ -56,7 +56,7 @@ namespace Project_PV
             // 
             this.headerPanel.BackColor = System.Drawing.Color.White;
             this.headerPanel.Controls.Add(this.logoLabel);
-            this.headerPanel.Controls.Add(this.brandLabel);
+            this.headerPanel.Controls.Add(this.LabelBrand);
             this.headerPanel.Controls.Add(this.navPanel);
             this.headerPanel.Controls.Add(this.rightPanel);
             this.headerPanel.Location = new System.Drawing.Point(0, 0);
@@ -74,16 +74,16 @@ namespace Project_PV
             this.logoLabel.TabIndex = 0;
             this.logoLabel.Text = "📖";
             // 
-            // brandLabel
+            // LabelBrand
             // 
-            this.brandLabel.AutoSize = true;
-            this.brandLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.brandLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(69)))), ((int)(((byte)(19)))));
-            this.brandLabel.Location = new System.Drawing.Point(74, 20);
-            this.brandLabel.Name = "brandLabel";
-            this.brandLabel.Size = new System.Drawing.Size(119, 21);
-            this.brandLabel.TabIndex = 1;
-            this.brandLabel.Text = "Chapter & Verse";
+            this.LabelBrand.AutoSize = true;
+            this.LabelBrand.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.LabelBrand.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(69)))), ((int)(((byte)(19)))));
+            this.LabelBrand.Location = new System.Drawing.Point(74, 20);
+            this.LabelBrand.Name = "LabelBrand";
+            this.LabelBrand.Size = new System.Drawing.Size(56, 21);
+            this.LabelBrand.TabIndex = 1;
+            this.LabelBrand.Text = "TBMO";
             // 
             // navPanel
             // 
@@ -276,7 +276,7 @@ namespace Project_PV
 
         private Panel headerPanel;
         private Label logoLabel;
-        private Label brandLabel;
+        private Label LabelBrand;
         private Panel navPanel;
         private Button homeButton;
         private Button catalogButton;

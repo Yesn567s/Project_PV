@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelItemCount = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.sortByComboBox = new System.Windows.Forms.ComboBox();
             this.filterByComboBox = new System.Windows.Forms.ComboBox();
@@ -61,15 +61,15 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Enhance your reading experience with our curated accessories";
             // 
-            // label3
+            // labelItemCount
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(52, 116);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(152, 25);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Showing ... Items";
+            this.labelItemCount.AutoSize = true;
+            this.labelItemCount.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelItemCount.Location = new System.Drawing.Point(52, 116);
+            this.labelItemCount.Name = "labelItemCount";
+            this.labelItemCount.Size = new System.Drawing.Size(152, 25);
+            this.labelItemCount.TabIndex = 2;
+            this.labelItemCount.Text = "Showing ... Items";
             // 
             // panel1
             // 
@@ -140,7 +140,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.labelItemCount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "UserAccessoriesControl";
@@ -157,7 +157,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelItemCount;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.ComboBox sortByComboBox;

@@ -52,6 +52,18 @@
     <Compile Include="AdminDashboard.Designer.cs">
       <DependentUpon>AdminDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdminDashboardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminDashboardControl.Designer.cs">
+      <DependentUpon>AdminDashboardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminManagementControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminManagementControl.Designer.cs">
+      <DependentUpon>AdminManagementControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +116,12 @@
     </Compile>
     <EmbeddedResource Include="AdminDashboard.resx">
       <DependentUpon>AdminDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminDashboardControl.resx">
+      <DependentUpon>AdminDashboardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminManagementControl.resx">
+      <DependentUpon>AdminManagementControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>

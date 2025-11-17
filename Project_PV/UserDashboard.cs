@@ -18,8 +18,6 @@ namespace Project_PV
         private UserAccessoriesControl user_accessories_control;
         private UserDashboardControl user_dashboard_control;
         private UserMembershipControl user_membership_control;
-
-        // Admin Controls (Reserved for future) currently not used
         public UserDashboard()
         {
             InitializeComponent();
