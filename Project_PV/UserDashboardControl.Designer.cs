@@ -41,8 +41,6 @@ namespace Project_PV
             this.buttonsPanel = new System.Windows.Forms.Panel();
             this.browseCatalogButton = new System.Windows.Forms.Button();
             this.joinMembershipButton = new System.Windows.Forms.Button();
-            this.imagePanel = new System.Windows.Forms.Panel();
-            this.imagePlaceholder = new System.Windows.Forms.Label();
             this.featuresPanel = new System.Windows.Forms.Panel();
             this.card1 = new System.Windows.Forms.Panel();
             this.cardTitle1 = new System.Windows.Forms.Label();
@@ -97,11 +95,11 @@ namespace Project_PV
             this.footerTitle = new System.Windows.Forms.Label();
             this.footerDesc = new System.Windows.Forms.Label();
             this.exploreMembershipBtn = new System.Windows.Forms.Button();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.heroPanel.SuspendLayout();
             this.leftContent.SuspendLayout();
             this.badgePanel.SuspendLayout();
             this.buttonsPanel.SuspendLayout();
-            this.imagePanel.SuspendLayout();
             this.featuresPanel.SuspendLayout();
             this.card1.SuspendLayout();
             this.card2.SuspendLayout();
@@ -114,13 +112,14 @@ namespace Project_PV
             this.panelCard1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.footerPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // heroPanel
             // 
             this.heroPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(100)))), ((int)(((byte)(20)))));
+            this.heroPanel.Controls.Add(this.pictureBox4);
             this.heroPanel.Controls.Add(this.leftContent);
-            this.heroPanel.Controls.Add(this.imagePanel);
             this.heroPanel.Location = new System.Drawing.Point(0, 0);
             this.heroPanel.Name = "heroPanel";
             this.heroPanel.Size = new System.Drawing.Size(1200, 345);
@@ -214,6 +213,7 @@ namespace Project_PV
             this.browseCatalogButton.TabIndex = 0;
             this.browseCatalogButton.Text = "Browse Catalog  →";
             this.browseCatalogButton.UseVisualStyleBackColor = false;
+            this.browseCatalogButton.Click += new System.EventHandler(this.browseCatalogButton_Click);
             // 
             // joinMembershipButton
             // 
@@ -230,26 +230,7 @@ namespace Project_PV
             this.joinMembershipButton.TabIndex = 1;
             this.joinMembershipButton.Text = "Join Membership";
             this.joinMembershipButton.UseVisualStyleBackColor = false;
-            // 
-            // imagePanel
-            // 
-            this.imagePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.imagePanel.Controls.Add(this.imagePlaceholder);
-            this.imagePanel.Location = new System.Drawing.Point(650, 15);
-            this.imagePanel.Name = "imagePanel";
-            this.imagePanel.Size = new System.Drawing.Size(520, 315);
-            this.imagePanel.TabIndex = 1;
-            // 
-            // imagePlaceholder
-            // 
-            this.imagePlaceholder.AutoSize = true;
-            this.imagePlaceholder.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.imagePlaceholder.ForeColor = System.Drawing.Color.White;
-            this.imagePlaceholder.Location = new System.Drawing.Point(165, 145);
-            this.imagePlaceholder.Name = "imagePlaceholder";
-            this.imagePlaceholder.Size = new System.Drawing.Size(198, 25);
-            this.imagePlaceholder.TabIndex = 0;
-            this.imagePlaceholder.Text = "Circular Library Image";
+            this.joinMembershipButton.Click += new System.EventHandler(this.joinMembershipButton_Click);
             // 
             // featuresPanel
             // 
@@ -808,6 +789,7 @@ namespace Project_PV
             this.viewAllButton.TabIndex = 2;
             this.viewAllButton.Text = "View All  →";
             this.viewAllButton.UseVisualStyleBackColor = false;
+            this.viewAllButton.Click += new System.EventHandler(this.viewAllButton_Click);
             // 
             // footerPanel
             // 
@@ -857,6 +839,17 @@ namespace Project_PV
             this.exploreMembershipBtn.TabIndex = 2;
             this.exploreMembershipBtn.Text = "Explore Membership Plans";
             this.exploreMembershipBtn.UseVisualStyleBackColor = false;
+            this.exploreMembershipBtn.Click += new System.EventHandler(this.exploreMembershipBtn_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Red;
+            this.pictureBox4.Image = global::Project_PV.Properties.Resources.placeholders;
+            this.pictureBox4.Location = new System.Drawing.Point(650, 15);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(520, 315);
+            this.pictureBox4.TabIndex = 8;
+            this.pictureBox4.TabStop = false;
             // 
             // UserDashboardControl
             // 
@@ -875,8 +868,6 @@ namespace Project_PV
             this.badgePanel.ResumeLayout(false);
             this.badgePanel.PerformLayout();
             this.buttonsPanel.ResumeLayout(false);
-            this.imagePanel.ResumeLayout(false);
-            this.imagePanel.PerformLayout();
             this.featuresPanel.ResumeLayout(false);
             this.card1.ResumeLayout(false);
             this.card1.PerformLayout();
@@ -896,6 +887,7 @@ namespace Project_PV
             this.panelCard1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.footerPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -912,8 +904,6 @@ namespace Project_PV
         private Panel buttonsPanel;
         private Button browseCatalogButton;
         private Button joinMembershipButton;
-        private Panel imagePanel;
-        private Label imagePlaceholder;
         private Panel featuresPanel;
         private Panel card1;
         private Label cardTitle1;
@@ -968,5 +958,6 @@ namespace Project_PV
         private Label footerTitle;
         private Label footerDesc;
         private Button exploreMembershipBtn;
+        private PictureBox pictureBox4;
     }
 }

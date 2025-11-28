@@ -15,7 +15,6 @@ namespace Project_PV
         // User Controls
         private UserCartControl user_cart_control;
         private UserCatalogControl user_catalog_control;
-        private UserAccessoriesControl user_accessories_control;
         private UserDashboardControl user_dashboard_control;
         private UserMembershipControl user_membership_control;
         public UserDashboard()
@@ -34,12 +33,6 @@ namespace Project_PV
         {
             btnControl_design(catalogButton);
             LoadCatalog();
-        }
-
-        private void accessoriesButton_Click(object sender, EventArgs e)
-        {
-            btnControl_design(accessoriesButton);
-            LoadAccessories();
         }
 
         private void membershipButton_Click(object sender, EventArgs e)
@@ -74,6 +67,19 @@ namespace Project_PV
             if (user_dashboard_control == null)
             {
                 user_dashboard_control = new UserDashboardControl();
+
+                // Subscribe to events
+                user_dashboard_control.ExploreMembershipClicked += (s, e) =>
+                {
+                    btnControl_design(membershipButton);
+                    LoadMembership();
+                };
+
+                user_dashboard_control.BrowseCatalogClicked += (s, e) =>
+                {
+                    btnControl_design(catalogButton);
+                    LoadCatalog();
+                };
             }
             LoadUserControl(user_dashboard_control);
         }
@@ -85,15 +91,6 @@ namespace Project_PV
                 user_catalog_control = new UserCatalogControl();
             }
             LoadUserControl(user_catalog_control);
-        }
-
-        private void LoadAccessories()
-        {
-            if (user_accessories_control == null)
-            {
-                user_accessories_control = new UserAccessoriesControl();
-            }
-            LoadUserControl(user_accessories_control);
         }
 
         private void LoadCart()
@@ -119,13 +116,11 @@ namespace Project_PV
             // Reset all button colors
             homeButton.BackColor = Color.Transparent;
             catalogButton.BackColor = Color.Transparent;
-            accessoriesButton.BackColor = Color.Transparent;
             cartButton.BackColor = Color.Transparent;
             membershipButton.BackColor = Color.Transparent;
 
             homeButton.ForeColor = Color.FromArgb(60, 60, 60);
             catalogButton.ForeColor = Color.FromArgb(60, 60, 60);
-            accessoriesButton.ForeColor = Color.FromArgb(60, 60, 60);
             cartButton.ForeColor = Color.FromArgb(60, 60, 60);
             membershipButton.ForeColor = Color.FromArgb(60, 60, 60);
 

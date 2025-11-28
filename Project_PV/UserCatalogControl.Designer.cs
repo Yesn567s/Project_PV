@@ -117,9 +117,9 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(60, 40);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(291, 21);
+            this.label2.Size = new System.Drawing.Size(287, 21);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Browse our complete collection of books";
+            this.label2.Text = "Browse our complete collection of items";
             // 
             // label1
             // 
@@ -127,9 +127,9 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
             this.label1.Location = new System.Drawing.Point(57, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(190, 37);
+            this.label1.Size = new System.Drawing.Size(117, 37);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Book Catalog";
+            this.label1.Text = "Catalog";
             // 
             // UserCatalogControl
             // 

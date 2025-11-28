@@ -16,5 +16,10 @@ namespace Project_PV
         {
             InitializeComponent();
         }
+
+        private void AddBookButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

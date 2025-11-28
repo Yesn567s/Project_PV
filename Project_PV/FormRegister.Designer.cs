@@ -31,8 +31,6 @@ namespace Project_PV
         /// </summary>
         private void InitializeComponent()
         {
-            this.leftPanel = new System.Windows.Forms.Panel();
-            this.panelLabel = new System.Windows.Forms.Label();
             this.iconLabel = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
             this.subtitleLabel = new System.Windows.Forms.Label();
@@ -51,29 +49,10 @@ namespace Project_PV
             this.createButton = new System.Windows.Forms.Button();
             this.signInLabel = new System.Windows.Forms.Label();
             this.signInLink = new System.Windows.Forms.LinkLabel();
-            this.leftPanel.SuspendLayout();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.rightPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // leftPanel
-            // 
-            this.leftPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.leftPanel.Controls.Add(this.panelLabel);
-            this.leftPanel.Location = new System.Drawing.Point(50, 150);
-            this.leftPanel.Name = "leftPanel";
-            this.leftPanel.Size = new System.Drawing.Size(550, 380);
-            this.leftPanel.TabIndex = 0;
-            // 
-            // panelLabel
-            // 
-            this.panelLabel.AutoSize = true;
-            this.panelLabel.Font = new System.Drawing.Font("Segoe UI", 16F);
-            this.panelLabel.ForeColor = System.Drawing.Color.White;
-            this.panelLabel.Location = new System.Drawing.Point(200, 170);
-            this.panelLabel.Name = "panelLabel";
-            this.panelLabel.Size = new System.Drawing.Size(131, 30);
-            this.panelLabel.TabIndex = 0;
-            this.panelLabel.Text = "Image Panel";
             // 
             // iconLabel
             // 
@@ -90,11 +69,11 @@ namespace Project_PV
             this.titleLabel.AutoSize = true;
             this.titleLabel.Font = new System.Drawing.Font("Segoe UI", 16F);
             this.titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(69)))), ((int)(((byte)(19)))));
-            this.titleLabel.Location = new System.Drawing.Point(120, 42);
+            this.titleLabel.Location = new System.Drawing.Point(110, 42);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(156, 30);
+            this.titleLabel.Size = new System.Drawing.Size(91, 30);
             this.titleLabel.TabIndex = 2;
-            this.titleLabel.Text = "Chapter & Verse";
+            this.titleLabel.Text = "Register";
             // 
             // subtitleLabel
             // 
@@ -257,6 +236,7 @@ namespace Project_PV
             this.createButton.TabIndex = 11;
             this.createButton.Text = "Create Account";
             this.createButton.UseVisualStyleBackColor = false;
+            this.createButton.Click += new System.EventHandler(this.createButton_Click);
             // 
             // signInLabel
             // 
@@ -280,12 +260,23 @@ namespace Project_PV
             this.signInLink.TabIndex = 13;
             this.signInLink.TabStop = true;
             this.signInLink.Text = "Sign in";
+            this.signInLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.signInLink_LinkClicked);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Red;
+            this.pictureBox1.Image = global::Project_PV.Properties.Resources.placeholders;
+            this.pictureBox1.Location = new System.Drawing.Point(50, 150);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(550, 380);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // FormRegister
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(239)))), ((int)(((byte)(231)))));
             this.ClientSize = new System.Drawing.Size(1184, 599);
-            this.Controls.Add(this.leftPanel);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.iconLabel);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.subtitleLabel);
@@ -295,19 +286,15 @@ namespace Project_PV
             this.Name = "FormRegister";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chapter & Verse - Register";
-            this.leftPanel.ResumeLayout(false);
-            this.leftPanel.PerformLayout();
             this.rightPanel.ResumeLayout(false);
             this.rightPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private Panel leftPanel;
-        private Label panelLabel;
         private Label iconLabel;
         private Label titleLabel;
         private Label subtitleLabel;
@@ -326,5 +313,6 @@ namespace Project_PV
         private Button createButton;
         private Label signInLabel;
         private LinkLabel signInLink;
+        private PictureBox pictureBox1;
     }
 }

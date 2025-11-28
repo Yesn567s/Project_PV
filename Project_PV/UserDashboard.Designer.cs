@@ -37,7 +37,6 @@ namespace Project_PV
             this.navPanel = new System.Windows.Forms.Panel();
             this.homeButton = new System.Windows.Forms.Button();
             this.catalogButton = new System.Windows.Forms.Button();
-            this.accessoriesButton = new System.Windows.Forms.Button();
             this.membershipButton = new System.Windows.Forms.Button();
             this.rightPanel = new System.Windows.Forms.Panel();
             this.cartButton = new System.Windows.Forms.Button();
@@ -88,9 +87,9 @@ namespace Project_PV
             // navPanel
             // 
             this.navPanel.BackColor = System.Drawing.Color.Transparent;
+            this.navPanel.Controls.Add(this.cartButton);
             this.navPanel.Controls.Add(this.homeButton);
             this.navPanel.Controls.Add(this.catalogButton);
-            this.navPanel.Controls.Add(this.accessoriesButton);
             this.navPanel.Controls.Add(this.membershipButton);
             this.navPanel.Location = new System.Drawing.Point(300, 0);
             this.navPanel.Name = "navPanel";
@@ -130,23 +129,6 @@ namespace Project_PV
             this.catalogButton.UseVisualStyleBackColor = false;
             this.catalogButton.Click += new System.EventHandler(this.catalogButton_Click);
             // 
-            // accessoriesButton
-            // 
-            this.accessoriesButton.BackColor = System.Drawing.Color.Transparent;
-            this.accessoriesButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.accessoriesButton.FlatAppearance.BorderSize = 0;
-            this.accessoriesButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
-            this.accessoriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.accessoriesButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.accessoriesButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.accessoriesButton.Location = new System.Drawing.Point(270, 15);
-            this.accessoriesButton.Name = "accessoriesButton";
-            this.accessoriesButton.Size = new System.Drawing.Size(130, 30);
-            this.accessoriesButton.TabIndex = 2;
-            this.accessoriesButton.Text = "🔧  Accessories";
-            this.accessoriesButton.UseVisualStyleBackColor = false;
-            this.accessoriesButton.Click += new System.EventHandler(this.accessoriesButton_Click);
-            // 
             // membershipButton
             // 
             this.membershipButton.BackColor = System.Drawing.Color.Transparent;
@@ -156,7 +138,7 @@ namespace Project_PV
             this.membershipButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.membershipButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.membershipButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.membershipButton.Location = new System.Drawing.Point(420, 15);
+            this.membershipButton.Location = new System.Drawing.Point(256, 17);
             this.membershipButton.Name = "membershipButton";
             this.membershipButton.Size = new System.Drawing.Size(130, 30);
             this.membershipButton.TabIndex = 3;
@@ -167,7 +149,6 @@ namespace Project_PV
             // rightPanel
             // 
             this.rightPanel.BackColor = System.Drawing.Color.Transparent;
-            this.rightPanel.Controls.Add(this.cartButton);
             this.rightPanel.Controls.Add(this.userLabel);
             this.rightPanel.Controls.Add(this.logoutButton);
             this.rightPanel.Location = new System.Drawing.Point(900, 0);
@@ -184,7 +165,7 @@ namespace Project_PV
             this.cartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cartButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cartButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.cartButton.Location = new System.Drawing.Point(0, 15);
+            this.cartButton.Location = new System.Drawing.Point(392, 15);
             this.cartButton.Name = "cartButton";
             this.cartButton.Size = new System.Drawing.Size(80, 30);
             this.cartButton.TabIndex = 0;
@@ -280,7 +261,6 @@ namespace Project_PV
         private Panel navPanel;
         private Button homeButton;
         private Button catalogButton;
-        private Button accessoriesButton;
         private Button membershipButton;
         private Panel rightPanel;
         private Button cartButton;

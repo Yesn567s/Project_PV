@@ -158,9 +158,9 @@
             this.label30.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label30.Location = new System.Drawing.Point(16, 500);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(111, 17);
+            this.label30.Size = new System.Drawing.Size(107, 17);
             this.label30.TabIndex = 29;
-            this.label30.Text = "Top Selling Books";
+            this.label30.Text = "Top Selling Items";
             // 
             // panel6
             // 
@@ -253,9 +253,9 @@
             this.label24.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.Location = new System.Drawing.Point(18, 19);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(98, 21);
+            this.label24.Size = new System.Drawing.Size(94, 21);
             this.label24.TabIndex = 21;
-            this.label24.Text = "Total Books";
+            this.label24.Text = "Total Items";
             // 
             // panel5
             // 
@@ -500,9 +500,9 @@
             this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(18, 14);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(98, 21);
+            this.label9.Size = new System.Drawing.Size(94, 21);
             this.label9.TabIndex = 17;
-            this.label9.Text = "Total Books";
+            this.label9.Text = "Total Items";
             // 
             // label34
             // 

@@ -34,8 +34,6 @@ namespace Project_PV
             this.iconLabel = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
             this.subtitleLabel = new System.Windows.Forms.Label();
-            this.leftPanel = new System.Windows.Forms.Panel();
-            this.panelLabel = new System.Windows.Forms.Label();
             this.rightPanel = new System.Windows.Forms.Panel();
             this.headerLabel = new System.Windows.Forms.Label();
             this.descLabel = new System.Windows.Forms.Label();
@@ -48,8 +46,9 @@ namespace Project_PV
             this.signInButton = new System.Windows.Forms.Button();
             this.createAccountLabel = new System.Windows.Forms.Label();
             this.createAccountLink = new System.Windows.Forms.LinkLabel();
-            this.leftPanel.SuspendLayout();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.rightPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // iconLabel
@@ -69,9 +68,9 @@ namespace Project_PV
             this.titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(69)))), ((int)(((byte)(19)))));
             this.titleLabel.Location = new System.Drawing.Point(109, 42);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(156, 30);
+            this.titleLabel.Size = new System.Drawing.Size(66, 30);
             this.titleLabel.TabIndex = 1;
-            this.titleLabel.Text = "Chapter & Verse";
+            this.titleLabel.Text = "Login";
             // 
             // subtitleLabel
             // 
@@ -83,26 +82,6 @@ namespace Project_PV
             this.subtitleLabel.TabIndex = 2;
             this.subtitleLabel.Text = "Welcome to your literary haven. Discover thousands of books, join our\nmembership " +
     "program, and enjoy exclusive benefits.";
-            // 
-            // leftPanel
-            // 
-            this.leftPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.leftPanel.Controls.Add(this.panelLabel);
-            this.leftPanel.Location = new System.Drawing.Point(50, 150);
-            this.leftPanel.Name = "leftPanel";
-            this.leftPanel.Size = new System.Drawing.Size(560, 400);
-            this.leftPanel.TabIndex = 3;
-            // 
-            // panelLabel
-            // 
-            this.panelLabel.AutoSize = true;
-            this.panelLabel.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.panelLabel.ForeColor = System.Drawing.Color.White;
-            this.panelLabel.Location = new System.Drawing.Point(190, 190);
-            this.panelLabel.Name = "panelLabel";
-            this.panelLabel.Size = new System.Drawing.Size(178, 25);
-            this.panelLabel.TabIndex = 0;
-            this.panelLabel.Text = "Library Image Panel";
             // 
             // rightPanel
             // 
@@ -221,6 +200,7 @@ namespace Project_PV
             this.signInButton.TabIndex = 8;
             this.signInButton.Text = "Sign In";
             this.signInButton.UseVisualStyleBackColor = false;
+            this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
             // 
             // createAccountLabel
             // 
@@ -244,25 +224,34 @@ namespace Project_PV
             this.createAccountLink.TabIndex = 10;
             this.createAccountLink.TabStop = true;
             this.createAccountLink.Text = "Create one";
+            this.createAccountLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.createAccountLink_LinkClicked);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Project_PV.Properties.Resources.placeholders;
+            this.pictureBox1.Location = new System.Drawing.Point(50, 150);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(560, 400);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // FormLogin
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(239)))), ((int)(((byte)(231)))));
             this.ClientSize = new System.Drawing.Size(1184, 561);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.iconLabel);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.subtitleLabel);
-            this.Controls.Add(this.leftPanel);
             this.Controls.Add(this.rightPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "FormLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chapter & Verse - Sign In";
-            this.leftPanel.ResumeLayout(false);
-            this.leftPanel.PerformLayout();
             this.rightPanel.ResumeLayout(false);
             this.rightPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,8 +262,6 @@ namespace Project_PV
         private Label iconLabel;
         private Label titleLabel;
         private Label subtitleLabel;
-        private Panel leftPanel;
-        private Label panelLabel;
         private Panel rightPanel;
         private Label headerLabel;
         private Label descLabel;
@@ -287,5 +274,6 @@ namespace Project_PV
         private Button signInButton;
         private Label createAccountLabel;
         private LinkLabel createAccountLink;
+        private PictureBox pictureBox1;
     }
 }
