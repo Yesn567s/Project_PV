@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>D:\vsproject\tutorm5\MySql.Data.dll</HintPath>
+      <HintPath>..\..\praktikum5\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,6 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddItemForm.Designer.cs">
+      <DependentUpon>AddItemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddPromoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPromoForm.Designer.cs">
+      <DependentUpon>AddPromoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdminDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +78,12 @@
     </Compile>
     <Compile Include="AdminManagementControl.Designer.cs">
       <DependentUpon>AdminManagementControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPromoManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminPromoManagement.Designer.cs">
+      <DependentUpon>AdminPromoManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
@@ -119,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AdminManagementControl.resx">
       <DependentUpon>AdminManagementControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminPromoManagement.resx">
+      <DependentUpon>AdminPromoManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>

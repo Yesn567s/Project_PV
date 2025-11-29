@@ -39,6 +39,7 @@
             this.brandLabel = new System.Windows.Forms.Label();
             this.ContentPanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.buttonPromo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.panel7.SuspendLayout();
             this.panelHeader.SuspendLayout();
@@ -57,6 +58,7 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panel7.Controls.Add(this.buttonPromo);
             this.panel7.Controls.Add(this.button2);
             this.panel7.Controls.Add(this.button1);
             this.panel7.Location = new System.Drawing.Point(0, 0);
@@ -73,7 +75,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(125, 55);
             this.button2.TabIndex = 1;
-            this.button2.Text = "📕 Book Management";
+            this.button2.Text = "📕 Item Management";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -168,6 +170,19 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Content Area";
             // 
+            // buttonPromo
+            // 
+            this.buttonPromo.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonPromo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.buttonPromo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPromo.Location = new System.Drawing.Point(11, 145);
+            this.buttonPromo.Name = "buttonPromo";
+            this.buttonPromo.Size = new System.Drawing.Size(125, 55);
+            this.buttonPromo.TabIndex = 2;
+            this.buttonPromo.Text = "% Promo Management";
+            this.buttonPromo.UseVisualStyleBackColor = false;
+            this.buttonPromo.Click += new System.EventHandler(this.buttonPromo_Click);
+            // 
             // AdminDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -205,5 +220,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel ContentPanel;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonPromo;
     }
 }

@@ -15,14 +15,17 @@ namespace Project_PV
         // Admin Controls
         private AdminDashboardControl adminDashboardControl = new AdminDashboardControl();
         private AdminManagementControl adminManagementControl = new AdminManagementControl();
+        private AdminPromoManagement adminPromoControl = new AdminPromoManagement();
         public AdminDashboard()
         {
             InitializeComponent();
             button1.FlatStyle = FlatStyle.Flat;
             button2.FlatStyle = FlatStyle.Flat;
+            buttonPromo.FlatStyle = FlatStyle.Flat;
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.BorderSize = 0;
-
+            buttonPromo.FlatAppearance.BorderSize = 0;
+            btnControl_design(button1);
             LoadDashboard();
         }
 
@@ -41,6 +44,12 @@ namespace Project_PV
         {
             LoadManagement();
             btnControl_design(button2);
+        }
+
+        private void buttonPromo_Click(object sender, EventArgs e)
+        {
+            LoadPromoManagement();
+            btnControl_design(buttonPromo);
         }
 
         // Load User Controls on Button Click
@@ -69,6 +78,15 @@ namespace Project_PV
             LoadUserControl(adminManagementControl);
         }
 
+        private void LoadPromoManagement()
+        {
+            if (adminPromoControl == null)
+            {
+                adminPromoControl = new AdminPromoManagement();
+            }
+            LoadUserControl(adminPromoControl);
+        }
+
         private void btnControl_design(Button activeButton)
         {
             // Reset all buttons to default style
@@ -76,6 +94,8 @@ namespace Project_PV
             button1.ForeColor = Color.Black;
             button2.BackColor = Color.White;
             button2.ForeColor = Color.Black;
+            buttonPromo.BackColor = Color.White;
+            buttonPromo.ForeColor = Color.Black;
 
             // Highlight the active button
             activeButton.BackColor = Color.Black;
@@ -88,5 +108,7 @@ namespace Project_PV
             loginForm.Show();
             this.Hide();
         }
+
+        
     }
 }

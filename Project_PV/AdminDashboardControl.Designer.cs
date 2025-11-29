@@ -31,7 +31,7 @@
             this.bookManagementPanel = new System.Windows.Forms.Panel();
             this.dataGridViewRecentOrders = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridViewLowStocksAlert = new System.Windows.Forms.DataGridView();
+            this.dataGridViewMembersList = new System.Windows.Forms.DataGridView();
             this.dataGridViewTopSellingBooks = new System.Windows.Forms.DataGridView();
             this.label31 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
@@ -70,7 +70,7 @@
             this.label35 = new System.Windows.Forms.Label();
             this.bookManagementPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecentOrders)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLowStocksAlert)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMembersList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTopSellingBooks)).BeginInit();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -84,7 +84,7 @@
             this.bookManagementPanel.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.bookManagementPanel.Controls.Add(this.dataGridViewRecentOrders);
             this.bookManagementPanel.Controls.Add(this.label1);
-            this.bookManagementPanel.Controls.Add(this.dataGridViewLowStocksAlert);
+            this.bookManagementPanel.Controls.Add(this.dataGridViewMembersList);
             this.bookManagementPanel.Controls.Add(this.dataGridViewTopSellingBooks);
             this.bookManagementPanel.Controls.Add(this.label31);
             this.bookManagementPanel.Controls.Add(this.label30);
@@ -124,21 +124,29 @@
             this.label1.TabIndex = 33;
             this.label1.Text = "Recent Orders";
             // 
-            // dataGridViewLowStocksAlert
+            // dataGridViewMembersList
             // 
-            this.dataGridViewLowStocksAlert.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridViewLowStocksAlert.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewLowStocksAlert.Location = new System.Drawing.Point(526, 520);
-            this.dataGridViewLowStocksAlert.Name = "dataGridViewLowStocksAlert";
-            this.dataGridViewLowStocksAlert.Size = new System.Drawing.Size(500, 418);
-            this.dataGridViewLowStocksAlert.TabIndex = 32;
+            this.dataGridViewMembersList.AllowUserToAddRows = false;
+            this.dataGridViewMembersList.AllowUserToDeleteRows = false;
+            this.dataGridViewMembersList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewMembersList.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridViewMembersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMembersList.Location = new System.Drawing.Point(526, 520);
+            this.dataGridViewMembersList.Name = "dataGridViewMembersList";
+            this.dataGridViewMembersList.ReadOnly = true;
+            this.dataGridViewMembersList.Size = new System.Drawing.Size(500, 418);
+            this.dataGridViewMembersList.TabIndex = 32;
             // 
             // dataGridViewTopSellingBooks
             // 
+            this.dataGridViewTopSellingBooks.AllowUserToAddRows = false;
+            this.dataGridViewTopSellingBooks.AllowUserToDeleteRows = false;
+            this.dataGridViewTopSellingBooks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewTopSellingBooks.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridViewTopSellingBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTopSellingBooks.Location = new System.Drawing.Point(19, 520);
             this.dataGridViewTopSellingBooks.Name = "dataGridViewTopSellingBooks";
+            this.dataGridViewTopSellingBooks.ReadOnly = true;
             this.dataGridViewTopSellingBooks.Size = new System.Drawing.Size(500, 418);
             this.dataGridViewTopSellingBooks.TabIndex = 31;
             // 
@@ -148,9 +156,9 @@
             this.label31.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label31.Location = new System.Drawing.Point(522, 500);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(103, 17);
+            this.label31.Size = new System.Drawing.Size(87, 17);
             this.label31.TabIndex = 30;
-            this.label31.Text = "Low Stocks Alert";
+            this.label31.Text = "List Members";
             // 
             // label30
             // 
@@ -534,7 +542,7 @@
             this.bookManagementPanel.ResumeLayout(false);
             this.bookManagementPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecentOrders)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLowStocksAlert)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMembersList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTopSellingBooks)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -588,7 +596,7 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.DataGridView dataGridViewLowStocksAlert;
+        private System.Windows.Forms.DataGridView dataGridViewMembersList;
         private System.Windows.Forms.DataGridView dataGridViewTopSellingBooks;
         private System.Windows.Forms.DataGridView dataGridViewRecentOrders;
         private System.Windows.Forms.Label label1;
