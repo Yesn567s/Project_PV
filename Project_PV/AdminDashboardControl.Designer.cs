@@ -538,7 +538,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.bookManagementPanel);
             this.Name = "AdminDashboardControl";
-            this.Size = new System.Drawing.Size(1045, 1315);
+            this.Size = new System.Drawing.Size(1046, 1315);
             this.bookManagementPanel.ResumeLayout(false);
             this.bookManagementPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecentOrders)).EndInit();

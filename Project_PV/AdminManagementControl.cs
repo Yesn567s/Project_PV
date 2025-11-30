@@ -42,6 +42,23 @@ namespace Project_PV
                 SearchProducts(searchBox.Text);
         }
 
+        private void dataGridViewItems_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = dataGridViewItems.Rows[e.RowIndex];
+
+            int id = Convert.ToInt32(row.Cells["ID"].Value);
+            string name = row.Cells["Produk"].Value.ToString();
+            int price = Convert.ToInt32(row.Cells["Harga"].Value);
+
+            int kategoriId = GetCategoryIdFromProduct(id);
+
+            AddItemForm form = new AddItemForm(id, name, price, kategoriId);
+            form.FormClosed += (s, args) => refreshDGVList();
+            form.ShowDialog();
+        }
+
         private void SearchProducts(string keyword)
         {
             try
@@ -159,6 +176,7 @@ namespace Project_PV
                 dt.Load(reader);
 
                 dataGridViewItems.DataSource = dt;
+                labelItemCount.Text = $"Showing {dt.Rows.Count} Items";
             }
             catch (Exception ex)
             {
@@ -208,6 +226,8 @@ namespace Project_PV
                 DataTable dt = new DataTable();
                 dt.Load(reader);
                 dataGridViewItems.DataSource = dt;
+
+                UpdateItemCount();
             }
             catch (Exception ex)
             {
@@ -246,6 +266,23 @@ namespace Project_PV
             connection.Close();
         }
 
+        private int GetCategoryIdFromProduct(int id)
+        {
+            int kategori = 0;
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT kategori_id FROM Produk WHERE ID = @id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                object result = cmd.ExecuteScalar();
+                kategori = Convert.ToInt32(result);
+            }
+
+            return kategori;
+        }
 
         public void connectDatabase()
         {
@@ -262,6 +299,24 @@ namespace Project_PV
             }
         }
 
-        
+        private void UpdateItemCount()
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(*) FROM Produk";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    labelItemCount.Text = $"Showing {count} Items";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error counting items: " + ex.Message);
+            }
+        }
     }
 }

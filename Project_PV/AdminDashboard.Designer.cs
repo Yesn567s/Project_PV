@@ -30,6 +30,7 @@
         {
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.buttonPromo = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panelHeader = new System.Windows.Forms.Panel();
@@ -39,7 +40,6 @@
             this.brandLabel = new System.Windows.Forms.Label();
             this.ContentPanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonPromo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.panel7.SuspendLayout();
             this.panelHeader.SuspendLayout();
@@ -63,8 +63,21 @@
             this.panel7.Controls.Add(this.button1);
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(147, 1302);
+            this.panel7.Size = new System.Drawing.Size(147, 1500);
             this.panel7.TabIndex = 26;
+            // 
+            // buttonPromo
+            // 
+            this.buttonPromo.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonPromo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.buttonPromo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPromo.Location = new System.Drawing.Point(11, 145);
+            this.buttonPromo.Name = "buttonPromo";
+            this.buttonPromo.Size = new System.Drawing.Size(125, 55);
+            this.buttonPromo.TabIndex = 2;
+            this.buttonPromo.Text = "% Promo Management";
+            this.buttonPromo.UseVisualStyleBackColor = false;
+            this.buttonPromo.Click += new System.EventHandler(this.buttonPromo_Click);
             // 
             // button2
             // 
@@ -169,19 +182,6 @@
             this.label2.Size = new System.Drawing.Size(110, 21);
             this.label2.TabIndex = 6;
             this.label2.Text = "Content Area";
-            // 
-            // buttonPromo
-            // 
-            this.buttonPromo.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonPromo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonPromo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPromo.Location = new System.Drawing.Point(11, 145);
-            this.buttonPromo.Name = "buttonPromo";
-            this.buttonPromo.Size = new System.Drawing.Size(125, 55);
-            this.buttonPromo.TabIndex = 2;
-            this.buttonPromo.Text = "% Promo Management";
-            this.buttonPromo.UseVisualStyleBackColor = false;
-            this.buttonPromo.Click += new System.EventHandler(this.buttonPromo_Click);
             // 
             // AdminDashboard
             // 

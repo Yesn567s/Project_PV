@@ -87,6 +87,7 @@
             this.dataGridViewItems.ReadOnly = true;
             this.dataGridViewItems.Size = new System.Drawing.Size(1012, 1124);
             this.dataGridViewItems.TabIndex = 9;
+            this.dataGridViewItems.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewItems_CellDoubleClick);
             // 
             // panel8
             // 
