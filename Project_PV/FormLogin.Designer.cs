@@ -142,7 +142,6 @@ namespace Project_PV
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(450, 25);
             this.emailTextBox.TabIndex = 3;
-            this.emailTextBox.Text = "you@example.com";
             // 
             // passwordLabel
             // 
@@ -163,7 +162,6 @@ namespace Project_PV
             this.passwordTextBox.PasswordChar = '•';
             this.passwordTextBox.Size = new System.Drawing.Size(450, 25);
             this.passwordTextBox.TabIndex = 5;
-            this.passwordTextBox.Text = "abcdef";
             // 
             // rememberCheckBox
             // 

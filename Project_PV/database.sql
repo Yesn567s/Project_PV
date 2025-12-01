@@ -286,11 +286,11 @@ INSERT INTO Promo (Nama_Promo, Produk, Jenis, Promo, Tag) VALUES
 
 INSERT INTO Transaksi (member_id, Tanggal, Total)
 VALUES
-(1, '2025-01-01 10:15:00', 35000),
-(2, '2025-01-01 11:22:00', 78000),
-(NULL, '2025-01-01 12:40:00', 15000),
-(3, '2025-01-02 09:05:00', 112000),
-(1, '2025-01-02 13:55:00', 54000);
+(1, '2025-12-01 10:15:00', 35000),
+(2, '2025-12-01 11:22:00', 78000),
+(NULL, '2025-12-02 12:40:00', 15000),
+(3, '2025-12-01 09:05:00', 112000),
+(1, '2025-11-30 13:55:00', 54000);
 
 INSERT INTO Transaksi_Detail (transaksi_id, produk_id, Qty, Harga)
 VALUES
