@@ -53,9 +53,10 @@
             this.bookManagementPanel.Controls.Add(this.labelItemCount);
             this.bookManagementPanel.Controls.Add(this.label34);
             this.bookManagementPanel.Controls.Add(this.label35);
-            this.bookManagementPanel.Location = new System.Drawing.Point(2, 0);
+            this.bookManagementPanel.Location = new System.Drawing.Point(3, 0);
+            this.bookManagementPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bookManagementPanel.Name = "bookManagementPanel";
-            this.bookManagementPanel.Size = new System.Drawing.Size(1043, 1302);
+            this.bookManagementPanel.Size = new System.Drawing.Size(1391, 1602);
             this.bookManagementPanel.TabIndex = 29;
             // 
             // AddBookButton
@@ -66,12 +67,14 @@
             this.AddBookButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddBookButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.AddBookButton.ForeColor = System.Drawing.Color.White;
-            this.AddBookButton.Location = new System.Drawing.Point(847, 33);
+            this.AddBookButton.Location = new System.Drawing.Point(1129, 41);
+            this.AddBookButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.AddBookButton.Name = "AddBookButton";
-            this.AddBookButton.Size = new System.Drawing.Size(118, 30);
+            this.AddBookButton.Size = new System.Drawing.Size(157, 37);
             this.AddBookButton.TabIndex = 10;
             this.AddBookButton.Text = "+ Add New Promo";
             this.AddBookButton.UseVisualStyleBackColor = false;
+            this.AddBookButton.Click += new System.EventHandler(this.AddBookButton_Click);
             // 
             // dataGridViewItems
             // 
@@ -81,10 +84,12 @@
             this.dataGridViewItems.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridViewItems.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewItems.Location = new System.Drawing.Point(18, 165);
+            this.dataGridViewItems.Location = new System.Drawing.Point(24, 203);
+            this.dataGridViewItems.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewItems.Name = "dataGridViewItems";
             this.dataGridViewItems.ReadOnly = true;
-            this.dataGridViewItems.Size = new System.Drawing.Size(1012, 1124);
+            this.dataGridViewItems.RowHeadersWidth = 51;
+            this.dataGridViewItems.Size = new System.Drawing.Size(1349, 1383);
             this.dataGridViewItems.TabIndex = 9;
             // 
             // panel8
@@ -94,9 +99,10 @@
             this.panel8.Controls.Add(this.filterByComboBox);
             this.panel8.Controls.Add(this.label32);
             this.panel8.Controls.Add(this.searchBox);
-            this.panel8.Location = new System.Drawing.Point(18, 84);
+            this.panel8.Location = new System.Drawing.Point(24, 103);
+            this.panel8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1012, 50);
+            this.panel8.Size = new System.Drawing.Size(1349, 61);
             this.panel8.TabIndex = 8;
             // 
             // sortByComboBox
@@ -105,9 +111,10 @@
             this.sortByComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sortByComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.sortByComboBox.FormattingEnabled = true;
-            this.sortByComboBox.Location = new System.Drawing.Point(828, 15);
+            this.sortByComboBox.Location = new System.Drawing.Point(1104, 18);
+            this.sortByComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.sortByComboBox.Name = "sortByComboBox";
-            this.sortByComboBox.Size = new System.Drawing.Size(175, 21);
+            this.sortByComboBox.Size = new System.Drawing.Size(232, 24);
             this.sortByComboBox.TabIndex = 6;
             // 
             // filterByComboBox
@@ -116,18 +123,20 @@
             this.filterByComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filterByComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.filterByComboBox.FormattingEnabled = true;
-            this.filterByComboBox.Location = new System.Drawing.Point(623, 16);
+            this.filterByComboBox.Location = new System.Drawing.Point(831, 20);
+            this.filterByComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.filterByComboBox.Name = "filterByComboBox";
-            this.filterByComboBox.Size = new System.Drawing.Size(175, 21);
+            this.filterByComboBox.Size = new System.Drawing.Size(232, 24);
             this.filterByComboBox.TabIndex = 5;
             // 
             // label32
             // 
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(350, 15);
+            this.label32.Location = new System.Drawing.Point(467, 18);
+            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(26, 17);
+            this.label32.Size = new System.Drawing.Size(33, 23);
             this.label32.TabIndex = 4;
             this.label32.Text = "🔎";
             // 
@@ -135,18 +144,20 @@
             // 
             this.searchBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.searchBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.searchBox.Location = new System.Drawing.Point(13, 15);
+            this.searchBox.Location = new System.Drawing.Point(17, 18);
+            this.searchBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(331, 20);
+            this.searchBox.Size = new System.Drawing.Size(441, 22);
             this.searchBox.TabIndex = 0;
             // 
             // labelItemCount
             // 
             this.labelItemCount.AutoSize = true;
             this.labelItemCount.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelItemCount.Location = new System.Drawing.Point(13, 137);
+            this.labelItemCount.Location = new System.Drawing.Point(17, 169);
+            this.labelItemCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelItemCount.Name = "labelItemCount";
-            this.labelItemCount.Size = new System.Drawing.Size(163, 25);
+            this.labelItemCount.Size = new System.Drawing.Size(205, 32);
             this.labelItemCount.TabIndex = 7;
             this.labelItemCount.Text = "Showing ... Promo";
             // 
@@ -154,9 +165,10 @@
             // 
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(14, 60);
+            this.label34.Location = new System.Drawing.Point(19, 74);
+            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(153, 21);
+            this.label34.Size = new System.Drawing.Size(191, 28);
             this.label34.TabIndex = 6;
             this.label34.Text = "Manage Your Promo";
             // 
@@ -164,19 +176,21 @@
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.label35.Location = new System.Drawing.Point(11, 23);
+            this.label35.Location = new System.Drawing.Point(15, 28);
+            this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(282, 37);
+            this.label35.Size = new System.Drawing.Size(349, 46);
             this.label35.TabIndex = 5;
             this.label35.Text = "Promo Management";
             // 
             // AdminPromoManagement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.bookManagementPanel);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AdminPromoManagement";
-            this.Size = new System.Drawing.Size(1046, 1302);
+            this.Size = new System.Drawing.Size(1395, 1602);
             this.bookManagementPanel.ResumeLayout(false);
             this.bookManagementPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();

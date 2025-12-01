@@ -210,5 +210,12 @@ namespace Project_PV
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void AddBookButton_Click(object sender, EventArgs e)
+        {
+            AddPromoForm addItemForm = new AddPromoForm();
+            addItemForm.FormClosed += (s, args) => refreshDGVList();
+            addItemForm.ShowDialog();
+        }
     }
 }
