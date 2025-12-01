@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Promo (
     Nama_Promo VARCHAR(100) NOT NULL,
     Produk VARCHAR(100) NOT NULL, -- (You can convert this to produk_id INT for FK)
     Jenis ENUM('Persen', 'Nominal') NOT NULL,
-    Promo INT NOT NULL,
+    Promo FLOAT NOT NULL,
     Tag VARCHAR(255),
     START DATETIME DEFAULT CURRENT_TIMESTAMP(),
     END DATETIME DEFAULT NULL
@@ -112,7 +112,7 @@ INSERT INTO Produk (Nama, Harga, kategori_id) VALUES
 ('Nasi Goreng', 20000, 2),
 ('Headset Bluetooth', 150000, 3),
 ('Gelang Kayu', 12000, 4),
-('Laptop Mini', 2500000, 3);
+('Laptop Mini', 2500000, 3),
 ('Air Mineral', 3000, 1),
 ('Kopi Hitam', 8000, 1),
 ('Mie Goreng', 15000, 2),
@@ -149,7 +149,7 @@ INSERT INTO Produk_Tag (produk_id, tag_id) VALUES
 
 -- Laptop Mini
 (5, 4), -- Premium
-(5, 2); -- New Arrival
+(5, 2), -- New Arrival
 
 -- Air Mineral (ID 6)
 (6, 1),
@@ -210,3 +210,105 @@ INSERT INTO Produk_Tag (produk_id, tag_id) VALUES
 -- Tas Selempang (ID 20)
 (20, 5),
 (20, 4);
+
+
+INSERT INTO Promo (Nama_Promo, Produk, Jenis, Promo, Tag) VALUES
+('REGO NEKADDD DISAMBER AJA', 'Sedaapmie', 'Nominal', 2900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Indomie', 'Nominal', 3000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Gula Rose Brand', 'Nominal', 17000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Air Cleo 220ml', 'Nominal', 16900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Minyak Goreng 800ml', 'Nominal', 15900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Beras Cap Uduk 5kg', 'Nominal', 74000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Tissue See-U', 'Nominal', 7000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Tissue Fusia Jumbo', 'Nominal', 22500, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Tissue Basah Mitu', 'Nominal', 10500, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Nit Aerosol 600ml', 'Nominal', 30900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Hvs Sinarline 75gsm A4', 'Nominal', 34500, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Hvs Sinarline 75gsm F4', 'Nominal', 39900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Odner Bantex 1401', 'Nominal', 16000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Hvs Sidu 70gsm A4', 'Nominal', 39900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Hvs Sidu 70gsm F4', 'Nominal', 45400, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Bolpen Ae7 1 Lusin', 'Nominal', 18000, NULL),
+
+('REGO NEKADDD DISAMBER AJA', 'Biskuit Columbia', 'Nominal', 23000, 'Biskuit Columbia'),
+
+('REGO NEKADDD DISAMBER AJA', 'Nota Kontan 2ply Borneo Isi 10pcs', 'Nominal', 29000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Lakban Borneo Core Merah', 'Nominal', 5733, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Opp Nachi 2inch Ecer', 'Nominal', 7700, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Opp Nachi 2inch Dus', 'Nominal', 529200, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Bubble Wrap Putih 2kg', 'Nominal', 69900, NULL),
+
+('REGO NEKADDD DISAMBER AJA', 'Buku Tulis Kiky Okey 32l', 'Nominal', 21000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Buku Tulis Kiky Okey 38l', 'Nominal', 25000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Buku Tulis Big Boss 42l', 'Nominal', 24000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Bolpen Sarasa', 'Nominal', 14900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Bolpen Trendee', 'Nominal', 5500, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Crayon Greebel 55w', 'Nominal', 69900, NULL),
+
+('REGO NEKADDD DISAMBER AJA', 'Kalkulator', 'Persen', 15, 'Canon Joyko Casio M&g Target Deli'),
+('REGO NEKADDD DISAMBER AJA', 'Jete', 'Persen', 2.5, 'Jete'),
+
+('REGO NEKADDD DISAMBER AJA', 'Map L Benefit Isi 12pcs', 'Nominal', 11000, NULL),
+
+('REGO NEKADDD DISAMBER AJA', 'Magic Clay', 'Nominal', 5000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Bubble Stick', 'Nominal', 5000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Gantungan Kunci', 'Nominal', 3333, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Masker', 'Nominal', 13333, 'Alkindo Mouson'),
+('REGO NEKADDD DISAMBER AJA', 'Lem Tikus', 'Nominal', 14500, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Jas Hujan Cap Kapak', 'Nominal', 41000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Payung Golf Jumbo', 'Nominal', 49000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Hanger Hitam 12pcs', 'Nominal', 7000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Kursi', 'Nominal', 25000, 'Kursi'),
+('REGO NEKADDD DISAMBER AJA', 'Lunch Box Ginza', 'Nominal', 11000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Jam Dinding Mayomi Type 917', 'Nominal', 21333, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Keset Handuk Jumbo', 'Nominal', 19000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Handuk 70x140', 'Nominal', 39000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Kifa Pencuci Piring 650ml', 'Nominal', 6500, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Kifa Karbil Wangi 700ml', 'Nominal', 9000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Kertas Kado', 'Nominal', 19000, 'Natal'),
+('REGO NEKADDD DISAMBER AJA', 'Hiasan', 'Persen', 2.5, 'Natal'),
+('REGO NEKADDD DISAMBER AJA', 'Box Container Black 50l', 'Nominal', 55000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Mangkok Sultan Isi 1', 'Nominal', 9900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Mangkok Sultan Isi 2', 'Nominal', 18000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Mangkok Sultan Isi 4', 'Nominal', 37000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Gelas Voila 3pcs', 'Nominal', 11000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Mangkok Ayam 3pcs', 'Nominal', 11000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Termos Sultan + 2 Cangkir', 'Nominal', 26333, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Termos Serba', 'Nominal', 35000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Botol Minum Xiao Oval', 'Nominal', 34000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Botol Stainless', 'Nominal', 52500, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Cooler Bag', 'Nominal', 11000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Celana Pendek', 'Nominal', 29000, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Kaos Kaki Remaja', 'Nominal', 8500, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Meja Belajar', 'Nominal', 42900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Tas Sekolah', 'Persen', 10, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Mainan', 'Persen', 10, 'Mainan');
+
+INSERT INTO Transaksi (member_id, Tanggal, Total)
+VALUES
+(1, '2025-01-01 10:15:00', 35000),
+(2, '2025-01-01 11:22:00', 78000),
+(NULL, '2025-01-01 12:40:00', 15000),
+(3, '2025-01-02 09:05:00', 112000),
+(1, '2025-01-02 13:55:00', 54000);
+
+INSERT INTO Transaksi_Detail (transaksi_id, produk_id, Qty, Harga)
+VALUES
+-- transaksi 1
+(1, 3, 2, 5000),      -- contoh produk ID 3 harga 5000
+(1, 5, 1, 25000),
+
+-- transaksi 2
+(2, 2, 1, 30000),
+(2, 4, 2, 24000),
+
+-- transaksi 3 (tanpa member)
+(3, 1, 1, 15000),
+
+-- transaksi 4
+(4, 6, 1, 70000),
+(4, 7, 2, 21000),
+
+-- transaksi 5
+(5, 3, 3, 5000),
+(5, 8, 1, 39000);
