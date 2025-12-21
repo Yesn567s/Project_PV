@@ -14,28 +14,16 @@ CREATE TABLE IF NOT EXISTS Kategori (
     Nama VARCHAR(100) NOT NULL UNIQUE
 );
 
--- 3. TAG (NEW)
-CREATE TABLE IF NOT EXISTS Tag (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    Nama VARCHAR(100) NOT NULL UNIQUE
-);
 
--- 4. PRODUK (UPDATED)
+-- 3. PRODUK (UPDATED)
 CREATE TABLE IF NOT EXISTS Produk (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Nama VARCHAR(100) NOT NULL,
+    Merk VARCHAR(100), -- Merek barang
     Harga INT NOT NULL,
     kategori_id INT NOT NULL,
+    tag VARCHAR(255), -- Untuk Promo
     FOREIGN KEY (kategori_id) REFERENCES Kategori(ID)
-);
-
--- 5. PRODUK_TAG (Bridge for Many-to-Many)
-CREATE TABLE IF NOT EXISTS Produk_Tag (
-    produk_id INT NOT NULL,
-    tag_id INT NOT NULL,
-    PRIMARY KEY(produk_id, tag_id),
-    FOREIGN KEY (produk_id) REFERENCES Produk(ID),
-    FOREIGN KEY (tag_id) REFERENCES Tag(ID)
 );
 
 -- 6. PROMO (Keep as reference to product name or change to FK later)
@@ -61,16 +49,15 @@ CREATE TABLE IF NOT EXISTS Promo_Special (
     END DATETIME DEFAULT NULL
 );
 
--- 8. TRANSAKSI (NEW)
+-- 8. HTRANSAKSI (NEW)
 CREATE TABLE IF NOT EXISTS Transaksi (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     member_id INT NULL,
     Tanggal DATETIME DEFAULT CURRENT_TIMESTAMP(),
-    Total INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (member_id) REFERENCES MEMBER(ID)
+    Total INT NOT NULL DEFAULT 0
 );
 
--- 9. TRANSAKSI DETAIL (NEW)
+-- 9. DTRANSAKSI DETAIL (NEW)
 CREATE TABLE IF NOT EXISTS Transaksi_Detail (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     transaksi_id INT NOT NULL,
@@ -78,8 +65,7 @@ CREATE TABLE IF NOT EXISTS Transaksi_Detail (
     Qty INT NOT NULL,
     Harga INT NOT NULL, -- harga saat transaksi (avoid price change issues)
     Subtotal INT GENERATED ALWAYS AS (Qty * Harga) STORED,
-    FOREIGN KEY (transaksi_id) REFERENCES Transaksi(ID),
-    FOREIGN KEY (produk_id) REFERENCES Produk(ID)
+    FOREIGN KEY (transaksi_id) REFERENCES Transaksi(ID)
 );
 
 INSERT INTO MEMBER (Nama, Tanggal_Lahir) VALUES
@@ -98,122 +84,99 @@ INSERT INTO Kategori (Nama) VALUES
 ('Minuman'),
 ('Makanan'),
 ('Elektronik'),
-('Aksesoris');
+('Aksesoris'),
+('Other');
 
-INSERT INTO Tag (Nama) VALUES
-('Best Seller'),
-('New Arrival'),
-('Diskon'),
-('Premium'),
-('Limited');
+INSERT INTO Produk (Nama, Merk, Harga, kategori_id, tag) VALUES
+-- MAKANAN
+('Mie Sedaap Goreng', 'Sedaap', 3000, 2, 'makanan'),
+('Indomie Goreng', 'Indomie', 3500, 2, 'makanan'),
+('Gula Rose Brand 1kg', 'Rose Brand', 18500, 2, 'sembako'),
+('Biskuit Columbia', 'Columbia', 25000, 2, 'biskuit'),
 
-INSERT INTO Produk (Nama, Harga, kategori_id) VALUES
-('Teh Botol', 5000, 1),
-('Nasi Goreng', 20000, 2),
-('Headset Bluetooth', 150000, 3),
-('Gelang Kayu', 12000, 4),
-('Laptop Mini', 2500000, 3),
-('Air Mineral', 3000, 1),
-('Kopi Hitam', 8000, 1),
-('Mie Goreng', 15000, 2),
-('Burger Mini', 25000, 2),
-('Smartwatch Lite', 350000, 3),
-('Mouse Wireless', 85000, 3),
-('Kalung Perak', 45000, 4),
-('Topi Rajut', 18000, 4),
-('Camera Pocket', 975000, 3),
-('Charger Fast 20W', 120000, 3),
-('Cincin Titanium', 65000, 4),
-('Soda Lemon', 7000, 1),
-('Ayam Geprek', 22000, 2),
-('Kipas Mini USB', 55000, 3),
-('Tas Selempang', 90000, 4);
+-- MINUMAN
+('Air Cleo 220ml', 'Cleo', 2000, 1, 'minuman'),
 
+-- SEMBAKO & RUMAH TANGGA
+('Minyak Goreng 800ml', 'Generic', 17500, 5, 'sembako'),
+('Beras Cap Uduk 5kg', 'Cap Uduk', 78000, 5, 'sembako'),
+('Tissue See-U', 'See-U', 9000, 5, 'tissue'),
+('Tissue Fusia Jumbo', 'Fusia', 25000, 5, 'tissue'),
+('Tissue Basah Mitu', 'Mitu', 12000, 5, 'tissue'),
+('Nit Aerosol 600ml', 'Baygon', 34000, 5, 'insektisida'),
 
+-- ATK
+('HVS Sinarline 75gsm A4', 'Sinarline', 36000, 5, 'atk'),
+('HVS Sinarline 75gsm F4', 'Sinarline', 42000, 5, 'atk'),
+('Odner Bantex 1401', 'Bantex', 18000, 5, 'atk'),
+('HVS Sidu 70gsm A4', 'Sidu', 42000, 5, 'atk'),
+('HVS Sidu 70gsm F4', 'Sidu', 47000, 5, 'atk'),
+('Bolpen Ae7 1 Lusin', 'AE7', 20000, 5, 'atk'),
+('Nota Kontan Borneo 2ply Isi 10', 'Borneo', 32000, 5, 'atk'),
+('Lakban Borneo Core Merah', 'Borneo', 6500, 5, 'atk'),
+('Opp Nachi 2inch Ecer', 'Nachi', 9000, 5, 'atk'),
+('Opp Nachi 2inch Dus', 'Nachi', 550000, 5, 'atk'),
+('Bubble Wrap Putih 2kg', 'Generic', 75000, 5, 'packing'),
 
-INSERT INTO Produk_Tag (produk_id, tag_id) VALUES
--- Teh Botol
-(1, 1), -- Best Seller
-(1, 3), -- Diskon
+-- BUKU & ALAT TULIS
+('Buku Tulis Kiky Okey 32l', 'Kiky', 23000, 5, 'buku'),
+('Buku Tulis Kiky Okey 38l', 'Kiky', 27000, 5, 'buku'),
+('Buku Tulis Big Boss 42l', 'Big Boss', 26000, 5, 'buku'),
+('Bolpen Sarasa', 'Zebra', 17000, 5, 'atk'),
+('Bolpen Trendee', 'Trendee', 7000, 5, 'atk'),
+('Crayon Greebel 55w', 'Greebel', 75000, 5, 'alat gambar'),
 
--- Nasi Goreng
-(2, 1), -- Best Seller
-(2, 2), -- New Arrival
+-- ELEKTRONIK
+('Kalkulator', 'Casio', 120000, 3, 'elektronik'),
+('Produk JETE', 'JETE', 150000, 3, 'elektronik'),
 
--- Headset Bluetooth
-(3, 4), -- Premium
-(3, 3), -- Diskon
+-- AKSESORIS & LAINNYA
+('Map L Benefit Isi 12pcs', 'Benefit', 13000, 5, 'map'),
+('Magic Clay', 'Generic', 7000, 5, 'mainan'),
+('Bubble Stick', 'Generic', 7000, 5, 'mainan'),
+('Gantungan Kunci', 'Generic', 5000, 4, 'aksesoris'),
+('Masker', 'Alkindo', 15000, 5, 'kesehatan'),
+('Lem Tikus', 'Generic', 16000, 5, 'rumah'),
+('Jas Hujan Cap Kapak', 'Cap Kapak', 45000, 5, 'jas hujan'),
+('Payung Golf Jumbo', 'Generic', 55000, 4, 'payung'),
+('Hanger Hitam 12pcs', 'Generic', 9000, 5, 'rumah'),
+('Kursi', 'Generic', 30000, 5, 'furniture'),
+('Lunch Box Ginza', 'Ginza', 13000, 5, 'peralatan makan'),
+('Jam Dinding Mayomi 917', 'Mayomi', 25000, 5, 'jam'),
+('Keset Handuk Jumbo', 'Generic', 22000, 5, 'rumah'),
+('Handuk 70x140', 'Generic', 42000, 5, 'handuk'),
 
--- Gelang Kayu
-(4, 5), -- Limited Edition
+-- SABUN & PEMBERSIH
+('Kifa Pencuci Piring 650ml', 'Kifa', 8000, 5, 'sabun'),
+('Kifa Karbol Wangi 700ml', 'Kifa', 11000, 5, 'sabun'),
 
--- Laptop Mini
-(5, 4), -- Premium
-(5, 2), -- New Arrival
+-- PERLENGKAPAN
+('Kertas Kado', 'Generic', 22000, 5, 'natal'),
+('Hiasan Natal', 'Generic', 30000, 5, 'natal'),
+('Box Container Black 50l', 'Generic', 60000, 5, 'storage'),
 
--- Air Mineral (ID 6)
-(6, 1),
-(6, 2),
+-- PERALATAN MAKAN
+('Mangkok Sultan Isi 1', 'Sultan', 12000, 5, 'peralatan makan'),
+('Mangkok Sultan Isi 2', 'Sultan', 20000, 5, 'peralatan makan'),
+('Mangkok Sultan Isi 4', 'Sultan', 40000, 5, 'peralatan makan'),
+('Gelas Voila 3pcs', 'Voila', 13000, 5, 'peralatan makan'),
+('Mangkok Ayam 3pcs', 'Generic', 13000, 5, 'peralatan makan'),
+('Termos Sultan + 2 Cangkir', 'Sultan', 30000, 5, 'termos'),
+('Termos Serba', 'Generic', 38000, 5, 'termos'),
 
--- Kopi Hitam (ID 7)
-(7, 1),
-(7, 4),
-
--- Mie Goreng (ID 8)
-(8, 1),
-(8, 3),
-
--- Burger Mini (ID 9)
-(9, 2),
-(9, 5),
-
--- Smartwatch Lite (ID 10)
-(10, 4),
-(10, 2),
-(10, 3),
-
--- Mouse Wireless (ID 11)
-(11, 3),
-(11, 2),
-
--- Kalung Perak (ID 12)
-(12, 4),
-(12, 5),
-
--- Topi Rajut (ID 13)
-(13, 5),
-
--- Camera Pocket (ID 14)
-(14, 4),
-(14, 2),
-
--- Charger Fast 20W (ID 15)
-(15, 3),
-(15, 2),
-
--- Cincin Titanium (ID 16)
-(16, 4),
-(16, 5),
-
--- Soda Lemon (ID 17)
-(17, 1),
-(17, 2),
-
--- Ayam Geprek (ID 18)
-(18, 1),
-(18, 5),
-
--- Kipas Mini USB (ID 19)
-(19, 3),
-(19, 2),
-
--- Tas Selempang (ID 20)
-(20, 5),
-(20, 4);
+-- LAIN-LAIN
+('Botol Minum Xiao Oval', 'Xiao', 37000, 5, 'botol'),
+('Botol Stainless', 'Generic', 56000, 5, 'botol'),
+('Cooler Bag', 'Generic', 13000, 5, 'tas'),
+('Celana Pendek', 'Generic', 32000, 5, 'pakaian'),
+('Kaos Kaki Remaja', 'Generic', 10000, 5, 'pakaian'),
+('Meja Belajar', 'Generic', 48000, 5, 'furniture'),
+('Tas Sekolah', 'Generic', 175000, 4, 'tas'),
+('Mainan', 'Generic', 60000, 5, 'mainan');
 
 
 INSERT INTO Promo (Nama_Promo, Produk, Jenis, Promo, Tag) VALUES
-('REGO NEKADDD DISAMBER AJA', 'Sedaapmie', 'Nominal', 2900, NULL),
+('REGO NEKADDD DISAMBER AJA', 'Mie Sedaap', 'Nominal', 2900, NULL),
 ('REGO NEKADDD DISAMBER AJA', 'Indomie', 'Nominal', 3000, NULL),
 ('REGO NEKADDD DISAMBER AJA', 'Gula Rose Brand', 'Nominal', 17000, NULL),
 ('REGO NEKADDD DISAMBER AJA', 'Air Cleo 220ml', 'Nominal', 16900, NULL),

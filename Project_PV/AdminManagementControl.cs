@@ -67,13 +67,10 @@ namespace Project_PV
                     connection.Open();
 
                 string query =
-                    "SELECT p.ID, p.Nama AS Produk, p.Harga, k.Nama AS Kategori, " +
-                    "GROUP_CONCAT(t.Nama SEPARATOR ', ') AS Tags " +
+                    "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag " +
                     "FROM Produk p " +
                     "JOIN Kategori k ON p.kategori_id = k.ID " +
-                    "LEFT JOIN Produk_Tag pt ON p.ID = pt.produk_id " +
-                    "LEFT JOIN Tag t ON pt.tag_id = t.ID " +
-                    "WHERE p.Nama LIKE @keyword " +
+                    "WHERE p.Nama LIKE @keyword OR p.Merk LIKE @keyword" +
                     "GROUP BY p.ID, p.Nama, p.Harga, k.Nama;";
 
                 MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -115,12 +112,9 @@ namespace Project_PV
 
                 // Base SQL
                 string query =
-                    "SELECT p.ID, p.Nama AS Produk, p.Harga, k.Nama AS Kategori, " +
-                    "GROUP_CONCAT(t.Nama SEPARATOR ', ') AS Tags " +
+                    "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag " +
                     "FROM Produk p " +
                     "JOIN Kategori k ON p.kategori_id = k.ID " +
-                    "LEFT JOIN Produk_Tag pt ON p.ID = pt.produk_id " +
-                    "LEFT JOIN Tag t ON pt.tag_id = t.ID " +
                     "WHERE 1=1 ";
 
                 // SEARCH condition
@@ -214,10 +208,8 @@ namespace Project_PV
                     connection.Open();
                 }
 
-                string query = "SELECT p.ID, p.Nama AS Produk, p.Harga, k.Nama AS Kategori, GROUP_CONCAT(t.Nama SEPARATOR ', ') AS Tags " +
+                string query = "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag " +
                                "FROM Produk p JOIN Kategori k ON p.kategori_id = k.ID " +
-                               "LEFT JOIN Produk_Tag pt ON p.ID = pt.produk_id " +
-                               "LEFT JOIN Tag t ON pt.tag_id = t.ID " +
                                "GROUP BY p.ID, p.Nama, p.Harga, k.Nama;";
 
                 MySqlCommand cmd = new MySqlCommand(query, connection);

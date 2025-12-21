@@ -18,7 +18,7 @@ namespace Project_PV
         public AddItemForm()
         {
             InitializeComponent();
-            LoadTags();
+            //LoadTags();
             LoadComboBoxCategories();
             isEditMode = false;
             SetupInsertMode();
@@ -27,7 +27,7 @@ namespace Project_PV
         public AddItemForm(int id, string name, int price, int kategoriId)
         {
             InitializeComponent();
-            LoadTags();
+            //LoadTags();
             LoadComboBoxCategories();
             isEditMode = true;
             productId = id;
@@ -37,18 +37,20 @@ namespace Project_PV
             comboBox1.SelectedValue = kategoriId;
 
             SetupEditMode();
-            LoadProductTags(id);
+            //LoadProductTags(id);
         }
 
         private void buttonInsert_Click(object sender, EventArgs e)
         {
             string name = textBox1.Text.Trim();
+            string merk = textBox2.Text.Trim();
             int price = (int)numericUpDown1.Value;
             int categoryId = Convert.ToInt32(comboBox1.SelectedValue);
+            string tag = textBox3.Text;
 
-            if (name == "")
+            if (name == "" || merk == "")
             {
-                MessageBox.Show("Item name is required");
+                MessageBox.Show("Item name and brand is required");
                 return;
             }
 
@@ -57,27 +59,29 @@ namespace Project_PV
                 conn.Open();
 
                 // Insert product
-                string query = "INSERT INTO Produk (Nama, Harga, kategori_id) VALUES (@nama, @harga, @kategori)";
+                string query = "INSERT INTO Produk (Nama, Merk, Harga, kategori_id, Tag) VALUES (@nama, @merk, @harga, @kategori, @tag)";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@nama", name);
+                cmd.Parameters.AddWithValue("@merk", merk);
                 cmd.Parameters.AddWithValue("@harga", price);
                 cmd.Parameters.AddWithValue("@kategori", categoryId);
+                cmd.Parameters.AddWithValue("@tag", tag);
                 cmd.ExecuteNonQuery();
 
                 long newProductId = cmd.LastInsertedId;
 
-                // Insert selected tags
-                foreach (var item in checkedListBoxTags.CheckedItems)
-                {
-                    dynamic tag = item;
-                    int tagId = tag.Value;
+                //// Insert selected tags
+                //foreach (var item in checkedListBoxTags.CheckedItems)
+                //{
+                //    dynamic tag = item;
+                //    int tagId = tag.Value;
 
-                    string tagQuery = "INSERT INTO Produk_Tag (produk_id, tag_id) VALUES (@pid, @tid)";
-                    MySqlCommand tagCmd = new MySqlCommand(tagQuery, conn);
-                    tagCmd.Parameters.AddWithValue("@pid", newProductId);
-                    tagCmd.Parameters.AddWithValue("@tid", tagId);
-                    tagCmd.ExecuteNonQuery();
-                }
+                //    string tagQuery = "INSERT INTO Produk_Tag (produk_id, tag_id) VALUES (@pid, @tid)";
+                //    MySqlCommand tagCmd = new MySqlCommand(tagQuery, conn);
+                //    tagCmd.Parameters.AddWithValue("@pid", newProductId);
+                //    tagCmd.Parameters.AddWithValue("@tid", tagId);
+                //    tagCmd.ExecuteNonQuery();
+                //}
 
                 MessageBox.Show("Product added successfully!");
                 this.Close();
@@ -94,40 +98,44 @@ namespace Project_PV
             }
 
             string name = textBox1.Text.Trim();
+            string merk = textBox2.Text.Trim();
             int price = (int)numericUpDown1.Value;
             int categoryId = Convert.ToInt32(comboBox1.SelectedValue);
+            string tag = textBox3.Text;
 
             using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
             {
                 conn.Open();
 
                 // Update product
-                string query = "UPDATE Produk SET Nama=@nama, Harga=@harga, kategori_id=@kategori WHERE ID=@id";
+                string query = "UPDATE Produk SET Nama=@nama, Merk=@merk, Harga=@harga, kategori_id=@kategori, Tag=@tag WHERE ID=@id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@nama", name);
+                cmd.Parameters.AddWithValue("@merk", merk);
                 cmd.Parameters.AddWithValue("@harga", price);
                 cmd.Parameters.AddWithValue("@kategori", categoryId);
+                cmd.Parameters.AddWithValue("@tag", tag);
                 cmd.Parameters.AddWithValue("@id", productId);
                 cmd.ExecuteNonQuery();
 
-                // Remove all old tags
-                string deleteTagQuery = "DELETE FROM Produk_Tag WHERE produk_id = @pid";
-                MySqlCommand deleteCmd = new MySqlCommand(deleteTagQuery, conn);
-                deleteCmd.Parameters.AddWithValue("@pid", productId);
-                deleteCmd.ExecuteNonQuery();
+                //// Remove all old tags
+                //string deleteTagQuery = "DELETE FROM Produk_Tag WHERE produk_id = @pid";
+                //MySqlCommand deleteCmd = new MySqlCommand(deleteTagQuery, conn);
+                //deleteCmd.Parameters.AddWithValue("@pid", productId);
+                //deleteCmd.ExecuteNonQuery();
 
-                // Insert new tags
-                foreach (var item in checkedListBoxTags.CheckedItems)
-                {
-                    dynamic tag = item;
-                    int tagId = tag.Value;
+                //// Insert new tags
+                //foreach (var item in checkedListBoxTags.CheckedItems)
+                //{
+                //    dynamic tag = item;
+                //    int tagId = tag.Value;
 
-                    string insertTagQuery = "INSERT INTO Produk_Tag (produk_id, tag_id) VALUES (@pid, @tid)";
-                    MySqlCommand tagCmd = new MySqlCommand(insertTagQuery, conn);
-                    tagCmd.Parameters.AddWithValue("@pid", productId);
-                    tagCmd.Parameters.AddWithValue("@tid", tagId);
-                    tagCmd.ExecuteNonQuery();
-                }
+                //    string insertTagQuery = "INSERT INTO Produk_Tag (produk_id, tag_id) VALUES (@pid, @tid)";
+                //    MySqlCommand tagCmd = new MySqlCommand(insertTagQuery, conn);
+                //    tagCmd.Parameters.AddWithValue("@pid", productId);
+                //    tagCmd.Parameters.AddWithValue("@tid", tagId);
+                //    tagCmd.ExecuteNonQuery();
+                //}
 
                 MessageBox.Show("Product updated successfully!");
                 this.Close();
@@ -155,10 +163,10 @@ namespace Project_PV
                 conn.Open();
 
                 // Delete tags first (FK: product_id)
-                string deleteTags = "DELETE FROM Produk_Tag WHERE produk_id = @id";
-                MySqlCommand cmd1 = new MySqlCommand(deleteTags, conn);
-                cmd1.Parameters.AddWithValue("@id", productId);
-                cmd1.ExecuteNonQuery();
+                //string deleteTags = "DELETE FROM Produk_Tag WHERE produk_id = @id";
+                //MySqlCommand cmd1 = new MySqlCommand(deleteTags, conn);
+                //cmd1.Parameters.AddWithValue("@id", productId);
+                //cmd1.ExecuteNonQuery();
 
                 // Delete product
                 string deleteProduct = "DELETE FROM Produk WHERE ID = @id";
@@ -201,55 +209,55 @@ namespace Project_PV
             }
         }
 
-        private void LoadProductTags(int productId)
-        {
-            checkedListBoxTags.ClearSelected();
+        //private void LoadProductTags(int productId)
+        //{
+        //    checkedListBoxTags.ClearSelected();
 
-            using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
-            {
-                conn.Open();
-                string query = @"SELECT tag_id FROM Produk_Tag WHERE produk_id = @id";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", productId);
+        //    using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
+        //    {
+        //        conn.Open();
+        //        string query = @"SELECT tag_id FROM Produk_Tag WHERE produk_id = @id";
+        //        MySqlCommand cmd = new MySqlCommand(query, conn);
+        //        cmd.Parameters.AddWithValue("@id", productId);
 
-                MySqlDataReader dr = cmd.ExecuteReader();
-                List<int> tagIds = new List<int>();
+        //        MySqlDataReader dr = cmd.ExecuteReader();
+        //        List<int> tagIds = new List<int>();
 
-                while (dr.Read())
-                    tagIds.Add(dr.GetInt32(0));
+        //        while (dr.Read())
+        //            tagIds.Add(dr.GetInt32(0));
 
-                // Check the tags in the CheckedListBox
-                for (int i = 0; i < checkedListBoxTags.Items.Count; i++)
-                {
-                    dynamic item = checkedListBoxTags.Items[i];
-                    int tagId = item.Value;
-                    if (tagIds.Contains(tagId))
-                        checkedListBoxTags.SetItemChecked(i, true);
-                }
-            }
-        }
+        //        // Check the tags in the CheckedListBox
+        //        for (int i = 0; i < checkedListBoxTags.Items.Count; i++)
+        //        {
+        //            dynamic item = checkedListBoxTags.Items[i];
+        //            int tagId = item.Value;
+        //            if (tagIds.Contains(tagId))
+        //                checkedListBoxTags.SetItemChecked(i, true);
+        //        }
+        //    }
+        //}
 
-        private void LoadTags()
-        {
-            checkedListBoxTags.Items.Clear();
-            checkedListBoxTags.DisplayMember = "Text";
-            checkedListBoxTags.ValueMember = "Value";
-            using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
-            {
-                conn.Open();
-                string query = "SELECT ID, Nama FROM Tag";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                MySqlDataReader dr = cmd.ExecuteReader();
+        //private void LoadTags()
+        //{
+        //    checkedListBoxTags.Items.Clear();
+        //    checkedListBoxTags.DisplayMember = "Text";
+        //    checkedListBoxTags.ValueMember = "Value";
+        //    using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
+        //    {
+        //        conn.Open();
+        //        string query = "SELECT ID, Nama FROM Tag";
+        //        MySqlCommand cmd = new MySqlCommand(query, conn);
+        //        MySqlDataReader dr = cmd.ExecuteReader();
 
-                while (dr.Read())
-                {
-                    checkedListBoxTags.Items.Add(
-                        new { Text = dr["Nama"].ToString(), Value = dr["ID"] },
-                        false
-                    );
-                }
-            }
-        }
+        //        while (dr.Read())
+        //        {
+        //            checkedListBoxTags.Items.Add(
+        //                new { Text = dr["Nama"].ToString(), Value = dr["ID"] },
+        //                false
+        //            );
+        //        }
+        //    }
+        //}
 
         
     }
