@@ -32,6 +32,7 @@ namespace Project_PV
         private void InitializeComponent()
         {
             this.heroPanel = new System.Windows.Forms.Panel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.leftContent = new System.Windows.Forms.Panel();
             this.badgePanel = new System.Windows.Forms.Panel();
             this.badgeIcon = new System.Windows.Forms.Label();
@@ -95,8 +96,8 @@ namespace Project_PV
             this.footerTitle = new System.Windows.Forms.Label();
             this.footerDesc = new System.Windows.Forms.Label();
             this.exploreMembershipBtn = new System.Windows.Forms.Button();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.heroPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.leftContent.SuspendLayout();
             this.badgePanel.SuspendLayout();
             this.buttonsPanel.SuspendLayout();
@@ -112,7 +113,6 @@ namespace Project_PV
             this.panelCard1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.footerPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // heroPanel
@@ -124,6 +124,16 @@ namespace Project_PV
             this.heroPanel.Name = "heroPanel";
             this.heroPanel.Size = new System.Drawing.Size(1200, 345);
             this.heroPanel.TabIndex = 0;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Red;
+            this.pictureBox4.Image = global::Project_PV.Properties.Resources.backlogo;
+            this.pictureBox4.Location = new System.Drawing.Point(650, 15);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(520, 315);
+            this.pictureBox4.TabIndex = 8;
+            this.pictureBox4.TabStop = false;
             // 
             // leftContent
             // 
@@ -841,16 +851,6 @@ namespace Project_PV
             this.exploreMembershipBtn.UseVisualStyleBackColor = false;
             this.exploreMembershipBtn.Click += new System.EventHandler(this.exploreMembershipBtn_Click);
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Red;
-            this.pictureBox4.Image = global::Project_PV.Properties.Resources.placeholders;
-            this.pictureBox4.Location = new System.Drawing.Point(650, 15);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(520, 315);
-            this.pictureBox4.TabIndex = 8;
-            this.pictureBox4.TabStop = false;
-            // 
             // UserDashboardControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -864,6 +864,7 @@ namespace Project_PV
             this.Name = "UserDashboardControl";
             this.Size = new System.Drawing.Size(1200, 1475);
             this.heroPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.leftContent.ResumeLayout(false);
             this.badgePanel.ResumeLayout(false);
             this.badgePanel.PerformLayout();
@@ -887,7 +888,6 @@ namespace Project_PV
             this.panelCard1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.footerPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -24,7 +24,7 @@ namespace Project_PV
             SetupInsertMode();
         }
 
-        public AddItemForm(int id, string name, int price, int kategoriId)
+        public AddItemForm(int id, string name, int price, int kategoriId, string merk, string tag) // input ada 5 values
         {
             InitializeComponent();
             //LoadTags();
@@ -32,7 +32,10 @@ namespace Project_PV
             isEditMode = true;
             productId = id;
 
-            textBox1.Text = name;
+            // sangar ngono nama textbox e
+            textBox1.Text = name; // Nama
+            textBox2.Text = merk; // Merk
+            textBox3.Text = tag; // Tag
             numericUpDown1.Value = price;
             comboBox1.SelectedValue = kategoriId;
 

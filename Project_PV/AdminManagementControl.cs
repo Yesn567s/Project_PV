@@ -51,10 +51,12 @@ namespace Project_PV
             int id = Convert.ToInt32(row.Cells["ID"].Value);
             string name = row.Cells["Produk"].Value.ToString();
             int price = Convert.ToInt32(row.Cells["Harga"].Value);
+            string merk = row.Cells["Merk"].Value.ToString();
+            string tag = row.Cells["tag"].Value.ToString();
 
             int kategoriId = GetCategoryIdFromProduct(id);
 
-            AddItemForm form = new AddItemForm(id, name, price, kategoriId);
+            AddItemForm form = new AddItemForm(id, name, price, kategoriId, merk, tag);
             form.FormClosed += (s, args) => refreshDGVList();
             form.ShowDialog();
         }
@@ -70,7 +72,7 @@ namespace Project_PV
                     "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag " +
                     "FROM Produk p " +
                     "JOIN Kategori k ON p.kategori_id = k.ID " +
-                    "WHERE p.Nama LIKE @keyword OR p.Merk LIKE @keyword" +
+                    "WHERE p.Nama LIKE @keyword OR p.Merk LIKE @keyword " +
                     "GROUP BY p.ID, p.Nama, p.Harga, k.Nama;";
 
                 MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -129,7 +131,7 @@ namespace Project_PV
                     query += "AND p.kategori_id = @kategori ";
                 }
 
-                query += "GROUP BY p.ID, p.Nama, p.Harga, k.Nama ";
+                //query += "GROUP BY p.ID, p.Nama, p.Harga, k.Nama "; // idk error nya agak spesifik, tak comment ae :v (di comment ga ada bedanya)
 
                 // SORT condition
                 switch (sortOption)
