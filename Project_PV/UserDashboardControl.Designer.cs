@@ -62,32 +62,29 @@ namespace Project_PV
             this.panelCard2 = new System.Windows.Forms.Panel();
             this.buttonAddToCart2 = new System.Windows.Forms.Button();
             this.labelPrice2 = new System.Windows.Forms.Label();
-            this.labelBookDescription2 = new System.Windows.Forms.Label();
-            this.labelRating2 = new System.Windows.Forms.Label();
+            this.labelTag2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.labelAuthor2 = new System.Windows.Forms.Label();
+            this.labelMerk2 = new System.Windows.Forms.Label();
             this.labelCardTitle2 = new System.Windows.Forms.Label();
-            this.labelGenre2 = new System.Windows.Forms.Label();
+            this.labelCategory2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panelCard3 = new System.Windows.Forms.Panel();
             this.buttonAddToCart3 = new System.Windows.Forms.Button();
             this.labelPrice3 = new System.Windows.Forms.Label();
-            this.labelBookDescription3 = new System.Windows.Forms.Label();
-            this.labelRating3 = new System.Windows.Forms.Label();
+            this.labelTag3 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.labelAuthor3 = new System.Windows.Forms.Label();
+            this.labelMerk3 = new System.Windows.Forms.Label();
             this.labelCardTitle3 = new System.Windows.Forms.Label();
-            this.labelGenre3 = new System.Windows.Forms.Label();
+            this.labelCategory3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panelCard1 = new System.Windows.Forms.Panel();
             this.buttonAddToCart1 = new System.Windows.Forms.Button();
             this.labelPrice1 = new System.Windows.Forms.Label();
-            this.labelBookDescription1 = new System.Windows.Forms.Label();
-            this.labelRating1 = new System.Windows.Forms.Label();
+            this.labelTag1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.labelAuthor1 = new System.Windows.Forms.Label();
+            this.labelMerk1 = new System.Windows.Forms.Label();
             this.labelCardTitle1 = new System.Windows.Forms.Label();
-            this.labelCardGenre1 = new System.Windows.Forms.Label();
+            this.labelCategory1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.featuredBooksTitle = new System.Windows.Forms.Label();
             this.featuredBooksSubtitle = new System.Windows.Forms.Label();
@@ -432,12 +429,11 @@ namespace Project_PV
             this.panelCard2.BackColor = System.Drawing.Color.White;
             this.panelCard2.Controls.Add(this.buttonAddToCart2);
             this.panelCard2.Controls.Add(this.labelPrice2);
-            this.panelCard2.Controls.Add(this.labelBookDescription2);
-            this.panelCard2.Controls.Add(this.labelRating2);
+            this.panelCard2.Controls.Add(this.labelTag2);
             this.panelCard2.Controls.Add(this.label5);
-            this.panelCard2.Controls.Add(this.labelAuthor2);
+            this.panelCard2.Controls.Add(this.labelMerk2);
             this.panelCard2.Controls.Add(this.labelCardTitle2);
-            this.panelCard2.Controls.Add(this.labelGenre2);
+            this.panelCard2.Controls.Add(this.labelCategory2);
             this.panelCard2.Controls.Add(this.pictureBox2);
             this.panelCard2.Location = new System.Drawing.Point(491, 130);
             this.panelCard2.Name = "panelCard2";
@@ -467,25 +463,15 @@ namespace Project_PV
             this.labelPrice2.TabIndex = 13;
             this.labelPrice2.Text = "Rp 0000,00";
             // 
-            // labelBookDescription2
+            // labelTag2
             // 
-            this.labelBookDescription2.AutoSize = true;
-            this.labelBookDescription2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBookDescription2.Location = new System.Drawing.Point(9, 316);
-            this.labelBookDescription2.Name = "labelBookDescription2";
-            this.labelBookDescription2.Size = new System.Drawing.Size(41, 15);
-            this.labelBookDescription2.TabIndex = 12;
-            this.labelBookDescription2.Text = "label3";
-            // 
-            // labelRating2
-            // 
-            this.labelRating2.AutoSize = true;
-            this.labelRating2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelRating2.Location = new System.Drawing.Point(54, 290);
-            this.labelRating2.Name = "labelRating2";
-            this.labelRating2.Size = new System.Drawing.Size(24, 16);
-            this.labelRating2.TabIndex = 11;
-            this.labelRating2.Text = "0.0";
+            this.labelTag2.AutoSize = true;
+            this.labelTag2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTag2.Location = new System.Drawing.Point(75, 290);
+            this.labelTag2.Name = "labelTag2";
+            this.labelTag2.Size = new System.Drawing.Size(24, 16);
+            this.labelTag2.TabIndex = 11;
+            this.labelTag2.Text = "0.0";
             // 
             // label5
             // 
@@ -493,20 +479,20 @@ namespace Project_PV
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(6, 290);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 16);
+            this.label5.Size = new System.Drawing.Size(63, 16);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Rating:";
+            this.label5.Text = "Item Tag:";
             // 
-            // labelAuthor2
+            // labelMerk2
             // 
-            this.labelAuthor2.AutoSize = true;
-            this.labelAuthor2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAuthor2.ForeColor = System.Drawing.Color.Gray;
-            this.labelAuthor2.Location = new System.Drawing.Point(6, 255);
-            this.labelAuthor2.Name = "labelAuthor2";
-            this.labelAuthor2.Size = new System.Drawing.Size(41, 15);
-            this.labelAuthor2.TabIndex = 9;
-            this.labelAuthor2.Text = "label2";
+            this.labelMerk2.AutoSize = true;
+            this.labelMerk2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMerk2.ForeColor = System.Drawing.Color.Gray;
+            this.labelMerk2.Location = new System.Drawing.Point(6, 255);
+            this.labelMerk2.Name = "labelMerk2";
+            this.labelMerk2.Size = new System.Drawing.Size(41, 15);
+            this.labelMerk2.TabIndex = 9;
+            this.labelMerk2.Text = "label2";
             // 
             // labelCardTitle2
             // 
@@ -518,17 +504,17 @@ namespace Project_PV
             this.labelCardTitle2.TabIndex = 8;
             this.labelCardTitle2.Text = "label2";
             // 
-            // labelGenre2
+            // labelCategory2
             // 
-            this.labelGenre2.AutoEllipsis = true;
-            this.labelGenre2.AutoSize = true;
-            this.labelGenre2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.labelGenre2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.labelGenre2.Location = new System.Drawing.Point(6, 209);
-            this.labelGenre2.Name = "labelGenre2";
-            this.labelGenre2.Size = new System.Drawing.Size(35, 13);
-            this.labelGenre2.TabIndex = 7;
-            this.labelGenre2.Text = "label1";
+            this.labelCategory2.AutoEllipsis = true;
+            this.labelCategory2.AutoSize = true;
+            this.labelCategory2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.labelCategory2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.labelCategory2.Location = new System.Drawing.Point(6, 209);
+            this.labelCategory2.Name = "labelCategory2";
+            this.labelCategory2.Size = new System.Drawing.Size(35, 13);
+            this.labelCategory2.TabIndex = 7;
+            this.labelCategory2.Text = "label1";
             // 
             // pictureBox2
             // 
@@ -544,12 +530,11 @@ namespace Project_PV
             this.panelCard3.BackColor = System.Drawing.Color.White;
             this.panelCard3.Controls.Add(this.buttonAddToCart3);
             this.panelCard3.Controls.Add(this.labelPrice3);
-            this.panelCard3.Controls.Add(this.labelBookDescription3);
-            this.panelCard3.Controls.Add(this.labelRating3);
+            this.panelCard3.Controls.Add(this.labelTag3);
             this.panelCard3.Controls.Add(this.label12);
-            this.panelCard3.Controls.Add(this.labelAuthor3);
+            this.panelCard3.Controls.Add(this.labelMerk3);
             this.panelCard3.Controls.Add(this.labelCardTitle3);
-            this.panelCard3.Controls.Add(this.labelGenre3);
+            this.panelCard3.Controls.Add(this.labelCategory3);
             this.panelCard3.Controls.Add(this.pictureBox3);
             this.panelCard3.Location = new System.Drawing.Point(860, 130);
             this.panelCard3.Name = "panelCard3";
@@ -579,25 +564,15 @@ namespace Project_PV
             this.labelPrice3.TabIndex = 13;
             this.labelPrice3.Text = "Rp 0000,00";
             // 
-            // labelBookDescription3
+            // labelTag3
             // 
-            this.labelBookDescription3.AutoSize = true;
-            this.labelBookDescription3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBookDescription3.Location = new System.Drawing.Point(9, 316);
-            this.labelBookDescription3.Name = "labelBookDescription3";
-            this.labelBookDescription3.Size = new System.Drawing.Size(41, 15);
-            this.labelBookDescription3.TabIndex = 12;
-            this.labelBookDescription3.Text = "label3";
-            // 
-            // labelRating3
-            // 
-            this.labelRating3.AutoSize = true;
-            this.labelRating3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelRating3.Location = new System.Drawing.Point(54, 290);
-            this.labelRating3.Name = "labelRating3";
-            this.labelRating3.Size = new System.Drawing.Size(24, 16);
-            this.labelRating3.TabIndex = 11;
-            this.labelRating3.Text = "0.0";
+            this.labelTag3.AutoSize = true;
+            this.labelTag3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTag3.Location = new System.Drawing.Point(73, 290);
+            this.labelTag3.Name = "labelTag3";
+            this.labelTag3.Size = new System.Drawing.Size(24, 16);
+            this.labelTag3.TabIndex = 11;
+            this.labelTag3.Text = "0.0";
             // 
             // label12
             // 
@@ -605,20 +580,20 @@ namespace Project_PV
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(6, 290);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(49, 16);
+            this.label12.Size = new System.Drawing.Size(63, 16);
             this.label12.TabIndex = 10;
-            this.label12.Text = "Rating:";
+            this.label12.Text = "Item Tag:";
             // 
-            // labelAuthor3
+            // labelMerk3
             // 
-            this.labelAuthor3.AutoSize = true;
-            this.labelAuthor3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAuthor3.ForeColor = System.Drawing.Color.Gray;
-            this.labelAuthor3.Location = new System.Drawing.Point(6, 255);
-            this.labelAuthor3.Name = "labelAuthor3";
-            this.labelAuthor3.Size = new System.Drawing.Size(41, 15);
-            this.labelAuthor3.TabIndex = 9;
-            this.labelAuthor3.Text = "label2";
+            this.labelMerk3.AutoSize = true;
+            this.labelMerk3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMerk3.ForeColor = System.Drawing.Color.Gray;
+            this.labelMerk3.Location = new System.Drawing.Point(6, 255);
+            this.labelMerk3.Name = "labelMerk3";
+            this.labelMerk3.Size = new System.Drawing.Size(41, 15);
+            this.labelMerk3.TabIndex = 9;
+            this.labelMerk3.Text = "label2";
             // 
             // labelCardTitle3
             // 
@@ -630,17 +605,17 @@ namespace Project_PV
             this.labelCardTitle3.TabIndex = 8;
             this.labelCardTitle3.Text = "label2";
             // 
-            // labelGenre3
+            // labelCategory3
             // 
-            this.labelGenre3.AutoEllipsis = true;
-            this.labelGenre3.AutoSize = true;
-            this.labelGenre3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.labelGenre3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.labelGenre3.Location = new System.Drawing.Point(6, 209);
-            this.labelGenre3.Name = "labelGenre3";
-            this.labelGenre3.Size = new System.Drawing.Size(35, 13);
-            this.labelGenre3.TabIndex = 7;
-            this.labelGenre3.Text = "label1";
+            this.labelCategory3.AutoEllipsis = true;
+            this.labelCategory3.AutoSize = true;
+            this.labelCategory3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.labelCategory3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.labelCategory3.Location = new System.Drawing.Point(6, 209);
+            this.labelCategory3.Name = "labelCategory3";
+            this.labelCategory3.Size = new System.Drawing.Size(35, 13);
+            this.labelCategory3.TabIndex = 7;
+            this.labelCategory3.Text = "label1";
             // 
             // pictureBox3
             // 
@@ -656,12 +631,11 @@ namespace Project_PV
             this.panelCard1.BackColor = System.Drawing.Color.White;
             this.panelCard1.Controls.Add(this.buttonAddToCart1);
             this.panelCard1.Controls.Add(this.labelPrice1);
-            this.panelCard1.Controls.Add(this.labelBookDescription1);
-            this.panelCard1.Controls.Add(this.labelRating1);
+            this.panelCard1.Controls.Add(this.labelTag1);
             this.panelCard1.Controls.Add(this.label2);
-            this.panelCard1.Controls.Add(this.labelAuthor1);
+            this.panelCard1.Controls.Add(this.labelMerk1);
             this.panelCard1.Controls.Add(this.labelCardTitle1);
-            this.panelCard1.Controls.Add(this.labelCardGenre1);
+            this.panelCard1.Controls.Add(this.labelCategory1);
             this.panelCard1.Controls.Add(this.pictureBox1);
             this.panelCard1.Location = new System.Drawing.Point(106, 130);
             this.panelCard1.Name = "panelCard1";
@@ -691,25 +665,15 @@ namespace Project_PV
             this.labelPrice1.TabIndex = 13;
             this.labelPrice1.Text = "Rp 0000,00";
             // 
-            // labelBookDescription1
+            // labelTag1
             // 
-            this.labelBookDescription1.AutoSize = true;
-            this.labelBookDescription1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBookDescription1.Location = new System.Drawing.Point(9, 316);
-            this.labelBookDescription1.Name = "labelBookDescription1";
-            this.labelBookDescription1.Size = new System.Drawing.Size(41, 15);
-            this.labelBookDescription1.TabIndex = 12;
-            this.labelBookDescription1.Text = "label3";
-            // 
-            // labelRating1
-            // 
-            this.labelRating1.AutoSize = true;
-            this.labelRating1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelRating1.Location = new System.Drawing.Point(54, 290);
-            this.labelRating1.Name = "labelRating1";
-            this.labelRating1.Size = new System.Drawing.Size(24, 16);
-            this.labelRating1.TabIndex = 11;
-            this.labelRating1.Text = "0.0";
+            this.labelTag1.AutoSize = true;
+            this.labelTag1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTag1.Location = new System.Drawing.Point(75, 290);
+            this.labelTag1.Name = "labelTag1";
+            this.labelTag1.Size = new System.Drawing.Size(24, 16);
+            this.labelTag1.TabIndex = 11;
+            this.labelTag1.Text = "0.0";
             // 
             // label2
             // 
@@ -717,20 +681,20 @@ namespace Project_PV
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(6, 290);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 16);
+            this.label2.Size = new System.Drawing.Size(63, 16);
             this.label2.TabIndex = 10;
-            this.label2.Text = "Rating:";
+            this.label2.Text = "Item Tag:";
             // 
-            // labelAuthor1
+            // labelMerk1
             // 
-            this.labelAuthor1.AutoSize = true;
-            this.labelAuthor1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAuthor1.ForeColor = System.Drawing.Color.Gray;
-            this.labelAuthor1.Location = new System.Drawing.Point(6, 255);
-            this.labelAuthor1.Name = "labelAuthor1";
-            this.labelAuthor1.Size = new System.Drawing.Size(41, 15);
-            this.labelAuthor1.TabIndex = 9;
-            this.labelAuthor1.Text = "label2";
+            this.labelMerk1.AutoSize = true;
+            this.labelMerk1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMerk1.ForeColor = System.Drawing.Color.Gray;
+            this.labelMerk1.Location = new System.Drawing.Point(6, 255);
+            this.labelMerk1.Name = "labelMerk1";
+            this.labelMerk1.Size = new System.Drawing.Size(41, 15);
+            this.labelMerk1.TabIndex = 9;
+            this.labelMerk1.Text = "label2";
             // 
             // labelCardTitle1
             // 
@@ -742,17 +706,17 @@ namespace Project_PV
             this.labelCardTitle1.TabIndex = 8;
             this.labelCardTitle1.Text = "label2";
             // 
-            // labelCardGenre1
+            // labelCategory1
             // 
-            this.labelCardGenre1.AutoEllipsis = true;
-            this.labelCardGenre1.AutoSize = true;
-            this.labelCardGenre1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.labelCardGenre1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.labelCardGenre1.Location = new System.Drawing.Point(6, 209);
-            this.labelCardGenre1.Name = "labelCardGenre1";
-            this.labelCardGenre1.Size = new System.Drawing.Size(35, 13);
-            this.labelCardGenre1.TabIndex = 7;
-            this.labelCardGenre1.Text = "label1";
+            this.labelCategory1.AutoEllipsis = true;
+            this.labelCategory1.AutoSize = true;
+            this.labelCategory1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.labelCategory1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.labelCategory1.Location = new System.Drawing.Point(6, 209);
+            this.labelCategory1.Name = "labelCategory1";
+            this.labelCategory1.Size = new System.Drawing.Size(35, 13);
+            this.labelCategory1.TabIndex = 7;
+            this.labelCategory1.Text = "label1";
             // 
             // pictureBox1
             // 
@@ -770,9 +734,9 @@ namespace Project_PV
             this.featuredBooksTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.featuredBooksTitle.Location = new System.Drawing.Point(100, 20);
             this.featuredBooksTitle.Name = "featuredBooksTitle";
-            this.featuredBooksTitle.Size = new System.Drawing.Size(190, 32);
+            this.featuredBooksTitle.Size = new System.Drawing.Size(184, 32);
             this.featuredBooksTitle.TabIndex = 0;
-            this.featuredBooksTitle.Text = "Featured Books";
+            this.featuredBooksTitle.Text = "Featured Items";
             // 
             // featuredBooksSubtitle
             // 
@@ -799,7 +763,6 @@ namespace Project_PV
             this.viewAllButton.TabIndex = 2;
             this.viewAllButton.Text = "View All  →";
             this.viewAllButton.UseVisualStyleBackColor = false;
-            this.viewAllButton.Click += new System.EventHandler(this.viewAllButton_Click);
             // 
             // footerPanel
             // 
@@ -926,32 +889,28 @@ namespace Project_PV
         private Button viewAllButton;
         private Panel panelCard1;
         private PictureBox pictureBox1;
-        private Label labelAuthor1;
+        private Label labelMerk1;
         private Label labelCardTitle1;
-        private Label labelCardGenre1;
-        private Label labelRating1;
+        private Label labelCategory1;
         private Label label2;
-        private Label labelBookDescription1;
         private Label labelPrice1;
         private Panel panelCard2;
         private Button buttonAddToCart2;
         private Label labelPrice2;
-        private Label labelBookDescription2;
-        private Label labelRating2;
+        private Label labelTag2;
         private Label label5;
-        private Label labelAuthor2;
+        private Label labelMerk2;
         private Label labelCardTitle2;
-        private Label labelGenre2;
+        private Label labelCategory2;
         private PictureBox pictureBox2;
         private Panel panelCard3;
         private Button buttonAddToCart3;
         private Label labelPrice3;
-        private Label labelBookDescription3;
-        private Label labelRating3;
+        private Label labelTag3;
         private Label label12;
-        private Label labelAuthor3;
+        private Label labelMerk3;
         private Label labelCardTitle3;
-        private Label labelGenre3;
+        private Label labelCategory3;
         private PictureBox pictureBox3;
         private Button buttonAddToCart1;
         private Panel footerPanel;
@@ -959,5 +918,6 @@ namespace Project_PV
         private Label footerDesc;
         private Button exploreMembershipBtn;
         private PictureBox pictureBox4;
+        private Label labelTag1;
     }
 }

@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS Kategori (
 );
 
 
--- 3. PRODUK (UPDATED)
+-- 3. PRODUK
 CREATE TABLE IF NOT EXISTS Produk (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Nama VARCHAR(100) NOT NULL,
@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS Produk (
     Harga INT NOT NULL,
     kategori_id INT NOT NULL,
     tag VARCHAR(255), -- Untuk Promo
+    image_url VARCHAR(500), -- image from internet
     FOREIGN KEY (kategori_id) REFERENCES Kategori(ID)
 );
 
@@ -87,93 +88,92 @@ INSERT INTO Kategori (Nama) VALUES
 ('Aksesoris'),
 ('Other');
 
-INSERT INTO Produk (Nama, Merk, Harga, kategori_id, tag) VALUES
+INSERT INTO Produk (Nama, Merk, Harga, kategori_id, tag, image_url) VALUES
 -- MAKANAN
-('Mie Sedaap Goreng', 'Sedaap', 3000, 2, 'makanan'),
-('Indomie Goreng', 'Indomie', 3500, 2, 'makanan'),
-('Gula Rose Brand 1kg', 'Rose Brand', 18500, 2, 'sembako'),
-('Biskuit Columbia', 'Columbia', 25000, 2, 'biskuit'),
+('Mie Sedaap Goreng', 'Sedaap', 3000, 2, 'makanan', 'https://solvent-production.s3.amazonaws.com/media/images/products/2021/04/2499a.jpg'),
+('Indomie Goreng', 'Indomie', 3500, 2, 'makanan', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//108/MTA-5856786/indomie_indomie_goreng_85gr_full02_b3o9d3ep.jpg'),
+('Gula Rose Brand 1kg', 'Rose Brand', 18500, 2, 'sembako', 'https://titanproduct.s3-ap-southeast-1.amazonaws.com/watermarkimg/8993093665497.jpg'),
+('Biskuit Columbia', 'Columbia', 25000, 2, 'biskuit', 'https://down-id.img.susercontent.com/file/id-11134207-7rasb-m5nyfkvqm70m01'),
 
 -- MINUMAN
-('Air Cleo 220ml', 'Cleo', 2000, 1, 'minuman'),
+('Air Cleo 220ml', 'Cleo', 2000, 1, 'minuman', 'https://cf.shopee.co.id/file/id-11134207-7rbk0-mam1t88zo31n0e'),
 
 -- SEMBAKO & RUMAH TANGGA
-('Minyak Goreng 800ml', 'Generic', 17500, 5, 'sembako'),
-('Beras Cap Uduk 5kg', 'Cap Uduk', 78000, 5, 'sembako'),
-('Tissue See-U', 'See-U', 9000, 5, 'tissue'),
-('Tissue Fusia Jumbo', 'Fusia', 25000, 5, 'tissue'),
-('Tissue Basah Mitu', 'Mitu', 12000, 5, 'tissue'),
-('Nit Aerosol 600ml', 'Baygon', 34000, 5, 'insektisida'),
+('Minyak Goreng 800ml', 'Generic', 17500, 5, 'sembako', 'https://cdn.ralali.id/assets/img/Libraries/100000176816001_FETTA_Minyak_Goreng_Botol_12_x_800_ml-1653f5ff0f08976ce718a5463947f6bb-1.jpg'),
+('Beras Cap Uduk 5kg', 'Cap Uduk', 78000, 5, 'sembako', 'https://arti-assets.sgp1.cdn.digitaloceanspaces.com/renyswalayanku/products/77490e2e-14e0-436e-9b5e-75fb0ebc07ad.jpg'),
+('Tissue See-U', 'See-U', 9000, 5, 'tissue', 'https://id-live-01.slatic.net/p/98c935c09a46f4b54bfb12e22f8be3f4.jpg'),
+('Tissue Fusia Jumbo', 'Fusia', 25000, 5, 'tissue', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//105/MTA-71747925/peony_tisu_facial_lembut_isi_180s_2ply_peony_-_fusia_full05_n68nk82k.jpg'),
+('Tissue Basah Mitu', 'Mitu', 12000, 5, 'tissue', 'https://image.astronauts.cloud/product-images/2024/9/vdgzb_2fab9e32-cf67-4fd5-bb8f-ddf2fa3251cd_900x900.jpg'),
+('Hit Aerosol 600ml', 'Baygon', 34000, 5, 'insektisida', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/96/MTA-148030086/hit_hit-aerosol-600ml-75ml_full01.jpg'),
 
 -- ATK
-('HVS Sinarline 75gsm A4', 'Sinarline', 36000, 5, 'atk'),
-('HVS Sinarline 75gsm F4', 'Sinarline', 42000, 5, 'atk'),
-('Odner Bantex 1401', 'Bantex', 18000, 5, 'atk'),
-('HVS Sidu 70gsm A4', 'Sidu', 42000, 5, 'atk'),
-('HVS Sidu 70gsm F4', 'Sidu', 47000, 5, 'atk'),
-('Bolpen Ae7 1 Lusin', 'AE7', 20000, 5, 'atk'),
-('Nota Kontan Borneo 2ply Isi 10', 'Borneo', 32000, 5, 'atk'),
-('Lakban Borneo Core Merah', 'Borneo', 6500, 5, 'atk'),
-('Opp Nachi 2inch Ecer', 'Nachi', 9000, 5, 'atk'),
-('Opp Nachi 2inch Dus', 'Nachi', 550000, 5, 'atk'),
-('Bubble Wrap Putih 2kg', 'Generic', 75000, 5, 'packing'),
+('HVS Sinarline 75gsm A4', 'Sinarline', 36000, 5, 'atk', 'https://img.lazcdn.com/g/p/91c270107d4b65fa6823ec136edcd9f9.png_720x720q80.png'),
+('HVS Sinarline 75gsm F4', 'Sinarline', 42000, 5, 'atk', 'https://down-id.img.susercontent.com/file/id-11134207-81ztp-mfc3s31lp8gc4b'),
+('Odner Bantex 1401', 'Bantex', 18000, 5, 'atk', 'https://storage.googleapis.com/eezee-product-images/ordner-f4-karton-bantex-1401-7-cm-2ajm_600.png'),
+('HVS Sidu 70gsm A4', 'Sidu', 42000, 5, 'atk', 'https://sidu.id/documents/287278/309575/SDC_A470_500_Green+depan.png/bb0d88f9-56a4-4ab4-5bdf-7a57f62b04c0?t=1706770983130'),
+('HVS Sidu 70gsm F4', 'Sidu', 47000, 5, 'atk', 'https://siopen.balangankab.go.id/storage/merchant/products/2024/04/04/e32ec0d0cbc3925c0a9cc4fcada3e467.jpg'),
+('Bolpen Ae7 1 Lusin', 'AE7', 20000, 5, 'atk', 'https://cdn.eurekabookhouse.co.id/ebh/product/all/PULPEN_STANDARD_0,51.jpeg'),
+('Nota Kontan Borneo 2ply Isi 10', 'Borneo', 32000, 5, 'atk', 'https://img.lazcdn.com/g/p/35b4fca0b651bd282f7b39f269f3bfe9.png_720x720q80.png'),
+('Lakban Borneo Core Merah', 'Borneo', 6500, 5, 'atk', 'https://img.lazcdn.com/g/p/4eb51dc59f1b89466d0dfc490879e419.jpg_720x720q80.jpg'),
+('Opp Nachi 2inch Ecer', 'Nachi', 9000, 5, 'atk', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/101/MTA-148683034/no-brand_lakban-opp-bening-coklat-nachi-2-x-90-yard-48mm-tebal_full9.jpg'),
+('Opp Nachi 2inch Dus', 'Nachi', 550000, 5, 'atk', 'https://images.tokopedia.net/img/cache/200-square/VqbcmM/2022/9/24/cc37041a-53e3-42a8-b255-a11c94f9caec.jpg'),
+('Bubble Wrap Putih 2kg', 'Generic', 75000, 5, 'packing', 'https://down-id.img.susercontent.com/file/368585cf7f78a0d6e8ec0a7d54e04400'),
 
 -- BUKU & ALAT TULIS
-('Buku Tulis Kiky Okey 32l', 'Kiky', 23000, 5, 'buku'),
-('Buku Tulis Kiky Okey 38l', 'Kiky', 27000, 5, 'buku'),
-('Buku Tulis Big Boss 42l', 'Big Boss', 26000, 5, 'buku'),
-('Bolpen Sarasa', 'Zebra', 17000, 5, 'atk'),
-('Bolpen Trendee', 'Trendee', 7000, 5, 'atk'),
-('Crayon Greebel 55w', 'Greebel', 75000, 5, 'alat gambar'),
+('Buku Tulis Kiky Okey 32l', 'Kiky', 23000, 5, 'buku', 'https://filebroker-cdn.lazada.co.id/kf/S3bd5227d2925453fb0cb512fb7f2576cz.jpg'),
+('Buku Tulis Kiky Okey 38l', 'Kiky', 27000, 5, 'buku', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/113/MTA-148682759/no-brand_buku-tulis-kiky-38-lembar_full04.jpg'),
+('Buku Tulis Big Boss 42l', 'Big Boss', 26000, 5, 'buku', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/101/MTA-35635736/br-m036969-09262_nokida-buku-tulis-kiky-boxy-42-lembar-1-pack-buku-tulis-sekolah-1-pak-murah-buku-kuliah-notebook-alat-tulis-sekolah_full05.jpg'),
+('Bolpen Sarasa', 'Zebra', 17000, 5, 'atk', 'https://image1ws.indotrading.com/s3/productimages/webp/co249435/p1059603/w600-h600/4d2349c0-457d-4fd1-8577-47de4b14c842.jpg'),
+('Bolpen Trendee', 'Trendee', 7000, 5, 'atk', 'https://tokodaring.balimall.id/sftp/file/uploads/products/4rxpvn/55ac731b30dd576496224ca9affda1c4-ibOadRoy.jpg'),
+('Crayon Greebel 55w', 'Greebel', 75000, 5, 'alat gambar', 'https://down-id.img.susercontent.com/file/94952b2d6075e8b4aa6a571196e042bd'),
 
 -- ELEKTRONIK
-('Kalkulator', 'Casio', 120000, 3, 'elektronik'),
-('Produk JETE', 'JETE', 150000, 3, 'elektronik'),
+('Kalkulator', 'Casio', 120000, 3, 'elektronik', 'https://images.tokopedia.net/img/cache/500-square/product-1/2015/12/18/230011/230011_dfe97530-c3a8-4c40-aac7-f25fb310e036.jpg'),
+('Produk JETE', 'JETE', 150000, 3, 'elektronik', 'https://doran.id/wp-content/uploads/2025/02/AM5-17.jpg'),
 
 -- AKSESORIS & LAINNYA
-('Map L Benefit Isi 12pcs', 'Benefit', 13000, 5, 'map'),
-('Magic Clay', 'Generic', 7000, 5, 'mainan'),
-('Bubble Stick', 'Generic', 7000, 5, 'mainan'),
-('Gantungan Kunci', 'Generic', 5000, 4, 'aksesoris'),
-('Masker', 'Alkindo', 15000, 5, 'kesehatan'),
-('Lem Tikus', 'Generic', 16000, 5, 'rumah'),
-('Jas Hujan Cap Kapak', 'Cap Kapak', 45000, 5, 'jas hujan'),
-('Payung Golf Jumbo', 'Generic', 55000, 4, 'payung'),
-('Hanger Hitam 12pcs', 'Generic', 9000, 5, 'rumah'),
-('Kursi', 'Generic', 30000, 5, 'furniture'),
-('Lunch Box Ginza', 'Ginza', 13000, 5, 'peralatan makan'),
-('Jam Dinding Mayomi 917', 'Mayomi', 25000, 5, 'jam'),
-('Keset Handuk Jumbo', 'Generic', 22000, 5, 'rumah'),
-('Handuk 70x140', 'Generic', 42000, 5, 'handuk'),
+('Map L Benefit Isi 12pcs', 'Benefit', 13000, 5, 'map', 'https://www.produktkdn.co.id/wp-content/uploads/2023/01/2248-.jpg'),
+('Magic Clay', 'Generic', 7000, 5, 'mainan', 'https://images-cdn.ubuy.co.id/63767cf33301a0745e0937d9-modeling-clay-kit-24-colors-air-dry.jpg'),
+('Bubble Stick', 'Generic', 7000, 5, 'mainan', 'https://filebroker-cdn.lazada.co.id/kf/S1e6283810b614e09a671fe89f055beb40.jpg'),
+('Gantungan Kunci', 'Generic', 5000, 4, 'aksesoris', 'https://img.lazcdn.com/g/p/c9a8ef327b35b36cc41804c985144888.jpg_720x720q80.jpg'),
+('Masker', 'Alkindo', 15000, 5, 'kesehatan', 'https://siopen.balangankab.go.id/storage/merchant/products/2024/08/24/36c9acb93d77c44912d786c9e623c4b5.jpg'),
+('Lem Tikus', 'Generic', 16000, 5, 'rumah', 'https://image.astronauts.cloud/product-images/2024/6/13_8f896e40-4e8a-4d90-a19c-14151f692f26_900x900.jpg'),
+('Jas Hujan Cap Kapak', 'Cap Kapak', 45000, 5, 'jas hujan', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/92/MTA-177136020/brd-46010_jas-hujan-ponco-cap-kapak_full01-cd811e71.jpg'),
+('Payung Golf Jumbo', 'Generic', 55000, 4, 'payung', 'https://image1ws.indotrading.com/s3/productimages/webp/co241838/p927949/w600-h600/7fff70de-4f6e-4edd-a76f-7f297a19633d.png'),
+('Hanger Hitam 12pcs', 'Generic', 9000, 5, 'rumah', 'https://media.monotaro.id/mid01/big/Alat%20%26%20Kebutuhan%20Kebersihan/Perlengkapan%20Binatu/Gantungan%20Laundry/Indokurnia%20Hanger%20Kayu%20Dewasa%20Polos/Indokurnia%20Hanger%20Kayu%20Dewasa%20Polos%20Hitam%201set(12pcs)/oeS034323878-1.jpg'),
+('Kursi', 'Generic', 30000, 5, 'furniture', 'https://cdn.ruparupa.io/fit-in/400x400/filters:format(webp)/filters:quality(90)/ruparupa-com/image/upload/Products/10448538_7.jpg'),
+('Lunch Box Ginza', 'Ginza', 13000, 5, 'peralatan makan', 'https://down-id.img.susercontent.com/file/id-11134207-7r98p-lwpzkeqia29p8e'),
+('Jam Dinding Mayomi 917', 'Mayomi', 25000, 5, 'jam', 'https://down-id.img.susercontent.com/file/id-11134207-7qul1-lj6myb0oc9er76'),
+('Keset Handuk Jumbo', 'Generic', 22000, 5, 'rumah', 'https://img.lazcdn.com/g/p/137ff5474c08eb74f9ffa81832c3a3e2.png_720x720q80.png'),
+('Handuk 70x140', 'Generic', 42000, 5, 'handuk', 'https://cdn.ruparupa.io/fit-in/400x400/filters:format(webp)/filters:quality(90)/ruparupa-com/image/upload/Products/10468389_1.jpg'),
 
 -- SABUN & PEMBERSIH
-('Kifa Pencuci Piring 650ml', 'Kifa', 8000, 5, 'sabun'),
-('Kifa Karbol Wangi 700ml', 'Kifa', 11000, 5, 'sabun'),
+('Kifa Pencuci Piring 650ml', 'Kifa', 8000, 5, 'sabun', 'https://cf.shopee.co.id/file/sg-11134201-23010-inibocr7ivlv07'),
+('Kifa Karbol Wangi 700ml', 'Kifa', 11000, 5, 'sabun', 'https://www.mirotakampus.com/resources/assets/images/product_images/1671196995.super%20kifa.jpg'),
 
 -- PERLENGKAPAN
-('Kertas Kado', 'Generic', 22000, 5, 'natal'),
-('Hiasan Natal', 'Generic', 30000, 5, 'natal'),
-('Box Container Black 50l', 'Generic', 60000, 5, 'storage'),
+('Kertas Kado', 'Generic', 22000, 5, 'natal', 'https://squeezy.co.id/wp-content/uploads/2024/06/KERTAS-KADO-KFH-173BBC.jpg'),
+('Hiasan Natal', 'Generic', 30000, 5, 'natal', 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_15747432270.jpeg'),
+('Box Container Black 50l', 'Generic', 60000, 5, 'storage', 'https://down-id.img.susercontent.com/file/id-11134207-7qul4-licqqk3khxg681'),
 
 -- PERALATAN MAKAN
-('Mangkok Sultan Isi 1', 'Sultan', 12000, 5, 'peralatan makan'),
-('Mangkok Sultan Isi 2', 'Sultan', 20000, 5, 'peralatan makan'),
-('Mangkok Sultan Isi 4', 'Sultan', 40000, 5, 'peralatan makan'),
-('Gelas Voila 3pcs', 'Voila', 13000, 5, 'peralatan makan'),
-('Mangkok Ayam 3pcs', 'Generic', 13000, 5, 'peralatan makan'),
-('Termos Sultan + 2 Cangkir', 'Sultan', 30000, 5, 'termos'),
-('Termos Serba', 'Generic', 38000, 5, 'termos'),
+('Mangkok Sultan Isi 1', 'Sultan', 12000, 5, 'peralatan makan', 'https://img.lazcdn.com/g/p/06d793599c817a1fca28924dffe38e0e.jpg_720x720q80.jpg'),
+('Mangkok Sultan Isi 2', 'Sultan', 20000, 5, 'peralatan makan', 'https://img.lazcdn.com/g/p/06d793599c817a1fca28924dffe38e0e.jpg_720x720q80.jpg'),
+('Mangkok Sultan Isi 4', 'Sultan', 40000, 5, 'peralatan makan', 'https://img.lazcdn.com/g/p/06d793599c817a1fca28924dffe38e0e.jpg_720x720q80.jpg'),
+('Gelas Voila 3pcs', 'Voila', 13000, 5, 'peralatan makan', 'https://rajaperabotan.co.id/wp-content/uploads/2019/06/Viera-TMS99-147-6pcs-Gelas-Kaca-Set-Polkadot-240ml-1.jpg'),
+('Mangkok Ayam 3pcs', 'Generic', 13000, 5, 'peralatan makan', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//87/MTA-20179112/mgm_mangkok-sambal-ayam-3inch-keramik-sni-ayam-jago-tempat-sambal_full01.jpg'),
+('Termos Sultan + 2 Cangkir', 'Sultan', 30000, 5, 'termos', 'https://down-id.img.susercontent.com/file/id-11134207-23020-xhumyw53tmnv11'),
+('Termos Serba', 'Generic', 38000, 5, 'termos', 'https://img.lazcdn.com/g/p/0d6644e42e3ab6a295f22cd614338a3b.jpg_360x360q80.jpg'),
 
 -- LAIN-LAIN
-('Botol Minum Xiao Oval', 'Xiao', 37000, 5, 'botol'),
-('Botol Stainless', 'Generic', 56000, 5, 'botol'),
-('Cooler Bag', 'Generic', 13000, 5, 'tas'),
-('Celana Pendek', 'Generic', 32000, 5, 'pakaian'),
-('Kaos Kaki Remaja', 'Generic', 10000, 5, 'pakaian'),
-('Meja Belajar', 'Generic', 48000, 5, 'furniture'),
-('Tas Sekolah', 'Generic', 175000, 4, 'tas'),
-('Mainan', 'Generic', 60000, 5, 'mainan');
-
+('Botol Minum Xiao Oval', 'Xiao', 37000, 5, 'botol', 'https://images.tokopedia.net/img/cache/250-square/aphluv/1997/1/1/9808fc04e4194f8fa25f5681042e9148~.jpeg?ect=4g'),
+('Botol Stainless', 'Generic', 56000, 5, 'botol', 'https://upload.jaknot.com/2025/08/images/products/38321c/original/baowenbei-botol-minum-termos-air-panas-dingin-stainless-steel-500ml-a1a0.jpg'),
+('Cooler Bag', 'Generic', 13000, 5, 'tas', 'https://contents.mediadecathlon.com/p1739673/k$d33c1cb195c68272634f4f67552f7d8d/kotak-es-berkemah-cooler-bag-35-l-tahan-dingin-17-jam-quechua-8572258.jpg?f=1920x0&format=auto'),
+('Celana Pendek', 'Generic', 32000, 5, 'pakaian', 'https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/9f2be9552ca69299bafe86de68db4712dcc35b3f_xxl-1.jpg'),
+('Kaos Kaki Remaja', 'Generic', 10000, 5, 'pakaian', 'https://p16-oec-sg.ibyteimg.com/tos-alisg-i-aphluv4xwc-sg/b7c5ce2a18e04535baedfe6e589641d3~tplv-aphluv4xwc-resize-webp:800:800.webp?dr=15584&t=555f072d&ps=933b5bde&shp=6ce186a1&shcp=e1be8f53&idc=my2&from=1826719393'),
+('Meja Belajar', 'Generic', 48000, 5, 'furniture', 'https://www.homarindo.com/wp-content/uploads/2024/08/Meja-Belajar-Minimalis-Penyimpanan-3-Laci-Murah-1.jpg'),
+('Tas Sekolah', 'Generic', 175000, 4, 'tas', 'https://torch.id/cdn/shop/files/SamataBlack2.jpg?v=1757300726&width=1445'),
+('Mainan', 'Generic', 60000, 5, 'mainan', 'https://cdn.outleap.de/o3Rp9vZwL176EQ4UVUo0_Nc-hJezQPi4wdtyqOaxl3U/rs:fit:239:239::1/dpr:2/bg:FFF/da:1/czM6Ly9jZG4tb3V0/bGVhcC9ndW5maW5k/ZXIvcHJvZHVjdHMv/QmlsZHNjaGlybWZv/dG9fMjAyMi0wMS0w/M191bV8xOS4wOS4x/NV9NQnFZcC1RZzRI/WS5wbmc?ck=1753295001');
 
 INSERT INTO Promo (Nama_Promo, Produk, Jenis, Promo, Tag) VALUES
 ('REGO NEKADDD DISAMBER AJA', 'Mie Sedaap', 'Nominal', 2900, NULL),
