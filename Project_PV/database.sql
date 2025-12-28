@@ -5,7 +5,10 @@ USE db_proyek_pv;
 CREATE TABLE IF NOT EXISTS MEMBER (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Nama VARCHAR(100) NOT NULL,
-    Tanggal_Lahir DATE NOT NULL
+    Email VARCHAR(100) NOT NULL,
+    PASSWORD VARCHAR(50) NOT NULL,
+    Tanggal_Lahir DATE NOT NULL,
+    Is_Member BOOLEAN NOT NULL
 );
 
 -- 2. KATEGORI (NEW)
@@ -13,7 +16,6 @@ CREATE TABLE IF NOT EXISTS Kategori (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Nama VARCHAR(100) NOT NULL UNIQUE
 );
-
 
 -- 3. PRODUK
 CREATE TABLE IF NOT EXISTS Produk (
@@ -69,17 +71,17 @@ CREATE TABLE IF NOT EXISTS Transaksi_Detail (
     FOREIGN KEY (transaksi_id) REFERENCES Transaksi(ID)
 );
 
-INSERT INTO MEMBER (Nama, Tanggal_Lahir) VALUES
-('Kevin Setiono', '2003-08-12'),
-('Alicia Putri', '1999-03-22'),
-('Budi Santoso', '1995-11-05'),
-('Cindy Wijaya', '2001-06-18'),
-('Davin Pratama', '1998-12-29'),
-('Evelyn Kurnia', '2004-02-14'),
-('Fajar Nugroho', '1997-09-10'),
-('Gracia Tania', '2000-01-30'),
-('Hendra Wijaya', '1996-05-25'),
-('Indah Pertiwi', '2002-07-09');
+INSERT INTO MEMBER (Nama, Email, PASSWORD, Tanggal_Lahir, Is_Member) VALUES
+('Kevin Setiono', 'kevin@gmail.com', '123', '2003-08-12', TRUE),
+('Alicia Putri', 'alicia@gmail.com', '123', '1999-03-22', FALSE),
+('Budi Santoso', 'budi@gmail.com', '123', '1995-11-05', TRUE),
+('Cindy Wijaya', 'cindy@gmail.com', '123', '2001-06-18', TRUE),
+('Davin Pratama', 'davin@gmail.com', '123', '1998-12-29', FALSE),
+('Evelyn Kurnia', 'evelyn@gmail.com', '123', '2004-02-14', TRUE),
+('Fajar Nugroho', 'fajar@gmail.com', '123', '1997-09-10', FALSE),
+('Gracia Tania', 'gracia@gmail.com', '123', '2000-01-30', TRUE),
+('Hendra Wijaya', 'hendra@gmail.com', '123', '1996-05-25', FALSE),
+('Indah Pertiwi', 'indah@gmail.com', '123', '2002-07-09', TRUE);
 
 INSERT INTO Kategori (Nama) VALUES
 ('Minuman'),
@@ -123,7 +125,7 @@ INSERT INTO Produk (Nama, Merk, Harga, kategori_id, tag, image_url) VALUES
 ('Buku Tulis Kiky Okey 32l', 'Kiky', 23000, 5, 'buku', 'https://filebroker-cdn.lazada.co.id/kf/S3bd5227d2925453fb0cb512fb7f2576cz.jpg'),
 ('Buku Tulis Kiky Okey 38l', 'Kiky', 27000, 5, 'buku', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/113/MTA-148682759/no-brand_buku-tulis-kiky-38-lembar_full04.jpg'),
 ('Buku Tulis Big Boss 42l', 'Big Boss', 26000, 5, 'buku', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/101/MTA-35635736/br-m036969-09262_nokida-buku-tulis-kiky-boxy-42-lembar-1-pack-buku-tulis-sekolah-1-pak-murah-buku-kuliah-notebook-alat-tulis-sekolah_full05.jpg'),
-('Bolpen Sarasa', 'Zebra', 17000, 5, 'atk', 'https://image1ws.indotrading.com/s3/productimages/webp/co249435/p1059603/w600-h600/4d2349c0-457d-4fd1-8577-47de4b14c842.jpg'),
+('Bolpen Sarasa', 'Zebra', 17000, 5, 'atk', 'https://down-id.img.susercontent.com/file/sg-11134201-22110-ayg8szvt7gkv51'),
 ('Bolpen Trendee', 'Trendee', 7000, 5, 'atk', 'https://tokodaring.balimall.id/sftp/file/uploads/products/4rxpvn/55ac731b30dd576496224ca9affda1c4-ibOadRoy.jpg'),
 ('Crayon Greebel 55w', 'Greebel', 75000, 5, 'alat gambar', 'https://down-id.img.susercontent.com/file/94952b2d6075e8b4aa6a571196e042bd'),
 
@@ -139,13 +141,13 @@ INSERT INTO Produk (Nama, Merk, Harga, kategori_id, tag, image_url) VALUES
 ('Masker', 'Alkindo', 15000, 5, 'kesehatan', 'https://siopen.balangankab.go.id/storage/merchant/products/2024/08/24/36c9acb93d77c44912d786c9e623c4b5.jpg'),
 ('Lem Tikus', 'Generic', 16000, 5, 'rumah', 'https://image.astronauts.cloud/product-images/2024/6/13_8f896e40-4e8a-4d90-a19c-14151f692f26_900x900.jpg'),
 ('Jas Hujan Cap Kapak', 'Cap Kapak', 45000, 5, 'jas hujan', 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/92/MTA-177136020/brd-46010_jas-hujan-ponco-cap-kapak_full01-cd811e71.jpg'),
-('Payung Golf Jumbo', 'Generic', 55000, 4, 'payung', 'https://image1ws.indotrading.com/s3/productimages/webp/co241838/p927949/w600-h600/7fff70de-4f6e-4edd-a76f-7f297a19633d.png'),
+('Payung Golf Jumbo', 'Generic', 55000, 4, 'payung', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgBehJaUKbnyY3Bv4UTjxZefgdGM3EkIr8FA&s'),
 ('Hanger Hitam 12pcs', 'Generic', 9000, 5, 'rumah', 'https://media.monotaro.id/mid01/big/Alat%20%26%20Kebutuhan%20Kebersihan/Perlengkapan%20Binatu/Gantungan%20Laundry/Indokurnia%20Hanger%20Kayu%20Dewasa%20Polos/Indokurnia%20Hanger%20Kayu%20Dewasa%20Polos%20Hitam%201set(12pcs)/oeS034323878-1.jpg'),
-('Kursi', 'Generic', 30000, 5, 'furniture', 'https://cdn.ruparupa.io/fit-in/400x400/filters:format(webp)/filters:quality(90)/ruparupa-com/image/upload/Products/10448538_7.jpg'),
+('Kursi', 'Generic', 30000, 5, 'furniture', 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/198/1319859_PE941002_S4.jpg'),
 ('Lunch Box Ginza', 'Ginza', 13000, 5, 'peralatan makan', 'https://down-id.img.susercontent.com/file/id-11134207-7r98p-lwpzkeqia29p8e'),
 ('Jam Dinding Mayomi 917', 'Mayomi', 25000, 5, 'jam', 'https://down-id.img.susercontent.com/file/id-11134207-7qul1-lj6myb0oc9er76'),
 ('Keset Handuk Jumbo', 'Generic', 22000, 5, 'rumah', 'https://img.lazcdn.com/g/p/137ff5474c08eb74f9ffa81832c3a3e2.png_720x720q80.png'),
-('Handuk 70x140', 'Generic', 42000, 5, 'handuk', 'https://cdn.ruparupa.io/fit-in/400x400/filters:format(webp)/filters:quality(90)/ruparupa-com/image/upload/Products/10468389_1.jpg'),
+('Handuk 70x140', 'Generic', 42000, 5, 'handuk', 'https://static.jakmall.id/2021/01/images/products/3baef8/thumbnail/handuk-polos-besar-70-x-140-handuk-besar.jpg'),
 
 -- SABUN & PEMBERSIH
 ('Kifa Pencuci Piring 650ml', 'Kifa', 8000, 5, 'sabun', 'https://cf.shopee.co.id/file/sg-11134201-23010-inibocr7ivlv07'),
@@ -170,7 +172,7 @@ INSERT INTO Produk (Nama, Merk, Harga, kategori_id, tag, image_url) VALUES
 ('Botol Stainless', 'Generic', 56000, 5, 'botol', 'https://upload.jaknot.com/2025/08/images/products/38321c/original/baowenbei-botol-minum-termos-air-panas-dingin-stainless-steel-500ml-a1a0.jpg'),
 ('Cooler Bag', 'Generic', 13000, 5, 'tas', 'https://contents.mediadecathlon.com/p1739673/k$d33c1cb195c68272634f4f67552f7d8d/kotak-es-berkemah-cooler-bag-35-l-tahan-dingin-17-jam-quechua-8572258.jpg?f=1920x0&format=auto'),
 ('Celana Pendek', 'Generic', 32000, 5, 'pakaian', 'https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/9f2be9552ca69299bafe86de68db4712dcc35b3f_xxl-1.jpg'),
-('Kaos Kaki Remaja', 'Generic', 10000, 5, 'pakaian', 'https://p16-oec-sg.ibyteimg.com/tos-alisg-i-aphluv4xwc-sg/b7c5ce2a18e04535baedfe6e589641d3~tplv-aphluv4xwc-resize-webp:800:800.webp?dr=15584&t=555f072d&ps=933b5bde&shp=6ce186a1&shcp=e1be8f53&idc=my2&from=1826719393'),
+('Kaos Kaki Remaja', 'Generic', 10000, 5, 'pakaian', 'https://parto.id/asset/foto_produk/kaos_kaki.jpg'),
 ('Meja Belajar', 'Generic', 48000, 5, 'furniture', 'https://www.homarindo.com/wp-content/uploads/2024/08/Meja-Belajar-Minimalis-Penyimpanan-3-Laci-Murah-1.jpg'),
 ('Tas Sekolah', 'Generic', 175000, 4, 'tas', 'https://torch.id/cdn/shop/files/SamataBlack2.jpg?v=1757300726&width=1445'),
 ('Mainan', 'Generic', 60000, 5, 'mainan', 'https://cdn.outleap.de/o3Rp9vZwL176EQ4UVUo0_Nc-hJezQPi4wdtyqOaxl3U/rs:fit:239:239::1/dpr:2/bg:FFF/da:1/czM6Ly9jZG4tb3V0/bGVhcC9ndW5maW5k/ZXIvcHJvZHVjdHMv/QmlsZHNjaGlybWZv/dG9fMjAyMi0wMS0w/M191bV8xOS4wOS4x/NV9NQnFZcC1RZzRI/WS5wbmc?ck=1753295001');

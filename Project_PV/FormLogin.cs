@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Project_PV
 {
     public partial class FormLogin : Form
     {
+        string connectionString = "Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;";
         public FormLogin()
         {
             InitializeComponent();
@@ -39,10 +41,56 @@ namespace Project_PV
             }
             else
             {
-                // Here you would typically validate the user credentials against a database (database is still not build yet)
-                UserDashboard userDashboard = new UserDashboard();
-                userDashboard.Show();
-                this.Hide();
+                try
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connectionString))
+                    {
+                        conn.Open();
+
+                        string query = @"
+                SELECT ID, Nama, Email, Tanggal_Lahir, Is_Member
+                FROM MEMBER
+                WHERE Email = @Email AND Password = @Password";
+
+                        using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@Email", email);
+                            cmd.Parameters.AddWithValue("@Password", password);
+
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    // Store to GlobalData
+                                    GlobalData.UserID = reader.GetInt32(0);
+                                    GlobalData.Nama = reader.GetString(1);
+                                    GlobalData.Email = reader.GetString(2);
+                                    GlobalData.TanggalLahir = reader.GetDateTime(3);
+                                    GlobalData.IsMember = reader.GetBoolean(4);
+
+                                    //MessageBox.Show(GlobalData.UserID.ToString());
+
+                                    UserDashboard userDashboard = new UserDashboard();
+                                    userDashboard.Show();
+                                    this.Hide();
+                                }
+                                else
+                                {
+                                    MessageBox.Show(
+                                        "Invalid email or password.",
+                                        "Login Failed",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
         }
     }

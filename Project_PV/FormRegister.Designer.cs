@@ -35,6 +35,8 @@ namespace Project_PV
             this.titleLabel = new System.Windows.Forms.Label();
             this.subtitleLabel = new System.Windows.Forms.Label();
             this.rightPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.headerLabel = new System.Windows.Forms.Label();
             this.descLabel = new System.Windows.Forms.Label();
             this.nameLabel = new System.Windows.Forms.Label();
@@ -89,6 +91,8 @@ namespace Project_PV
             // rightPanel
             // 
             this.rightPanel.BackColor = System.Drawing.Color.White;
+            this.rightPanel.Controls.Add(this.label1);
+            this.rightPanel.Controls.Add(this.dateTimePicker1);
             this.rightPanel.Controls.Add(this.headerLabel);
             this.rightPanel.Controls.Add(this.descLabel);
             this.rightPanel.Controls.Add(this.nameLabel);
@@ -105,8 +109,28 @@ namespace Project_PV
             this.rightPanel.Controls.Add(this.signInLink);
             this.rightPanel.Location = new System.Drawing.Point(650, 80);
             this.rightPanel.Name = "rightPanel";
-            this.rightPanel.Size = new System.Drawing.Size(500, 491);
+            this.rightPanel.Size = new System.Drawing.Size(500, 545);
             this.rightPanel.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(33, 377);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 15);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Confirm Password";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "MMMM dd, yyyy";
+            this.dateTimePicker1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(33, 395);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(440, 25);
+            this.dateTimePicker1.TabIndex = 14;
             // 
             // headerLabel
             // 
@@ -148,7 +172,6 @@ namespace Project_PV
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(440, 25);
             this.nameTextBox.TabIndex = 3;
-            this.nameTextBox.Text = "John Doe";
             // 
             // emailLabel
             // 
@@ -169,7 +192,6 @@ namespace Project_PV
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(440, 25);
             this.emailTextBox.TabIndex = 5;
-            this.emailTextBox.Text = "you@example.com";
             // 
             // passwordLabel
             // 
@@ -190,7 +212,6 @@ namespace Project_PV
             this.passwordTextBox.PasswordChar = '•';
             this.passwordTextBox.Size = new System.Drawing.Size(440, 25);
             this.passwordTextBox.TabIndex = 7;
-            this.passwordTextBox.Text = "******";
             // 
             // confirmPasswordLabel
             // 
@@ -211,12 +232,11 @@ namespace Project_PV
             this.confirmPasswordTextBox.PasswordChar = '•';
             this.confirmPasswordTextBox.Size = new System.Drawing.Size(440, 25);
             this.confirmPasswordTextBox.TabIndex = 9;
-            this.confirmPasswordTextBox.Text = "grehsr";
             // 
             // termsCheckBox
             // 
             this.termsCheckBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.termsCheckBox.Location = new System.Drawing.Point(30, 380);
+            this.termsCheckBox.Location = new System.Drawing.Point(30, 436);
             this.termsCheckBox.Name = "termsCheckBox";
             this.termsCheckBox.Size = new System.Drawing.Size(440, 25);
             this.termsCheckBox.TabIndex = 10;
@@ -230,7 +250,7 @@ namespace Project_PV
             this.createButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.createButton.ForeColor = System.Drawing.Color.White;
-            this.createButton.Location = new System.Drawing.Point(30, 415);
+            this.createButton.Location = new System.Drawing.Point(30, 471);
             this.createButton.Name = "createButton";
             this.createButton.Size = new System.Drawing.Size(440, 40);
             this.createButton.TabIndex = 11;
@@ -243,7 +263,7 @@ namespace Project_PV
             this.signInLabel.AutoSize = true;
             this.signInLabel.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.signInLabel.ForeColor = System.Drawing.Color.Gray;
-            this.signInLabel.Location = new System.Drawing.Point(150, 462);
+            this.signInLabel.Location = new System.Drawing.Point(150, 518);
             this.signInLabel.Name = "signInLabel";
             this.signInLabel.Size = new System.Drawing.Size(148, 15);
             this.signInLabel.TabIndex = 12;
@@ -254,7 +274,7 @@ namespace Project_PV
             this.signInLink.AutoSize = true;
             this.signInLink.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.signInLink.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(40)))));
-            this.signInLink.Location = new System.Drawing.Point(310, 462);
+            this.signInLink.Location = new System.Drawing.Point(310, 518);
             this.signInLink.Name = "signInLink";
             this.signInLink.Size = new System.Drawing.Size(44, 15);
             this.signInLink.TabIndex = 13;
@@ -268,14 +288,14 @@ namespace Project_PV
             this.pictureBox1.Image = global::Project_PV.Properties.Resources.intro;
             this.pictureBox1.Location = new System.Drawing.Point(50, 150);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(550, 380);
+            this.pictureBox1.Size = new System.Drawing.Size(569, 441);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
             // FormRegister
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(239)))), ((int)(((byte)(231)))));
-            this.ClientSize = new System.Drawing.Size(1184, 599);
+            this.ClientSize = new System.Drawing.Size(1184, 640);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.iconLabel);
             this.Controls.Add(this.titleLabel);
@@ -314,5 +334,7 @@ namespace Project_PV
         private Label signInLabel;
         private LinkLabel signInLink;
         private PictureBox pictureBox1;
+        private Label label1;
+        private DateTimePicker dateTimePicker1;
     }
 }
