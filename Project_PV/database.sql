@@ -8,7 +8,9 @@ CREATE TABLE IF NOT EXISTS MEMBER (
     Email VARCHAR(100) NOT NULL,
     PASSWORD VARCHAR(50) NOT NULL,
     Tanggal_Lahir DATE NOT NULL,
-    Is_Member BOOLEAN NOT NULL
+    Is_Member BOOLEAN NOT NULL,
+    membership_start DATE NULL,
+    membership_end DATE NULL
 );
 
 -- 2. KATEGORI (NEW)
@@ -71,17 +73,25 @@ CREATE TABLE IF NOT EXISTS Transaksi_Detail (
     FOREIGN KEY (transaksi_id) REFERENCES Transaksi(ID)
 );
 
-INSERT INTO MEMBER (Nama, Email, PASSWORD, Tanggal_Lahir, Is_Member) VALUES
-('Kevin Setiono', 'kevin@gmail.com', '123', '2003-08-12', TRUE),
-('Alicia Putri', 'alicia@gmail.com', '123', '1999-03-22', FALSE),
-('Budi Santoso', 'budi@gmail.com', '123', '1995-11-05', TRUE),
-('Cindy Wijaya', 'cindy@gmail.com', '123', '2001-06-18', TRUE),
-('Davin Pratama', 'davin@gmail.com', '123', '1998-12-29', FALSE),
-('Evelyn Kurnia', 'evelyn@gmail.com', '123', '2004-02-14', TRUE),
-('Fajar Nugroho', 'fajar@gmail.com', '123', '1997-09-10', FALSE),
-('Gracia Tania', 'gracia@gmail.com', '123', '2000-01-30', TRUE),
-('Hendra Wijaya', 'hendra@gmail.com', '123', '1996-05-25', FALSE),
-('Indah Pertiwi', 'indah@gmail.com', '123', '2002-07-09', TRUE);
+INSERT INTO MEMBER
+(Nama, Email, PASSWORD, Tanggal_Lahir, Is_Member, membership_start, membership_end)
+VALUES
+-- NON MEMBERS
+('Kevin Setiono', 'kevin@gmail.com', '123', '2003-08-12', FALSE, NULL, NULL),
+('Budi Santoso', 'budi@gmail.com', '123', '1995-11-05', FALSE, NULL, NULL),
+('Cindy Wijaya', 'cindy@gmail.com', '123', '2001-06-18', FALSE, NULL, NULL),
+
+-- PERMANENT MEMBERS
+('Evelyn Kurnia', 'evelyn@gmail.com', '123', '2004-02-14', TRUE, '2025-01-20', NULL),
+('Gracia Tania', 'gracia@gmail.com', '123', '2000-01-30', TRUE, '2025-02-01', NULL),
+('Indah Pertiwi', 'indah@gmail.com', '123', '2002-07-09', TRUE, '2025-03-10', NULL),
+
+-- TEMPORARY MEMBERS (≥ 1 month)
+('Alicia Putri', 'alicia@gmail.com', '123', '1999-03-22', TRUE, '2025-04-01', '2026-03-18'),
+('Davin Pratama', 'davin@gmail.com', '123', '1998-12-29', TRUE, '2025-03-15', '2026-07-09'),
+('Fajar Nugroho', 'fajar@gmail.com', '123', '1997-09-10', TRUE, '2025-02-01', '2026-01-27'),
+('Hendra Wijaya', 'hendra@gmail.com', '123', '1996-05-25', TRUE, '2025-01-10', '2026-11-05');
+
 
 INSERT INTO Kategori (Nama) VALUES
 ('Minuman'),

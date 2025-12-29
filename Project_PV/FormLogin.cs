@@ -48,7 +48,7 @@ namespace Project_PV
                         conn.Open();
 
                         string query = @"
-                SELECT ID, Nama, Email, Tanggal_Lahir, Is_Member
+                SELECT ID, Nama, Email, Tanggal_Lahir, Is_Member, membership_start, membership_end
                 FROM MEMBER
                 WHERE Email = @Email AND Password = @Password";
 
@@ -61,12 +61,17 @@ namespace Project_PV
                             {
                                 if (reader.Read())
                                 {
+                                    // Check and Expire Membership if needed
+                                    GlobalData.CheckAndExpireMembership(connectionString);
+
                                     // Store to GlobalData
                                     GlobalData.UserID = reader.GetInt32(0);
                                     GlobalData.Nama = reader.GetString(1);
                                     GlobalData.Email = reader.GetString(2);
                                     GlobalData.TanggalLahir = reader.GetDateTime(3);
                                     GlobalData.IsMember = reader.GetBoolean(4);
+                                    GlobalData.MembershipStart = reader.IsDBNull(5) ? DateTime.MinValue : reader.GetDateTime(5);
+                                    GlobalData.MembershipEnd = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
 
                                     //MessageBox.Show(GlobalData.UserID.ToString());
 

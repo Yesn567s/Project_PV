@@ -248,5 +248,10 @@
   <ItemGroup>
     <None Include="Images\backlogo.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\checkmark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

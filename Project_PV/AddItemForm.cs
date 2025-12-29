@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.IO;
 
 namespace Project_PV
 {
@@ -212,56 +214,64 @@ namespace Project_PV
             }
         }
 
-        //private void LoadProductTags(int productId)
-        //{
-        //    checkedListBoxTags.ClearSelected();
 
-        //    using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
-        //    {
-        //        conn.Open();
-        //        string query = @"SELECT tag_id FROM Produk_Tag WHERE produk_id = @id";
-        //        MySqlCommand cmd = new MySqlCommand(query, conn);
-        //        cmd.Parameters.AddWithValue("@id", productId);
+        // Unfinished Image Upload Section 
+        private void buttonUploadImage_Click(object sender, EventArgs e)
+        {
+            string link = textBoxLinkImage.Text;
+            openFileDialog1.Filter = "Image Files(*.jpeg;*.bmp;*.png;*.jpg)|*.jpeg;*.bmp;*.png;*.jpg|All files (*.*)|*.*";
 
-        //        MySqlDataReader dr = cmd.ExecuteReader();
-        //        List<int> tagIds = new List<int>();
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Get the selected file path
+                    string selectedFilePath = openFileDialog1.FileName;
 
-        //        while (dr.Read())
-        //            tagIds.Add(dr.GetInt32(0));
+                    // Load the image into the PictureBox control
+                    pictureBox1.Image = new System.Drawing.Bitmap(selectedFilePath);
 
-        //        // Check the tags in the CheckedListBox
-        //        for (int i = 0; i < checkedListBoxTags.Items.Count; i++)
-        //        {
-        //            dynamic item = checkedListBoxTags.Items[i];
-        //            int tagId = item.Value;
-        //            if (tagIds.Contains(tagId))
-        //                checkedListBoxTags.SetItemChecked(i, true);
-        //        }
-        //    }
-        //}
+                    // Optional: Adjust the SizeMode property for better display (e.g., Zoom, StretchImage)
+                    pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                }
+            }
+        }
 
-        //private void LoadTags()
-        //{
-        //    checkedListBoxTags.Items.Clear();
-        //    checkedListBoxTags.DisplayMember = "Text";
-        //    checkedListBoxTags.ValueMember = "Value";
-        //    using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
-        //    {
-        //        conn.Open();
-        //        string query = "SELECT ID, Nama FROM Tag";
-        //        MySqlCommand cmd = new MySqlCommand(query, conn);
-        //        MySqlDataReader dr = cmd.ExecuteReader();
+        private async void textBoxLinkImage_TextChanged(object sender, EventArgs e) // (jpg, png, jpeg, bmp) only
+        {
+            string imageUrl = textBoxLinkImage.Text.Trim();
 
-        //        while (dr.Read())
-        //        {
-        //            checkedListBoxTags.Items.Add(
-        //                new { Text = dr["Nama"].ToString(), Value = dr["ID"] },
-        //                false
-        //            );
-        //        }
-        //    }
-        //}
+            if (string.IsNullOrEmpty(imageUrl))
+                return;
 
-        
+            // Simple validation
+            if (!Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute))
+                return;
+
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    byte[] imageData = await client.DownloadDataTaskAsync(imageUrl);
+
+                    using (MemoryStream ms = new MemoryStream(imageData))
+                    {
+                        pictureBox1.Image = Image.FromStream(ms);
+                        pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore errors silently (bad URL, no internet, etc.)
+                pictureBox1.Image = null;
+            }
+        }
+
+
     }
 }

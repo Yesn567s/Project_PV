@@ -21,6 +21,7 @@ namespace Project_PV
         {
             InitializeComponent();
             LoadDashboard();
+            LoadUserData();
         }
 
         private void homeButton_Click(object sender, EventArgs e)
@@ -49,6 +50,7 @@ namespace Project_PV
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
+            GlobalData.Clear();
             this.Hide();
             FormLogin loginForm = new FormLogin();
             loginForm.Show();
@@ -127,6 +129,11 @@ namespace Project_PV
             // Set the selected button color
             button_name.BackColor = Color.FromArgb(20, 20, 40);
             button_name.ForeColor = Color.White;
+        }
+
+        private void LoadUserData()
+        {
+            userLabel.Text = "👤" + GlobalData.Nama;
         }
     }
 }
