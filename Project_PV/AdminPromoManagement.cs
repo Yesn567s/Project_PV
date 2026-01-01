@@ -36,48 +36,43 @@ namespace Project_PV
 
                 string keyword = searchBox.Text.Trim();
 
-                int selectedCategory = 0;
-                if (filterByComboBox.SelectedValue != null &&
-                    filterByComboBox.SelectedValue is int)
+                string selectedCategory = "";
+                if (filterByComboBox.SelectedValue != null)
                 {
-                    selectedCategory = (int)filterByComboBox.SelectedValue;
+                    selectedCategory = filterByComboBox.SelectedValue.ToString();
                 }
 
                 string sortOption = sortByComboBox.SelectedItem?.ToString() ?? "None";
 
                 // Base SQL
                 string query =
-                    "SELECT p.ID, p.Nama AS Produk, p.Harga, k.Nama AS Kategori, " +
-                    "GROUP_CONCAT(t.Nama SEPARATOR ', ') AS Tags " +
-                    "FROM Produk p " +
-                    "JOIN Kategori k ON p.kategori_id = k.ID " +
-                    "LEFT JOIN Produk_Tag pt ON p.ID = pt.produk_id " +
-                    "LEFT JOIN Tag t ON pt.tag_id = t.ID " +
+                    "SELECT * " +
+                    "FROM Promo p " +
                     "WHERE 1=1 ";
 
                 // SEARCH condition
                 if (!string.IsNullOrWhiteSpace(keyword))
                 {
-                    query += "AND p.Nama LIKE @keyword ";
+                    query += "AND p.Nama_Promo LIKE @keyword ";
                 }
 
                 // FILTER condition
-                if (selectedCategory != 0) // 0 means "None"
+                if (selectedCategory != "") // 0 means "None"
                 {
-                    query += "AND p.kategori_id = @kategori ";
+                    query += "AND p.target_type = @kategori ";
                 }
 
-                query += "GROUP BY p.ID, p.Nama, p.Harga, k.Nama ";
+                query += "GROUP BY p.ID, p.Nama_Promo, p.Target_type ";
 
                 // SORT condition
                 switch (sortOption)
                 {
                     case "Name (Ascending)":
-                        query += "ORDER BY p.Nama ASC ";
+                        query += "ORDER BY p.Nama_Promo ASC ";
                         break;
 
                     case "Name (Descending)":
-                        query += "ORDER BY p.Nama DESC ";
+                        query += "ORDER BY p.Nama_Promo DESC ";
                         break;
 
                     case "ID (Ascending)":
@@ -100,7 +95,7 @@ namespace Project_PV
                 if (!string.IsNullOrWhiteSpace(keyword))
                     cmd.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
 
-                if (selectedCategory != 0)
+                if (selectedCategory != "")
                     cmd.Parameters.AddWithValue("@kategori", selectedCategory);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -108,7 +103,7 @@ namespace Project_PV
                 dt.Load(reader);
 
                 dataGridViewItems.DataSource = dt;
-                labelItemCount.Text = $"Showing {dt.Rows.Count} Items";
+                labelItemCount.Text = $"Showing {dt.Rows.Count} Promo";
             }
             catch (Exception ex)
             {
@@ -172,7 +167,7 @@ namespace Project_PV
         {
             connection.Open();
 
-            string query = "SELECT Jenis FROM promo";
+            string query = "SELECT Target_type FROM promo GROUP BY Target_type";
             MySqlCommand cmd = new MySqlCommand(query, connection);
             MySqlDataReader reader = cmd.ExecuteReader();
             DataTable dt = new DataTable();
@@ -180,11 +175,11 @@ namespace Project_PV
 
             // Create a "None" row
             DataRow noneRow = dt.NewRow();
-            noneRow["Jenis"] = "";
+            noneRow["Target_type"] = "";
             dt.Rows.InsertAt(noneRow, 0); // insert at top
 
-            filterByComboBox.DisplayMember = "Jenis";
-            filterByComboBox.ValueMember = "Jenis";
+            filterByComboBox.DisplayMember = "Target_type";
+            filterByComboBox.ValueMember = "Target_type";
             filterByComboBox.DataSource = dt;
 
             filterByComboBox.SelectedIndex = 0; // Select "None"
