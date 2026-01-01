@@ -53,10 +53,11 @@ namespace Project_PV
             int price = Convert.ToInt32(row.Cells["Harga"].Value);
             string merk = row.Cells["Merk"].Value.ToString();
             string tag = row.Cells["tag"].Value.ToString();
+            string imageurl = row.Cells["image_url"].Value.ToString();
 
             int kategoriId = GetCategoryIdFromProduct(id);
 
-            AddItemForm form = new AddItemForm(id, name, price, kategoriId, merk, tag);
+            AddItemForm form = new AddItemForm(id, name, price, kategoriId, merk, tag, imageurl);
             form.FormClosed += (s, args) => refreshDGVList();
             form.ShowDialog();
         }
@@ -69,7 +70,7 @@ namespace Project_PV
                     connection.Open();
 
                 string query =
-                    "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag " +
+                    "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag, image_url " +
                     "FROM Produk p " +
                     "JOIN Kategori k ON p.kategori_id = k.ID " +
                     "WHERE p.Nama LIKE @keyword OR p.Merk LIKE @keyword " +
@@ -114,7 +115,7 @@ namespace Project_PV
 
                 // Base SQL
                 string query =
-                    "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag " +
+                    "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag, image_url " +
                     "FROM Produk p " +
                     "JOIN Kategori k ON p.kategori_id = k.ID " +
                     "WHERE 1=1 ";
@@ -210,7 +211,7 @@ namespace Project_PV
                     connection.Open();
                 }
 
-                string query = "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag " +
+                string query = "SELECT p.ID, p.Nama AS Produk, p.Merk, p.Harga, k.Nama AS Kategori, Tag, image_url " +
                                "FROM Produk p JOIN Kategori k ON p.kategori_id = k.ID " +
                                "GROUP BY p.ID, p.Nama, p.Harga, k.Nama;";
 

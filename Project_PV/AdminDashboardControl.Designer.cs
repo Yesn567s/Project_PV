@@ -116,9 +116,9 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(15, 951);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 17);
+            this.label1.Size = new System.Drawing.Size(87, 17);
             this.label1.TabIndex = 33;
-            this.label1.Text = "Recent Orders";
+            this.label1.Text = "List Members";
             // 
             // dataGridViewMembersList
             // 
@@ -154,9 +154,9 @@
             this.label31.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label31.Location = new System.Drawing.Point(522, 500);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(87, 17);
+            this.label31.Size = new System.Drawing.Size(92, 17);
             this.label31.TabIndex = 30;
-            this.label31.Text = "List Members";
+            this.label31.Text = "Recent Orders";
             // 
             // label30
             // 
@@ -262,7 +262,7 @@
             this.panel5.Controls.Add(this.label21);
             this.panel5.Location = new System.Drawing.Point(777, 131);
             this.panel5.Name = "panel5";
-            this.panel5.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel5.Padding = new System.Windows.Forms.Padding(2);
             this.panel5.Size = new System.Drawing.Size(247, 117);
             this.panel5.TabIndex = 23;
             // 
@@ -317,7 +317,7 @@
             this.panel4.Controls.Add(this.label17);
             this.panel4.Location = new System.Drawing.Point(524, 131);
             this.panel4.Name = "panel4";
-            this.panel4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel4.Padding = new System.Windows.Forms.Padding(2);
             this.panel4.Size = new System.Drawing.Size(247, 117);
             this.panel4.TabIndex = 23;
             // 
@@ -361,7 +361,7 @@
             this.panel3.Controls.Add(this.label13);
             this.panel3.Location = new System.Drawing.Point(271, 131);
             this.panel3.Name = "panel3";
-            this.panel3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Padding = new System.Windows.Forms.Padding(2);
             this.panel3.Size = new System.Drawing.Size(247, 117);
             this.panel3.TabIndex = 21;
             // 
@@ -406,7 +406,7 @@
             this.panel2.Controls.Add(this.label9);
             this.panel2.Location = new System.Drawing.Point(18, 131);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Padding = new System.Windows.Forms.Padding(2);
             this.panel2.Size = new System.Drawing.Size(247, 117);
             this.panel2.TabIndex = 22;
             // 
