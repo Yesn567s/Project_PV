@@ -13,7 +13,7 @@ namespace Project_PV
         private List<Product> filteredProducts = new List<Product>();
 
         string connectionString = "Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;";
-        MySqlConnection connection;
+
         public UserCatalogControl()
         {
             InitializeComponent();
@@ -26,7 +26,6 @@ namespace Project_PV
 
         private void InitializeProductCardsPanel()
         {
-            // Remove the DataGridView and replace with FlowLayoutPanel
             if (this.Controls.Contains(dataGridView1))
             {
                 this.Controls.Remove(dataGridView1);
@@ -217,7 +216,6 @@ namespace Project_PV
                 BackColor = Color.FromArgb(245, 245, 245)
             };
 
-            // Load image from URL or use placeholder
             try
             {
                 if (!string.IsNullOrEmpty(product.ImageUrl))
@@ -227,7 +225,6 @@ namespace Project_PV
             }
             catch
             {
-                // Use placeholder if image fails to load
                 pictureBox.BackColor = Color.FromArgb(224, 224, 224);
             }
 
@@ -257,7 +254,7 @@ namespace Project_PV
             };
             card.Controls.Add(nameLabel);
 
-            // Merk
+            // Brand
             Label merkLabel = new Label
             {
                 Text = product.Merk,
@@ -267,20 +264,6 @@ namespace Project_PV
                 ForeColor = Color.Gray
             };
             card.Controls.Add(merkLabel);
-
-            // Item Tag
-            if (!string.IsNullOrEmpty(product.Tag))
-            {
-                Label tagLabel = new Label
-                {
-                    Text = $"Tag: {product.Tag}",
-                    Location = new Point(10, 280),
-                    Size = new Size(220, 20),
-                    Font = new Font("Segoe UI", 8F),
-                    ForeColor = Color.FromArgb(100, 100, 100)
-                };
-                card.Controls.Add(tagLabel);
-            }
 
             // Price
             Label priceLabel = new Label
@@ -303,37 +286,43 @@ namespace Project_PV
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI", 8F, FontStyle.Bold),
-                Cursor = Cursors.Hand
+                Cursor = Cursors.Hand,
+                Tag = product // Store product in Tag for easy access
             };
             addToCartBtn.FlatAppearance.BorderSize = 0;
-            addToCartBtn.Click += (s, e) => AddToCart(product);
+            addToCartBtn.Click += AddToCartBtn_Click;
             card.Controls.Add(addToCartBtn);
 
             return card;
         }
 
-        private void AddToCart(Product product)
+        private void AddToCartBtn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Added {product.Nama} to cart!", "Success",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-            // Implement actual cart functionality here
-        }
+            Button btn = sender as Button;
+            Product product = btn.Tag as Product;
 
-        public void connectDatabase()
-        {
-            connection = new MySqlConnection(connectionString);
-            try
+            if (product != null)
             {
-                connection.Open();
-                connection.Close();
-                //MessageBox.Show("database connected");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                // Add to cart using CartManager
+                CartManager.AddToCart(
+                    product.ID,
+                    product.Nama,
+                    product.Merk,
+                    product.KategoriNama,
+                    product.Harga,
+                    product.ImageUrl,
+                    1 // Default quantity
+                );
+
+                MessageBox.Show(
+                    $"{product.Nama} added to cart!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
             }
         }
-
+        
         private class Product
         {
             public int ID { get; set; }
