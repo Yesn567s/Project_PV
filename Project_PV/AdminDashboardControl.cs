@@ -151,7 +151,7 @@ namespace Project_PV
                 DataTable dt = new DataTable();
                 dt.Load(reader);
 
-                dataGridViewRecentOrders.DataSource = dt;
+                dataGridViewMembersList.DataSource = dt;
             }
             catch (Exception ex)
             {
@@ -212,7 +212,7 @@ namespace Project_PV
 
                 DataTable dt = new DataTable();
                 dt.Load(reader);
-                dataGridViewMembersList.DataSource = dt;
+                dataGridViewRecentOrders.DataSource = dt;
             }
             catch (Exception ex)
             {

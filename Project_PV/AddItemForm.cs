@@ -17,6 +17,7 @@ namespace Project_PV
     {
         public int productId = 0;
         public bool isEditMode = false;
+        string selectedImagePath = null;
         public AddItemForm()
         {
             InitializeComponent();
@@ -26,7 +27,7 @@ namespace Project_PV
             SetupInsertMode();
         }
 
-        public AddItemForm(int id, string name, int price, int kategoriId, string merk, string tag) // input ada 5 values
+        public AddItemForm(int id, string name, int price, int kategoriId, string merk, string tag, string image_url) // input ada 5 values
         {
             InitializeComponent();
             //LoadTags();
@@ -40,7 +41,22 @@ namespace Project_PV
             textBox3.Text = tag; // Tag
             numericUpDown1.Value = price;
             comboBox1.SelectedValue = kategoriId;
+            selectedImagePath = image_url;
 
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            if (Uri.IsWellFormedUriString(image_url, UriKind.Absolute))
+            {
+                // Load image from URL
+                textBoxLinkImage.Text = image_url;
+            }
+            else if (File.Exists(image_url))
+            {
+                // Load image from local path
+                pictureBox1.Image = new Bitmap(image_url);
+            }else
+            {
+                pictureBox1.Image = null;
+            }
             SetupEditMode();
             //LoadProductTags(id);
         }
@@ -52,6 +68,7 @@ namespace Project_PV
             int price = (int)numericUpDown1.Value;
             int categoryId = Convert.ToInt32(comboBox1.SelectedValue);
             string tag = textBox3.Text;
+            string imagePath = selectedImagePath;
 
             if (name == "" || merk == "")
             {
@@ -64,29 +81,17 @@ namespace Project_PV
                 conn.Open();
 
                 // Insert product
-                string query = "INSERT INTO Produk (Nama, Merk, Harga, kategori_id, Tag) VALUES (@nama, @merk, @harga, @kategori, @tag)";
+                string query = "INSERT INTO Produk (Nama, Merk, Harga, kategori_id, tag, image_url) VALUES (@nama, @merk, @harga, @kategori, @tag, @image)";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@nama", name);
                 cmd.Parameters.AddWithValue("@merk", merk);
                 cmd.Parameters.AddWithValue("@harga", price);
                 cmd.Parameters.AddWithValue("@kategori", categoryId);
                 cmd.Parameters.AddWithValue("@tag", tag);
+                cmd.Parameters.AddWithValue("@image", imagePath);
                 cmd.ExecuteNonQuery();
 
                 long newProductId = cmd.LastInsertedId;
-
-                //// Insert selected tags
-                //foreach (var item in checkedListBoxTags.CheckedItems)
-                //{
-                //    dynamic tag = item;
-                //    int tagId = tag.Value;
-
-                //    string tagQuery = "INSERT INTO Produk_Tag (produk_id, tag_id) VALUES (@pid, @tid)";
-                //    MySqlCommand tagCmd = new MySqlCommand(tagQuery, conn);
-                //    tagCmd.Parameters.AddWithValue("@pid", newProductId);
-                //    tagCmd.Parameters.AddWithValue("@tid", tagId);
-                //    tagCmd.ExecuteNonQuery();
-                //}
 
                 MessageBox.Show("Product added successfully!");
                 this.Close();
@@ -107,40 +112,23 @@ namespace Project_PV
             int price = (int)numericUpDown1.Value;
             int categoryId = Convert.ToInt32(comboBox1.SelectedValue);
             string tag = textBox3.Text;
+            string imagePath = selectedImagePath;
 
             using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
             {
                 conn.Open();
 
                 // Update product
-                string query = "UPDATE Produk SET Nama=@nama, Merk=@merk, Harga=@harga, kategori_id=@kategori, Tag=@tag WHERE ID=@id";
+                string query = "UPDATE Produk SET Nama=@nama, Merk=@merk, Harga=@harga, kategori_id=@kategori, tag=@tag, image_url=@imagepath WHERE ID=@id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@nama", name);
                 cmd.Parameters.AddWithValue("@merk", merk);
                 cmd.Parameters.AddWithValue("@harga", price);
                 cmd.Parameters.AddWithValue("@kategori", categoryId);
                 cmd.Parameters.AddWithValue("@tag", tag);
+                cmd.Parameters.AddWithValue("@imagepath", imagePath);
                 cmd.Parameters.AddWithValue("@id", productId);
                 cmd.ExecuteNonQuery();
-
-                //// Remove all old tags
-                //string deleteTagQuery = "DELETE FROM Produk_Tag WHERE produk_id = @pid";
-                //MySqlCommand deleteCmd = new MySqlCommand(deleteTagQuery, conn);
-                //deleteCmd.Parameters.AddWithValue("@pid", productId);
-                //deleteCmd.ExecuteNonQuery();
-
-                //// Insert new tags
-                //foreach (var item in checkedListBoxTags.CheckedItems)
-                //{
-                //    dynamic tag = item;
-                //    int tagId = tag.Value;
-
-                //    string insertTagQuery = "INSERT INTO Produk_Tag (produk_id, tag_id) VALUES (@pid, @tid)";
-                //    MySqlCommand tagCmd = new MySqlCommand(insertTagQuery, conn);
-                //    tagCmd.Parameters.AddWithValue("@pid", productId);
-                //    tagCmd.Parameters.AddWithValue("@tid", tagId);
-                //    tagCmd.ExecuteNonQuery();
-                //}
 
                 MessageBox.Show("Product updated successfully!");
                 this.Close();
@@ -166,12 +154,6 @@ namespace Project_PV
             using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
             {
                 conn.Open();
-
-                // Delete tags first (FK: product_id)
-                //string deleteTags = "DELETE FROM Produk_Tag WHERE produk_id = @id";
-                //MySqlCommand cmd1 = new MySqlCommand(deleteTags, conn);
-                //cmd1.Parameters.AddWithValue("@id", productId);
-                //cmd1.ExecuteNonQuery();
 
                 // Delete product
                 string deleteProduct = "DELETE FROM Produk WHERE ID = @id";
@@ -218,37 +200,31 @@ namespace Project_PV
         // Unfinished Image Upload Section 
         private void buttonUploadImage_Click(object sender, EventArgs e)
         {
-            string link = textBoxLinkImage.Text;
-            openFileDialog1.Filter = "Image Files(*.jpeg;*.bmp;*.png;*.jpg)|*.jpeg;*.bmp;*.png;*.jpg|All files (*.*)|*.*";
+            openFileDialog1.Filter = "Image Files(*.jpeg;*.bmp;*.png;*.jpg)|*.jpeg;*.bmp;*.png;*.jpg";
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    // Get the selected file path
-                    string selectedFilePath = openFileDialog1.FileName;
+                    selectedImagePath = openFileDialog1.FileName;
 
-                    // Load the image into the PictureBox control
-                    pictureBox1.Image = new System.Drawing.Bitmap(selectedFilePath);
-
-                    // Optional: Adjust the SizeMode property for better display (e.g., Zoom, StretchImage)
+                    pictureBox1.Image = new Bitmap(selectedImagePath);
                     pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+
+                    // Clear URL textbox to avoid conflict
+                    textBoxLinkImage.Text = "";
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    MessageBox.Show("Error loading image: " + ex.Message);
                 }
             }
         }
 
-        private async void textBoxLinkImage_TextChanged(object sender, EventArgs e) // (jpg, png, jpeg, bmp) only
+        private async void textBoxLinkImage_TextChanged(object sender, EventArgs e)
         {
             string imageUrl = textBoxLinkImage.Text.Trim();
 
-            if (string.IsNullOrEmpty(imageUrl))
-                return;
-
-            // Simple validation
             if (!Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute))
                 return;
 
@@ -257,21 +233,22 @@ namespace Project_PV
                 using (WebClient client = new WebClient())
                 {
                     byte[] imageData = await client.DownloadDataTaskAsync(imageUrl);
-
                     using (MemoryStream ms = new MemoryStream(imageData))
                     {
                         pictureBox1.Image = Image.FromStream(ms);
                         pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                     }
                 }
+
+                // Save URL and clear local image
+                selectedImagePath = imageUrl;
             }
             catch
             {
-                // Ignore errors silently (bad URL, no internet, etc.)
                 pictureBox1.Image = null;
+                selectedImagePath = null;
             }
         }
-
 
     }
 }
