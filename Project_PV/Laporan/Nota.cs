@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Project_PV {
+namespace Project_PV.Laporan {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace Project_PV {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class CrystalReport1 : ReportClass {
+    public class Nota : ReportClass {
         
-        public CrystalReport1() {
+        public Nota() {
         }
         
         public override string ResourceName {
             get {
-                return "CrystalReport1.rpt";
+                return "Nota.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Project_PV {
         
         public override string FullResourceName {
             get {
-                return "Project_PV.CrystalReport1.rpt";
+                return "Project_PV.Laporan.Nota.rpt";
             }
             set {
                 // Do nothing
@@ -106,9 +106,9 @@ namespace Project_PV {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedCrystalReport1 : Component, ICachedReport {
+    public class CachedNota : Component, ICachedReport {
         
-        public CachedCrystalReport1() {
+        public CachedNota() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace Project_PV {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            CrystalReport1 rpt = new CrystalReport1();
+            Nota rpt = new Nota();
             rpt.Site = this.Site;
             return rpt;
         }

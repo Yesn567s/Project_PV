@@ -1,28 +1,24 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace Project_PV
 {
     public partial class FormNota : Form
     {
-        private DataSet DataSetNota;
+        private DataSet notaDataSet;
+        private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
 
         public FormNota(DataSet dataSet)
         {
             InitializeComponent();
-            this.DataSetNota = dataSet;
-            LoadReceipt();
+            this.notaDataSet = dataSet;
+            LoadNota();
         }
 
-        private void LoadReceipt()
+        private void LoadNota()
         {
             try
             {
@@ -31,11 +27,11 @@ namespace Project_PV
 
                 // Load the report file (you'll create this in Crystal Reports designer)
                 // Make sure the path is correct - adjust based on your project structure
-                string reportPath = Application.StartupPath + @"\Reports\ReceiptReport.rpt";
+                string reportPath = Application.StartupPath + @"\Laporan\Nota.rpt";
                 reportDoc.Load(reportPath);
 
-                // Set the dataset as data source
-                reportDoc.SetDataSource(DataSetNota);
+                // Set the dataset as data source   
+                reportDoc.SetDataSource(notaDataSet);
 
                 // Assign report to viewer
                 crystalReportViewer1.ReportSource = reportDoc;
@@ -44,7 +40,7 @@ namespace Project_PV
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    $"Error loading receipt:\n{ex.Message}\n\nMake sure ReceiptReport.rpt exists in the Reports folder.",
+                    $"Error loading receipt:\n{ex.Message}\n\nMake sure Nota.rpt exists in the Laporan folder.",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -58,9 +54,9 @@ namespace Project_PV
             try
             {
                 ReportDocument reportDoc = new ReportDocument();
-                string reportPath = Application.StartupPath + @"\Reports\ReceiptReport.rpt";
+                string reportPath = Application.StartupPath + @"\Laporan\Nota.rpt";
                 reportDoc.Load(reportPath);
-                reportDoc.SetDataSource(DataSetNota);
+                reportDoc.SetDataSource(notaDataSet);
 
                 // Print to default printer
                 reportDoc.PrintToPrinter(1, false, 0, 0);
@@ -76,4 +72,3 @@ namespace Project_PV
         }
     }
 }
-

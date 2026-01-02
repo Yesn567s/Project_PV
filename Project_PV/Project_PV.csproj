@@ -150,11 +150,18 @@
       <DependentUpon>AdminPromoManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="CartManager.cs" />
-    <Compile Include="CrystalReport1.cs">
+    <Compile Include="FormNota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNota.Designer.cs">
+      <DependentUpon>FormNota.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Laporan\Nota.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <DependentUpon>Nota.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DataSetNota.cs">
       <DependentUpon>DataSetNota.xsd</DependentUpon>
@@ -175,12 +182,6 @@
     </Compile>
     <Compile Include="FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormNota.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormNota.Designer.cs">
-      <DependentUpon>FormNota.cs</DependentUpon>
     </Compile>
     <Compile Include="FormRegister.cs">
       <SubType>Form</SubType>
@@ -244,15 +245,13 @@
     <EmbeddedResource Include="AdminPromoManagement.resx">
       <DependentUpon>AdminPromoManagement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CrystalReport1.rpt">
+    <EmbeddedResource Include="Laporan\Nota.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+      <LastGenOutput>Nota.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormNota.resx">
-      <DependentUpon>FormNota.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
@@ -319,5 +318,6 @@
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

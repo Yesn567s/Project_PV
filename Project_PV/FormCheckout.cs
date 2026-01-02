@@ -98,10 +98,8 @@ namespace Project_PV
                             cmdDetail.ExecuteNonQuery();
                         }
 
-                        // Commit transaction
                         transaction.Commit();
 
-                        // Success message
                         MessageBox.Show(
                             $"Transaction completed successfully!\nTransaction ID: {transactionID}",
                             "Success",
@@ -109,11 +107,9 @@ namespace Project_PV
                             MessageBoxIcon.Information
                         );
 
-                        // Clear cart
                         CartManager.ClearCart();
 
-                        // Show receipt
-                        ShowReceipt();
+                        ShowNota();
 
                         // Close checkout form
                         this.DialogResult = DialogResult.OK;
@@ -137,14 +133,12 @@ namespace Project_PV
             }
         }
 
-        private void ShowReceipt()
+        private void ShowNota()
         {
             try
             {
-                // Create dataset for receipt
                 DataSet DataSetNota = CreateDataSetNota();
 
-                // Show receipt form
                 FormNota fr = new FormNota(DataSetNota);
                 fr.ShowDialog();
             }
@@ -193,7 +187,7 @@ namespace Project_PV
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
                 adapter.SelectCommand.Parameters.AddWithValue("@transactionID", transactionID);
-                adapter.Fill(ds, "Receipt");
+                adapter.Fill(ds, "Nota");
             }
 
             return ds;
