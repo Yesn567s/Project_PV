@@ -85,10 +85,10 @@ namespace Project_PV
             //DateTime date1=DateTime.Parse(temp);
             //temp=dateTimePicker2.Value.ToString("yyyy-MM-dd") + " " + hour2.ToString("D2") + ":" + minute2.ToString("D2") + ":00";
             //DateTime date2=DateTime.Parse(temp);
-            DateTime date1 = dateTimePicker1.Value.Date.Add(new TimeSpan(hour1, minute1, 0));
-            DateTime date2 = dateTimePicker2.Value.Date.Add(new TimeSpan(hour2, minute2, 0));
             try
             {
+                DateTime date1 = dateTimePicker1.Value.Date.Add(new TimeSpan(hour1, minute1, 0));
+                DateTime date2 = dateTimePicker2.Value.Date.Add(new TimeSpan(hour2, minute2, 0));
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
