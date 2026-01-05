@@ -50,6 +50,9 @@ namespace Project_PV
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
+            // Clear cart manager
+            CartManager.SetCurrentUser(0);
+
             GlobalData.Clear();
             this.Hide();
             FormLogin loginForm = new FormLogin();
@@ -101,6 +104,10 @@ namespace Project_PV
             {
                 user_cart_control = new UserCartControl();
             }
+
+            // Pass member info to cart
+            user_cart_control.SetMemberInfo(GlobalData.UserID, GlobalData.IsMember);
+
             LoadUserControl(user_cart_control);
         }
 
@@ -123,7 +130,7 @@ namespace Project_PV
 
             homeButton.ForeColor = Color.FromArgb(60, 60, 60);
             catalogButton.ForeColor = Color.FromArgb(60, 60, 60);
-            cartButton.ForeColor = Color.FromArgb(60, 60, 60);
+            cartButton.ForeColor = Color.FromArgb(60, 60, 60);  
             membershipButton.ForeColor = Color.FromArgb(60, 60, 60);
 
             // Set the selected button color

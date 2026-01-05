@@ -73,7 +73,10 @@ namespace Project_PV
                                     GlobalData.MembershipStart = reader.IsDBNull(5) ? DateTime.MinValue : reader.GetDateTime(5);
                                     GlobalData.MembershipEnd = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
 
-                                    //MessageBox.Show(GlobalData.UserID.ToString());
+                                    reader.Close();
+
+                                    // IMPORTANT: Initialize cart for logged-in user
+                                    CartManager.SetCurrentUser(GlobalData.UserID);
 
                                     UserDashboard userDashboard = new UserDashboard();
                                     userDashboard.Show();
