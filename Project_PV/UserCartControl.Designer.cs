@@ -123,6 +123,7 @@
             this.itemsFlowLayoutPanel.Controls.Add(this.itemPanel);
             this.itemsFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemsFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.itemsFlowLayoutPanel.WrapContents = false;
             this.itemsFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.itemsFlowLayoutPanel.Name = "itemsFlowLayoutPanel";
             this.itemsFlowLayoutPanel.Size = new System.Drawing.Size(782, 456);

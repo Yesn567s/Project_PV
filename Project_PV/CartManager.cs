@@ -13,6 +13,7 @@ namespace Project_PV
         public string ProductName { get; set; }
         public string Brand { get; set; }
         public string Category { get; set; }
+        public string Tag { get; set; }
         public int UnitPrice { get; set; }
         public int Quantity { get; set; }
         public string ImageUrl { get; set; }
@@ -21,6 +22,25 @@ namespace Project_PV
         {
             get { return UnitPrice * Quantity; }
         }
+
+    
+    }
+
+    // Promo model
+    public class Promo
+    {
+        public int ID { get; set; }
+        public string Nama_Promo { get; set; }
+        public string Target_Type { get; set; }
+        public string Target_Value { get; set; }
+        public string Jenis_Promo { get; set; }
+        public float Nilai_Potongan { get; set; }
+        public int? Harga_Baru { get; set; }
+        public int Min_Qty { get; set; }
+        public int? Bonus_Produk_ID { get; set; }
+        public int Gratis_Qty { get; set; }
+        public DateTime START { get; set; }
+        public DateTime? END { get; set; }
     }
 
     // Database-backed Cart Manager
@@ -119,6 +139,7 @@ namespace Project_PV
                 {
                     conn.Open();
 
+
                     string query = @"
                         SELECT 
                             cd.ID as CartDetailID,
@@ -127,6 +148,7 @@ namespace Project_PV
                             p.Nama as ProductName,
                             p.Merk as Brand,
                             p.Harga as UnitPrice,
+                            p.tag as tag,
                             p.image_url as ImageUrl,
                             k.Nama as Category
                         FROM Cart_Detail cd
@@ -150,6 +172,7 @@ namespace Project_PV
                                 Brand = reader.GetString("Brand"),
                                 Category = reader.GetString("Category"),
                                 UnitPrice = reader.GetInt32("UnitPrice"),
+                                Tag = reader.IsDBNull(reader.GetOrdinal("tag")) ? "" : reader.GetString("tag"),
                                 Quantity = reader.GetInt32("Quantity"),
                                 ImageUrl = reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? "" : reader.GetString("ImageUrl")
                             });
@@ -163,6 +186,235 @@ namespace Project_PV
             }
 
             return items;
+        }
+
+        // Get first applicable promo for a product given quantity (or null)
+        // Select best promo based on priority: Bonus > Harga_Jadi > Persen > Grosir
+        public static Promo GetBestPromoForProduct(int productId, int quantity)
+        {
+            if (currentCartID == 0)
+                LoadOrCreateCart();
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT pr.*
+                        FROM promo pr
+                        JOIN produk p ON p.ID = @productId
+                        JOIN kategori k ON p.kategori_id = k.ID
+                        WHERE NOW() BETWEEN pr.START AND COALESCE(pr.END, NOW())
+                        AND (
+                            pr.Target_Type = 'Global'
+                            OR (pr.Target_Type = 'Produk' AND pr.Target_Value = p.Nama)
+                            OR (pr.Target_Type = 'Merk' AND pr.Target_Value = p.Merk)
+                            OR (pr.Target_Type = 'Kategori' AND pr.Target_Value = k.Nama)
+                            OR (pr.Target_Type = 'Tag' AND (p.tag LIKE CONCAT('%', pr.Target_Value, '%') OR FIND_IN_SET(pr.Target_Value, p.tag)))
+                        )
+                        ORDER BY pr.ID DESC";
+
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@productId", productId);
+
+                    List<Promo> promos = new List<Promo>();
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Promo pr = new Promo
+                            {
+                                ID = reader.GetInt32("ID"),
+                                Nama_Promo = reader.GetString("Nama_Promo"),
+                                Target_Type = reader.GetString("Target_Type"),
+                                Target_Value = reader.GetString("Target_Value"),
+                                Jenis_Promo = reader.GetString("Jenis_Promo"),
+                                Nilai_Potongan = reader.IsDBNull(reader.GetOrdinal("Nilai_Potongan")) ? 0 : reader.GetFloat("Nilai_Potongan"),
+                                Harga_Baru = reader.IsDBNull(reader.GetOrdinal("Harga_Baru")) ? (int?)null : reader.GetInt32("Harga_Baru"),
+                                Min_Qty = reader.IsDBNull(reader.GetOrdinal("Min_Qty")) ? 1 : reader.GetInt32("Min_Qty"),
+                                Bonus_Produk_ID = reader.IsDBNull(reader.GetOrdinal("Bonus_Produk_ID")) ? (int?)null : reader.GetInt32("Bonus_Produk_ID"),
+                                Gratis_Qty = reader.IsDBNull(reader.GetOrdinal("Gratis_Qty")) ? 0 : reader.GetInt32("Gratis_Qty"),
+                                START = reader.GetDateTime("START"),
+                                END = reader.IsDBNull(reader.GetOrdinal("END")) ? (DateTime?)null : reader.GetDateTime("END")
+                            };
+
+                            promos.Add(pr);
+                        }
+                    }
+
+                    // select by priority
+                    Promo chosen = null;
+                    // Bonus
+                    foreach (Promo pr in promos)
+                    {
+                        if (pr.Jenis_Promo == "Bonus") { chosen = pr; break; }
+                    }
+                    if (chosen == null)
+                    {
+                        // Harga_Jadi
+                        foreach (Promo pr in promos)
+                        {
+                            if (pr.Jenis_Promo == "Harga_Jadi") { chosen = pr; break; }
+                        }
+                    }
+                    if (chosen == null)
+                    {
+                        // Persen
+                        foreach (Promo pr in promos)
+                        {
+                            if (pr.Jenis_Promo == "Persen") { chosen = pr; break; }
+                        }
+                    }
+                    if (chosen == null)
+                    {
+                        // Grosir
+                        foreach (Promo pr in promos)
+                        {
+                            if (pr.Jenis_Promo == "Grosir") { chosen = pr; break; }
+                        }
+                    }
+
+                    if (chosen != null)
+                    {
+                        // check min qty
+                        if ((chosen.Jenis_Promo == "Grosir" || chosen.Jenis_Promo == "Harga_Jadi" || chosen.Jenis_Promo == "Persen") && quantity < chosen.Min_Qty)
+                        {
+                            return null;
+                        }
+                        if (chosen.Jenis_Promo == "Bonus" && quantity < chosen.Min_Qty)
+                        {
+                            return null;
+                        }
+                        return chosen;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error getting promo: {ex.Message}");
+            }
+
+            return null;
+        }
+
+        // Cart display item with applied promo/effective price
+        public class CartDisplayItem
+        {
+            public CartItem Item { get; set; }
+            public Promo AppliedPromo { get; set; }
+            public int EffectiveUnitPrice { get; set; }
+            public int EffectiveSubtotal { get; set; }
+            public bool IsBonusItem { get; set; }
+        }
+
+        // Load product basic info by id
+        public static CartItem LoadProductById(int productId)
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"SELECT p.ID as ProductID, p.Nama as ProductName, p.Merk as Brand, p.Harga as UnitPrice, p.image_url as ImageUrl, k.Nama as Category, p.tag as tag FROM produk p JOIN kategori k ON p.kategori_id = k.ID WHERE p.ID = @id";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@id", productId);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new CartItem
+                            {
+                                ProductID = reader.GetInt32("ProductID"),
+                                ProductName = reader.GetString("ProductName"),
+                                Brand = reader.IsDBNull(reader.GetOrdinal("Brand")) ? "" : reader.GetString("Brand"),
+                                UnitPrice = reader.GetInt32("UnitPrice"),
+                                ImageUrl = reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? "" : reader.GetString("ImageUrl"),
+                                Category = reader.IsDBNull(reader.GetOrdinal("Category")) ? "" : reader.GetString("Category"),
+                                Tag = reader.IsDBNull(reader.GetOrdinal("tag")) ? "" : reader.GetString("tag")
+                            };
+                        }
+                    }
+                }
+            }
+            catch { }
+            return null;
+        }
+
+        // Return cart items prepared for display with promos applied
+        public static List<CartDisplayItem> GetCartDisplayItems()
+        {
+            List<CartDisplayItem> result = new List<CartDisplayItem>();
+            List<CartItem> baseItems = GetCartItems();
+
+            foreach (CartItem ci in baseItems)
+            {
+                Promo pr = GetBestPromoForProduct(ci.ProductID, ci.Quantity);
+
+                if (pr == null)
+                {
+                    // no promo
+                    CartDisplayItem di = new CartDisplayItem { Item = ci, AppliedPromo = null, EffectiveUnitPrice = ci.UnitPrice, EffectiveSubtotal = ci.UnitPrice * ci.Quantity, IsBonusItem = false };
+                    result.Add(di);
+                    continue;
+                }
+
+                string type = pr.Jenis_Promo;
+                if (type == "Bonus")
+                {
+                    // original item unchanged price
+                    CartDisplayItem di = new CartDisplayItem { Item = ci, AppliedPromo = pr, EffectiveUnitPrice = ci.UnitPrice, EffectiveSubtotal = ci.UnitPrice * ci.Quantity, IsBonusItem = false };
+                    result.Add(di);
+
+                    // calculate bonus qty
+                    if (pr.Bonus_Produk_ID.HasValue && pr.Gratis_Qty > 0)
+                    {
+                        int groups = ci.Quantity / pr.Min_Qty;
+                        int bonusQty = groups * pr.Gratis_Qty;
+                        if (bonusQty > 0)
+                        {
+                            CartItem bonusProduct = LoadProductById(pr.Bonus_Produk_ID.Value);
+                            if (bonusProduct != null)
+                            {
+                                bonusProduct.Quantity = bonusQty;
+                                CartDisplayItem bonusDi = new CartDisplayItem { Item = bonusProduct, AppliedPromo = pr, EffectiveUnitPrice = 0, EffectiveSubtotal = 0, IsBonusItem = true };
+                                result.Add(bonusDi);
+                            }
+                        }
+                    }
+                }
+                else if (type == "Harga_Jadi")
+                {
+                    int effUnit = (pr.Harga_Baru.HasValue && pr.Harga_Baru.Value > 0) ? pr.Harga_Baru.Value : ci.UnitPrice;
+                    CartDisplayItem di = new CartDisplayItem { Item = ci, AppliedPromo = pr, EffectiveUnitPrice = effUnit, EffectiveSubtotal = effUnit * ci.Quantity, IsBonusItem = false };
+                    result.Add(di);
+                }
+                else if (type == "Persen")
+                {
+                    int effUnit = ci.UnitPrice - (int)Math.Round(ci.UnitPrice * (pr.Nilai_Potongan / 100.0f));
+                    if (effUnit < 0) effUnit = 0;
+                    CartDisplayItem di = new CartDisplayItem { Item = ci, AppliedPromo = pr, EffectiveUnitPrice = effUnit, EffectiveSubtotal = effUnit * ci.Quantity, IsBonusItem = false };
+                    result.Add(di);
+                }
+                else if (type == "Grosir")
+                {
+                    if (pr.Min_Qty <= 0) pr.Min_Qty = 1;
+                    int groups = ci.Quantity / pr.Min_Qty;
+                    int remainder = ci.Quantity % pr.Min_Qty;
+                    int groupPrice = (pr.Harga_Baru.HasValue && pr.Harga_Baru.Value > 0) ? pr.Harga_Baru.Value : pr.Min_Qty * ci.UnitPrice;
+                    int effSubtotal = groups * groupPrice + remainder * ci.UnitPrice;
+                    // effective unit price isn't uniform; set to original unit for display but subtotal adjusted
+                    CartDisplayItem di = new CartDisplayItem { Item = ci, AppliedPromo = pr, EffectiveUnitPrice = ci.UnitPrice, EffectiveSubtotal = effSubtotal, IsBonusItem = false };
+                    result.Add(di);
+                }
+                else
+                {
+                    CartDisplayItem di = new CartDisplayItem { Item = ci, AppliedPromo = pr, EffectiveUnitPrice = ci.UnitPrice, EffectiveSubtotal = ci.UnitPrice * ci.Quantity, IsBonusItem = false };
+                    result.Add(di);
+                }
+            }
+
+            return result;
         }
 
         // Add item to cart

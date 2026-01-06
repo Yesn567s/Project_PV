@@ -76,23 +76,27 @@ namespace Project_PV
         {
             itemsFlowLayoutPanel.Controls.Clear();
 
-            var cartItems = CartManager.GetCartItems();
+            // Use display items which include applied promos and bonus items
+            var displayItems = CartManager.GetCartDisplayItems();
 
-            // Update item count label
-            int totalQty = cartItems.Sum(i => i.Quantity);
+            // Update item count label based on real cart items (exclude promo free items)
+            var baseItems = CartManager.GetCartItems();
+            int totalQty = baseItems.Sum(i => i.Quantity);
             itemCountLabel.Text = totalQty == 1 ?
                 "1 item in your cart" :
                 $"{totalQty} items in your cart";
 
-            foreach (var item in cartItems)
+            foreach (var di in displayItems)
             {
-                Panel itemPanel = CreateCartItemPanel(item);
+                Panel itemPanel = CreateCartItemPanel(di);
                 itemsFlowLayoutPanel.Controls.Add(itemPanel);
             }
         }
 
-        private Panel CreateCartItemPanel(CartItem item)
+        private Panel CreateCartItemPanel(CartManager.CartDisplayItem displayItem)
         {
+            var item = displayItem.Item;
+
             Panel panel = new Panel
             {
                 BackColor = Color.White,
@@ -155,22 +159,29 @@ namespace Project_PV
             };
             panel.Controls.Add(brandLabel);
 
-            // Quantity NumericUpDown
-            NumericUpDown quantityUpDown = new NumericUpDown
+            // Quantity NumericUpDown (only for actual cart items, not bonus freebies)
+            NumericUpDown quantityUpDown = null;
+            if (!displayItem.IsBonusItem)
+            {
+                quantityUpDown = new NumericUpDown
             {
                 Location = new Point(200, 100),
                 Size = new Size(120, 34),
                 Font = new Font("Segoe UI", 12F),
                 Minimum = 1,
                 Maximum = 999,
-                Value = item.Quantity,
-                Tag = item.ProductID
+                    Value = item.Quantity,
+                    Tag = item.ProductID
             };
-            quantityUpDown.ValueChanged += QuantityUpDown_ValueChanged;
-            panel.Controls.Add(quantityUpDown);
+                quantityUpDown.ValueChanged += QuantityUpDown_ValueChanged;
+                panel.Controls.Add(quantityUpDown);
+            }
 
-            // Remove Button
-            Button removeBtn = new Button
+            // Remove Button (only for actual cart items)
+            Button removeBtn = null;
+            if (!displayItem.IsBonusItem)
+            {
+                removeBtn = new Button
             {
                 Text = "✕ Remove",
                 Location = new Point(200, 150),
@@ -183,30 +194,114 @@ namespace Project_PV
             };
             removeBtn.FlatAppearance.BorderSize = 0;
             removeBtn.Click += RemoveBtn_Click;
-            panel.Controls.Add(removeBtn);
+                panel.Controls.Add(removeBtn);
+            }
 
-            // Item Price
+            // Item Price (show effective subtotal) and price per unit
             Label itemPriceLabel = new Label
             {
-                Text = $"Rp {item.Subtotal:N0}",
-                Location = new Point(620, 83),
-                Size = new Size(110, 28),
-                Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold),
+                Text = $"Rp {displayItem.EffectiveSubtotal:N0}",
+                Location = new Point(620, 60),
+                Size = new Size(120, 30),
+                Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(0, 120, 215),
                 TextAlign = ContentAlignment.MiddleRight
             };
             panel.Controls.Add(itemPriceLabel);
 
-            // Price Each
-            Label priceEachLabel = new Label
+            // Discounted per-unit (only for Persen or Harga_Jadi)
+            Label discountedEachLabel = null;
+            if (!displayItem.IsBonusItem && displayItem.AppliedPromo != null &&
+                (displayItem.AppliedPromo.Jenis_Promo == "Persen" || displayItem.AppliedPromo.Jenis_Promo == "Harga_Jadi") &&
+                displayItem.EffectiveUnitPrice != item.UnitPrice)
+            {
+                discountedEachLabel = new Label
+                {
+                    Text = $"Rp {displayItem.EffectiveUnitPrice:N0} each",
+                    Location = new Point(620, 95),
+                    Size = new Size(120, 18),
+                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                    ForeColor = Color.Green,
+                    TextAlign = ContentAlignment.MiddleRight
+                };
+                panel.Controls.Add(discountedEachLabel);
+            }
+
+            // Original unit price (may be struck through if discounted)
+            Label originalEachLabel = new Label
             {
                 Text = $"Rp {item.UnitPrice:N0} each",
-                Location = new Point(620, 111),
-                Size = new Size(110, 23),
-                Font = new Font("Segoe UI", 10.2F),
+                Location = new Point(620, 118),
+                Size = new Size(120, 18),
+                Font = new Font("Segoe UI", 9F),
                 ForeColor = Color.Gray,
                 TextAlign = ContentAlignment.MiddleRight
             };
-            panel.Controls.Add(priceEachLabel);
+            if (discountedEachLabel != null)
+            {
+                originalEachLabel.Font = new Font(originalEachLabel.Font, FontStyle.Strikeout);
+            }
+            panel.Controls.Add(originalEachLabel);
+
+            // Promo label (center/right) describing promo in Indonesian
+            Label promoLabel = new Label
+            {
+                Text = "",
+                AutoSize = true,
+                MaximumSize = new Size(300, 0), // wrap at ~300px
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(0, 120, 215),
+                TextAlign = ContentAlignment.TopLeft,
+                BackColor = Color.Transparent,
+                Location = new Point(340, 120) // moved to the right within the item panel
+            };
+
+            // Set promo text based on applied promo
+            if (displayItem.AppliedPromo != null)
+            {
+                var pr = displayItem.AppliedPromo;
+                if (displayItem.IsBonusItem)
+                {
+                    // example: "promo bonus kamu mendapatkan bonus 2 Botol Cleo"
+                    string prodName = item.ProductName;
+                    promoLabel.Text = $"Promo bonus: kamu mendapatkan bonus {item.Quantity} {prodName}";
+                }
+                else if (pr.Jenis_Promo == "Harga_Jadi")
+                {
+                    int saving = (item.UnitPrice - displayItem.EffectiveUnitPrice) * item.Quantity;
+                    if (saving < 0) saving = 0;
+                    promoLabel.Text = $"Promo harga jadi: kamu menyimpan Rp {saving:N0}";
+                }
+                else if (pr.Jenis_Promo == "Persen")
+                {
+                    int saving = (item.UnitPrice - displayItem.EffectiveUnitPrice) * item.Quantity;
+                    if (saving < 0) saving = 0;
+                    promoLabel.Text = $"Promo persen: kamu menyimpan Rp {saving:N0}";
+                }
+                else if (pr.Jenis_Promo == "Grosir")
+                {
+                    int normal = item.UnitPrice * item.Quantity;
+                    int saving = normal - displayItem.EffectiveSubtotal;
+                    if (saving < 0) saving = 0;
+                    promoLabel.Text = $"Promo grosir: kamu menyimpan Rp {saving:N0}";
+                }
+                else if (pr.Jenis_Promo == "Bonus")
+                {
+                    // handled above for bonus item; for main item show message indicating bonus product
+                    if (pr.Bonus_Produk_ID.HasValue)
+                    {
+                        // load bonus product name using public loader
+                        string bonusName = CartManager.LoadProductById(pr.Bonus_Produk_ID.Value)?.ProductName ?? "produk bonus";
+                        int groups = item.Quantity / pr.Min_Qty;
+                        int bonusQty = groups * pr.Gratis_Qty;
+                        if (bonusQty > 0)
+                            promoLabel.Text = $"Promo bonus: kamu mendapatkan bonus {bonusQty} {bonusName}";
+                    }
+                }
+            }
+
+            panel.Controls.Add(promoLabel);
+            promoLabel.BringToFront();
 
             return panel;
         }
