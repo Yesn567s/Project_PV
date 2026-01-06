@@ -143,6 +143,12 @@
     <Compile Include="AdminManagementControl.Designer.cs">
       <DependentUpon>AdminManagementControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdminSpecialPromoManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminSpecialPromoManagement.Designer.cs">
+      <DependentUpon>AdminSpecialPromoManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdminPromoManagement.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -241,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AdminManagementControl.resx">
       <DependentUpon>AdminManagementControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminSpecialPromoManagement.resx">
+      <DependentUpon>AdminSpecialPromoManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AdminPromoManagement.resx">
       <DependentUpon>AdminPromoManagement.cs</DependentUpon>

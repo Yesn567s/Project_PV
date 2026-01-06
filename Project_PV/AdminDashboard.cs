@@ -16,6 +16,8 @@ namespace Project_PV
         private AdminDashboardControl adminDashboardControl = new AdminDashboardControl();
         private AdminManagementControl adminManagementControl = new AdminManagementControl();
         private AdminPromoManagement adminPromoControl = new AdminPromoManagement();
+        private AdminSpecialPromoManagement adminSpecialPromoControl = new AdminSpecialPromoManagement();
+
         public AdminDashboard()
         {
             InitializeComponent();
@@ -52,6 +54,7 @@ namespace Project_PV
             btnControl_design(buttonPromo);
         }
 
+
         // Load User Controls on Button Click
         private void LoadUserControl(UserControl control)
         {
@@ -85,6 +88,15 @@ namespace Project_PV
                 adminPromoControl = new AdminPromoManagement();
             }
             LoadUserControl(adminPromoControl);
+        }
+
+        private void buttonPromoSpecial_Click(object sender, EventArgs e)
+        {
+            if (adminSpecialPromoControl == null)
+            {
+                adminSpecialPromoControl = new AdminSpecialPromoManagement();
+            }
+            LoadUserControl(adminSpecialPromoControl);
         }
 
         private void btnControl_design(Button activeButton)
