@@ -16,14 +16,14 @@ namespace Project_PV.Laporan {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class Nota : ReportClass {
+    public class NotaNonMember : ReportClass {
         
-        public Nota() {
+        public NotaNonMember() {
         }
         
         public override string ResourceName {
             get {
-                return "Nota.rpt";
+                return "NotaNonMember.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Project_PV.Laporan {
         
         public override string FullResourceName {
             get {
-                return "Project_PV.Laporan.Nota.rpt";
+                return "Project_PV.Laporan.NotaNonMember.rpt";
             }
             set {
                 // Do nothing
@@ -106,9 +106,9 @@ namespace Project_PV.Laporan {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedNota : Component, ICachedReport {
+    public class CachedNotaNonMember : Component, ICachedReport {
         
-        public CachedNota() {
+        public CachedNotaNonMember() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace Project_PV.Laporan {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            Nota rpt = new Nota();
+            NotaNonMember rpt = new NotaNonMember();
             rpt.Site = this.Site;
             return rpt;
         }

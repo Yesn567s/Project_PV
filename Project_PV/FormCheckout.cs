@@ -40,6 +40,17 @@ namespace Project_PV
             lblDiscount.Text = isMember ? $"-Rp {discount:N0}" : "Rp 0";
             lblTotal.Text = $"Rp {total:N0}";
             lblItemCount.Text = $"{cartItems.Count} items ({CartManager.GetItemCount()} total)";
+
+            if (GlobalData.IsMember)
+            {
+                lblDiscountLabel.Visible = true;
+                lblDiscount.Visible = true;
+            }
+            else
+            {
+                lblDiscount.Visible = false;
+                lblDiscountLabel.Visible = false;
+            }
         }
 
         private void btnConfirmCheckout_Click(object sender, EventArgs e)

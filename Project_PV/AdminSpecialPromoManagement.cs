@@ -22,6 +22,7 @@ namespace Project_PV
             refreshDGVList();
             loadComboBox();
             LoadDefaultSetting();
+            LoadPromo_SpecialCount();
             searchBox.TextChanged += (s, e) => ApplyFilters();
             filterByComboBox.SelectedIndexChanged += (s, e) => ApplyFilters();
             sortByComboBox.SelectedIndexChanged += (s, e) => ApplyFilters();
@@ -188,8 +189,25 @@ namespace Project_PV
 
             connection.Close();
         }
+        private void LoadPromo_SpecialCount()
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(*) FROM promo_special";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
 
-        
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    labelItemCount.Text = $"Showing {count} Items";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error counting items: " + ex.Message);
+            }
+        }
 
         public void connectDatabase()
         {

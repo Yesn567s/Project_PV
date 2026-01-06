@@ -22,6 +22,16 @@ namespace Project_PV
             InitializeComponent();
             LoadDashboard();
             LoadUserData();
+
+            // Start background image preloading (non-blocking). Use connection string from catalog control or configure here.
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ImagePreloader.PreloadFromDatabaseAsync("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;");
+                }
+                catch { }
+            });
         }
 
         private void homeButton_Click(object sender, EventArgs e)
