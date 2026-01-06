@@ -20,7 +20,8 @@ namespace Project_PV
             InitializeComponent();
             connectDatabase();
             refreshDGVList();
-            loadComboBox();
+            filterByComboBox.Items.Add("Input");
+            filterByComboBox.Items.Add("YesNo");
             LoadDefaultSetting();
             LoadPromo_SpecialCount();
             searchBox.TextChanged += (s, e) => ApplyFilters();
@@ -48,7 +49,7 @@ namespace Project_PV
                 // Base SQL
                 string query =
                     "SELECT * " +
-                    "FROM Promo p " +
+                    "FROM promo_special p " +
                     "WHERE 1=1 ";
 
                 // SEARCH condition
@@ -60,10 +61,10 @@ namespace Project_PV
                 // FILTER condition
                 if (selectedCategory != "") // 0 means "None"
                 {
-                    query += "AND p.target_type = @kategori ";
+                    query += "AND p.kategori = @kategori ";
                 }
 
-                query += "GROUP BY p.ID, p.Nama_Promo, p.Target_type ";
+                query += "GROUP BY p.ID, p.Nama_Promo, p.kategori ";
 
                 // SORT condition
                 switch (sortOption)
@@ -143,7 +144,7 @@ namespace Project_PV
                     connection.Open();
                 }
 
-                string query = "SELECT * from promo;";
+                string query = "SELECT * from promo_special;";
 
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -162,32 +163,6 @@ namespace Project_PV
             {
                 connection.Close();
             }
-        }
-
-        public void loadComboBox()
-        {
-            connection.Open();
-
-            string query = "SELECT Target_type FROM promo GROUP BY Target_type";
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(reader);
-
-            // Create a "None" row
-            DataRow noneRow = dt.NewRow();
-            noneRow["Target_type"] = "";
-            dt.Rows.InsertAt(noneRow, 0); // insert at top
-
-            filterByComboBox.DisplayMember = "Target_type";
-            filterByComboBox.ValueMember = "Target_type";
-            filterByComboBox.DataSource = dt;
-
-            filterByComboBox.SelectedIndex = 0; // Select "None"
-
-            filterByComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            connection.Close();
         }
         private void LoadPromo_SpecialCount()
         {
@@ -226,7 +201,7 @@ namespace Project_PV
 
         private void AddBookButton_Click(object sender, EventArgs e)
         {
-            AddPromoForm addItemForm = new AddPromoForm();
+            AddSpecialPromoForm addItemForm = new AddSpecialPromoForm();
             addItemForm.FormClosed += (s, args) => refreshDGVList();
             addItemForm.ShowDialog();
         }

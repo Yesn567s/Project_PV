@@ -33,12 +33,12 @@
             this.dataGridViewItems = new System.Windows.Forms.DataGridView();
             this.panel8 = new System.Windows.Forms.Panel();
             this.sortByComboBox = new System.Windows.Forms.ComboBox();
-            this.filterByComboBox = new System.Windows.Forms.ComboBox();
             this.label32 = new System.Windows.Forms.Label();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.labelItemCount = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
+            this.filterByComboBox = new System.Windows.Forms.ComboBox();
             this.bookManagementPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
             this.panel8.SuspendLayout();
@@ -67,12 +67,12 @@
             this.AddBookButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddBookButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.AddBookButton.ForeColor = System.Drawing.Color.White;
-            this.AddBookButton.Location = new System.Drawing.Point(1129, 41);
+            this.AddBookButton.Location = new System.Drawing.Point(1095, 40);
             this.AddBookButton.Margin = new System.Windows.Forms.Padding(4);
             this.AddBookButton.Name = "AddBookButton";
-            this.AddBookButton.Size = new System.Drawing.Size(157, 37);
+            this.AddBookButton.Size = new System.Drawing.Size(214, 37);
             this.AddBookButton.TabIndex = 10;
-            this.AddBookButton.Text = "+ Add New Promo";
+            this.AddBookButton.Text = "+ Add New Promo Spesial";
             this.AddBookButton.UseVisualStyleBackColor = false;
             this.AddBookButton.Click += new System.EventHandler(this.AddBookButton_Click);
             // 
@@ -116,18 +116,6 @@
             this.sortByComboBox.Name = "sortByComboBox";
             this.sortByComboBox.Size = new System.Drawing.Size(232, 24);
             this.sortByComboBox.TabIndex = 6;
-            // 
-            // filterByComboBox
-            // 
-            this.filterByComboBox.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.filterByComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.filterByComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.filterByComboBox.FormattingEnabled = true;
-            this.filterByComboBox.Location = new System.Drawing.Point(831, 20);
-            this.filterByComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.filterByComboBox.Name = "filterByComboBox";
-            this.filterByComboBox.Size = new System.Drawing.Size(232, 24);
-            this.filterByComboBox.TabIndex = 5;
             // 
             // label32
             // 
@@ -183,6 +171,18 @@
             this.label35.TabIndex = 5;
             this.label35.Text = "Special Promo Management";
             // 
+            // filterByComboBox
+            // 
+            this.filterByComboBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.filterByComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.filterByComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.filterByComboBox.FormattingEnabled = true;
+            this.filterByComboBox.Location = new System.Drawing.Point(831, 20);
+            this.filterByComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.filterByComboBox.Name = "filterByComboBox";
+            this.filterByComboBox.Size = new System.Drawing.Size(232, 24);
+            this.filterByComboBox.TabIndex = 5;
+            // 
             // AdminSpecialPromoManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -207,11 +207,11 @@
         private System.Windows.Forms.DataGridView dataGridViewItems;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.ComboBox sortByComboBox;
-        private System.Windows.Forms.ComboBox filterByComboBox;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Label labelItemCount;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.ComboBox filterByComboBox;
     }
 }
