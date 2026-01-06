@@ -337,7 +337,7 @@ namespace Project_PV
         {
             int subtotal = CartManager.GetSubtotal();
             int discount = CartManager.CalculateDiscount(isMember, 5); // 5% discount for members
-            int tax = CartManager.CalculateTax(0); // No tax for now
+            int tax = CartManager.CalculateTax(isMember, 0); // No tax for now
             int total = subtotal - discount + tax;
 
             // Update labels

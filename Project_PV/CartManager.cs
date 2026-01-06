@@ -672,13 +672,13 @@ namespace Project_PV
             return (int)(GetSubtotal() * (discountPercentage / 100));
         }
 
-        // Calculate tax
-        public static int CalculateTax(decimal taxRate = 0)
+        // Calculate tax (considers member discount when provided)
+        public static int CalculateTax(bool isMember, decimal taxRate = 0)
         {
             // Indonesia typically doesn't add VAT at retail for small items
             // But if needed, you can set taxRate (e.g., 11 for 11% PPN)
             int subtotal = GetSubtotal();
-            int discount = CalculateDiscount(false); // Get discount without member check
+            int discount = CalculateDiscount(isMember); // respect member discount
             return (int)((subtotal - discount) * (taxRate / 100));
         }
 
@@ -687,7 +687,7 @@ namespace Project_PV
         {
             int subtotal = GetSubtotal();
             int discount = CalculateDiscount(isMember);
-            int tax = CalculateTax(taxRate);
+            int tax = CalculateTax(isMember, taxRate);
             return subtotal - discount + tax;
         }
 
