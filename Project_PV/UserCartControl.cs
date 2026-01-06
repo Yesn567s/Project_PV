@@ -341,6 +341,10 @@ namespace Project_PV
             int total = subtotal - discount + tax;
 
             // Update labels
+            // ensure label can show full text and is visible
+            subtotalAmountLabel.AutoSize = true;
+            subtotalAmountLabel.Visible = true;
+            subtotalAmountLabel.ForeColor = Color.Black;
             subtotalAmountLabel.Text = $"Rp {subtotal:N0}";
 
             if (isMember && discount > 0)
@@ -348,6 +352,8 @@ namespace Project_PV
                 discountPanel.Visible = true;
                 membershipDiscountLabel.Visible = true;
                 discountAmountLabel.Visible = true;
+                discountAmountLabel.AutoSize = true;
+                discountAmountLabel.ForeColor = Color.Green;
                 discountAmountLabel.Text = $"-Rp {discount:N0}";
                 memberLabel.Text = "Member Discount";
                 discountAppliedLabel.Text = "5% discount applied";
