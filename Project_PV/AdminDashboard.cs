@@ -24,9 +24,11 @@ namespace Project_PV
             button1.FlatStyle = FlatStyle.Flat;
             button2.FlatStyle = FlatStyle.Flat;
             buttonPromo.FlatStyle = FlatStyle.Flat;
+            buttonPromoSpecial.FlatStyle = FlatStyle.Flat;
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.BorderSize = 0;
             buttonPromo.FlatAppearance.BorderSize = 0;
+            buttonPromoSpecial.FlatAppearance.BorderSize = 0;
             btnControl_design(button1);
             LoadDashboard();
         }
@@ -53,7 +55,12 @@ namespace Project_PV
             LoadPromoManagement();
             btnControl_design(buttonPromo);
         }
-
+        
+        private void buttonPromoSpecial_Click(object sender, EventArgs e)
+        {
+            LoadSpecialPromoManagement();
+            btnControl_design(buttonPromoSpecial);
+        }
 
         // Load User Controls on Button Click
         private void LoadUserControl(UserControl control)
@@ -90,7 +97,7 @@ namespace Project_PV
             LoadUserControl(adminPromoControl);
         }
 
-        private void buttonPromoSpecial_Click(object sender, EventArgs e)
+        private void LoadSpecialPromoManagement()
         {
             if (adminSpecialPromoControl == null)
             {
@@ -108,6 +115,8 @@ namespace Project_PV
             button2.ForeColor = Color.Black;
             buttonPromo.BackColor = Color.White;
             buttonPromo.ForeColor = Color.Black;
+            buttonPromoSpecial.BackColor = Color.White;
+            buttonPromoSpecial.ForeColor = Color.Black;
 
             // Highlight the active button
             activeButton.BackColor = Color.Black;
