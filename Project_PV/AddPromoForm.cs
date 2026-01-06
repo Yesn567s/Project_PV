@@ -55,7 +55,7 @@ namespace Project_PV
                     return;
                 }
             }
-            else if (comboBox3.Text == "Harga_Jadi")
+            else if (comboBox3.Text == "Persen")
             {
                 if (numericUpDown5.Value == 0 || numericUpDown6.Value <= 0)
                 {
@@ -63,7 +63,7 @@ namespace Project_PV
                     return;
                 }
             }
-            else if (comboBox3.Text == "Persen")
+            else if (comboBox3.Text == "Harga_Jadi")
             {
                 if (numericUpDown7.Value == 0 || numericUpDown8.Value <= 0)
                 {
@@ -99,8 +99,30 @@ namespace Project_PV
                     cmd.Parameters.AddWithValue("@targetValue", comboBox2.Text == "Tag" ? textBox2.Text.Trim() : comboBox1.Text);
                     cmd.Parameters.AddWithValue("@jenisPromo", comboBox3.Text);
                     cmd.Parameters.AddWithValue("@nilaiPotongan", comboBox3.Text == "Persen" ? (float)numericUpDown7.Value : 0);
-                    cmd.Parameters.AddWithValue("@hargaBaru", comboBox3.Text == "Harga_Jadi" ? (float)numericUpDown6.Value : (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@minQty", numericUpDown4.Value==0 ? 0:0);
+                    if(comboBox3.Text == "Harga_Jadi")
+                    {
+                        cmd.Parameters.AddWithValue("@hargaBaru", (float)numericUpDown7.Value);
+                    }
+                    else if(comboBox3.Text=="Grosir")
+                    {
+                        cmd.Parameters.AddWithValue("@hargaBaru", (float)numericUpDown3.Value);
+                    }
+                    if (comboBox3.Text == "Bonus")
+                    {
+                        cmd.Parameters.AddWithValue("@minQty", (int)numericUpDown1.Value);
+                    }
+                    else if (comboBox3.Text == "Grosir")
+                    {
+                        cmd.Parameters.AddWithValue("@minQty", (int)numericUpDown4.Value);
+                    }
+                    else if (comboBox3.Text == "Harga_Jadi")
+                    {
+                        cmd.Parameters.AddWithValue("@minQty", (int)numericUpDown6.Value);
+                    }
+                    else if (comboBox3.Text == "Persen")
+                    {
+                        cmd.Parameters.AddWithValue("@minQty", (int)numericUpDown8.Value);
+                    }
                     cmd.Parameters.AddWithValue("@bonusProdukID", comboBox3.Text == "Bonus" ? (int)comboBox4.SelectedValue : (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@gratisQty", comboBox3.Text == "Bonus" ? (int)numericUpDown2.Value : 0);
                     cmd.Parameters.AddWithValue("@start", date1);
@@ -241,13 +263,14 @@ namespace Project_PV
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            numericUpDown1.Value = 0;
+            numericUpDown1.Value = 1;
             numericUpDown2.Value = 0;
             numericUpDown3.Value = 0;
-            numericUpDown4.Value = 0;
+            numericUpDown4.Value = 1;
             numericUpDown5.Value = 0;
-            numericUpDown6.Value = 0;
+            numericUpDown6.Value = 1;
             numericUpDown7.Value = 0;
+            numericUpDown8.Value = 1;
             comboBox4.Text = "";
             if (comboBox3.Text == "Bonus")
             {
