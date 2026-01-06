@@ -129,6 +129,7 @@ namespace Project_PV
                     cmd.Parameters.AddWithValue("@end", date2);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Promo berhasil ditambahkan!");
+                    this.Close();
                 }
             }
             catch (Exception ex)
