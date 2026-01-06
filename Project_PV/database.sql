@@ -32,9 +32,15 @@ CREATE TABLE `cart` (
   KEY `idx_cart_member` (`member_id`),
   KEY `idx_cart_session` (`session_id`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`ID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `cart` */
+
+insert  into `cart`(`ID`,`member_id`,`session_id`,`created_at`,`updated_at`) values 
+(1,10,NULL,'2026-01-06 08:53:40','2026-01-06 09:39:55'),
+(2,NULL,'8d97c347-4cdb-4de8-8232-f5a509743993','2026-01-06 08:59:15','2026-01-06 08:59:15'),
+(3,NULL,'37223ed2-3368-4480-a7ab-3633ef4d6089','2026-01-06 09:33:37','2026-01-06 09:33:37'),
+(4,NULL,'dfd63cf2-7887-4301-acec-706181e4fa46','2026-01-06 14:14:16','2026-01-06 14:14:16');
 
 /*Table structure for table `cart_detail` */
 
@@ -52,9 +58,16 @@ CREATE TABLE `cart_detail` (
   KEY `idx_cart_detail_product` (`produk_id`),
   CONSTRAINT `cart_detail_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`ID`) ON DELETE CASCADE,
   CONSTRAINT `cart_detail_ibfk_2` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`ID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `cart_detail` */
+
+insert  into `cart_detail`(`ID`,`cart_id`,`produk_id`,`Qty`,`added_at`) values 
+(1,1,16,5,'2026-01-06 08:53:55'),
+(2,1,17,1,'2026-01-06 08:53:59'),
+(3,1,18,1,'2026-01-06 08:54:02'),
+(4,1,22,8,'2026-01-06 08:54:05'),
+(5,1,25,1,'2026-01-06 09:32:22');
 
 /*Table structure for table `kategori` */
 
@@ -218,7 +231,7 @@ CREATE TABLE `promo` (
   PRIMARY KEY (`ID`),
   KEY `Bonus_Produk_ID` (`Bonus_Produk_ID`),
   CONSTRAINT `promo_ibfk_1` FOREIGN KEY (`Bonus_Produk_ID`) REFERENCES `produk` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=214 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `promo` */
 
@@ -435,7 +448,11 @@ insert  into `promo`(`ID`,`Nama_Promo`,`Target_Type`,`Target_Value`,`Jenis_Promo
 (210,'Horeg Nekaddd 13est Years of Ultah TBMO','Produk','Bolpen Trendee','Grosir',0,5333,12,NULL,0,'2025-11-01 00:00:00','2025-11-13 23:59:00'),
 (211,'Horeg Nekaddd 13est Years of Ultah TBMO','Tag','Kalkulator','Persen',13.33,NULL,1,NULL,0,'2025-11-01 00:00:00','2025-11-13 23:59:00'),
 (212,'Horeg Nekaddd 13est Years of Ultah TBMO','Tag','Snack','Persen',3.33,NULL,1,NULL,0,'2025-11-01 00:00:00','2025-11-13 23:59:00'),
-(213,'Horeg Nekaddd 13est Years of Ultah TBMO','Tag','Minuman','Persen',3.33,NULL,1,NULL,0,'2025-11-01 00:00:00','2025-11-13 23:59:00');
+(213,'Horeg Nekaddd 13est Years of Ultah TBMO','Tag','Minuman','Persen',3.33,NULL,1,NULL,0,'2025-11-01 00:00:00','2025-11-13 23:59:00'),
+(216,'Promo Biasa','Produk','Air Cleo 220 ml','Harga_Jadi',0,1500,1,NULL,0,'2026-01-06 00:00:00','2026-01-07 00:00:00'),
+(217,'Promo Biasa','Kategori','Electronic','Persen',5,NULL,1,NULL,0,'2026-01-06 00:00:00','2026-01-07 00:00:00'),
+(218,'Promo Biasa','Produk','Air Cleo 220 ml Isi 24','Bonus',0,NULL,1,16,1,'2026-01-06 00:00:00','2026-01-07 00:00:00'),
+(220,'Promo Biasa','Produk','Ameria Biscuit Columbia','Grosir',0,70000,3,NULL,0,'2026-01-06 00:00:00','2026-01-07 00:00:00');
 
 /*Table structure for table `promo_special` */
 
@@ -444,9 +461,8 @@ DROP TABLE IF EXISTS `promo_special`;
 CREATE TABLE `promo_special` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nama_Promo` varchar(100) NOT NULL,
-  `Produk` varchar(100) NOT NULL,
-  `Kategori` enum('Usia') NOT NULL,
-  `Tag` varchar(255) DEFAULT NULL,
+  `Kategori` enum('YesNo','Input') NOT NULL,
+  `Keterangan` varchar(255) NOT NULL,
   `START` datetime DEFAULT current_timestamp(),
   `END` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
@@ -462,18 +478,19 @@ CREATE TABLE `transaksi` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `member_id` int(11) DEFAULT NULL,
   `Tanggal` datetime DEFAULT current_timestamp(),
+  `Harga_Terpotong` int(11) DEFAULT 0,
   `Total` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `transaksi` */
 
-insert  into `transaksi`(`ID`,`member_id`,`Tanggal`,`Total`) values 
-(1,1,'2025-12-01 10:15:00',35000),
-(2,2,'2025-12-01 11:22:00',78000),
-(3,NULL,'2025-12-02 12:40:00',15000),
-(4,3,'2025-12-01 09:05:00',112000),
-(5,1,'2025-11-30 13:55:00',54000);
+insert  into `transaksi`(`ID`,`member_id`,`Tanggal`,`Harga_Terpotong`,`Total`) values 
+(1,1,'2025-12-01 10:15:00',0,35000),
+(2,2,'2025-12-01 11:22:00',0,78000),
+(3,NULL,'2025-12-02 12:40:00',0,15000),
+(4,3,'2025-12-01 09:05:00',0,112000),
+(5,1,'2025-11-30 13:55:00',0,54000);
 
 /*Table structure for table `transaksi_detail` */
 
@@ -485,6 +502,8 @@ CREATE TABLE `transaksi_detail` (
   `produk_id` int(11) NOT NULL,
   `Qty` int(11) NOT NULL,
   `Harga` int(11) NOT NULL,
+  `Diskon` int(11) DEFAULT NULL,
+  `Diskon_Spesial` int(11) DEFAULT NULL,
   `Subtotal` int(11) GENERATED ALWAYS AS (`Qty` * `Harga`) STORED,
   PRIMARY KEY (`ID`),
   KEY `transaksi_id` (`transaksi_id`),
@@ -493,16 +512,16 @@ CREATE TABLE `transaksi_detail` (
 
 /*Data for the table `transaksi_detail` */
 
-insert  into `transaksi_detail`(`ID`,`transaksi_id`,`produk_id`,`Qty`,`Harga`) values 
-(1,1,3,2,5000),
-(2,1,5,1,25000),
-(3,2,2,1,30000),
-(4,2,4,2,24000),
-(5,3,1,1,15000),
-(6,4,6,1,70000),
-(7,4,7,2,21000),
-(8,5,3,3,5000),
-(9,5,8,1,39000);
+insert  into `transaksi_detail`(`ID`,`transaksi_id`,`produk_id`,`Qty`,`Harga`,`Diskon`,`Diskon_Spesial`) values 
+(1,1,3,2,5000,NULL,NULL),
+(2,1,5,1,25000,NULL,NULL),
+(3,2,2,1,30000,NULL,NULL),
+(4,2,4,2,24000,NULL,NULL),
+(5,3,1,1,15000,NULL,NULL),
+(6,4,6,1,70000,NULL,NULL),
+(7,4,7,2,21000,NULL,NULL),
+(8,5,3,3,5000,NULL,NULL),
+(9,5,8,1,39000,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

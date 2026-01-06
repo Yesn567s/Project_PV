@@ -20,8 +20,10 @@ namespace Project_PV
             InitializeComponent();
             connectDatabase();
             refreshDGVList();
-            //loadComboBox();
+            filterByComboBox.Items.Add("Input");
+            filterByComboBox.Items.Add("YesNo");
             LoadDefaultSetting();
+            LoadPromo_SpecialCount();
             searchBox.TextChanged += (s, e) => ApplyFilters();
             filterByComboBox.SelectedIndexChanged += (s, e) => ApplyFilters();
             sortByComboBox.SelectedIndexChanged += (s, e) => ApplyFilters();
@@ -47,7 +49,7 @@ namespace Project_PV
                 // Base SQL
                 string query =
                     "SELECT * " +
-                    "FROM Promo_special p " +
+                    "FROM promo_special p " +
                     "WHERE 1=1 ";
 
                 // SEARCH condition
@@ -162,34 +164,25 @@ namespace Project_PV
                 connection.Close();
             }
         }
+        private void LoadPromo_SpecialCount()
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(*) FROM promo_special";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
 
-        //public void loadComboBox()
-        //{
-        //    connection.Open();
-
-        //    string query = "SELECT Target_type FROM promo GROUP BY Target_type";
-        //    MySqlCommand cmd = new MySqlCommand(query, connection);
-        //    MySqlDataReader reader = cmd.ExecuteReader();
-        //    DataTable dt = new DataTable();
-        //    dt.Load(reader);
-
-        //    // Create a "None" row
-        //    DataRow noneRow = dt.NewRow();
-        //    noneRow["Target_type"] = "";
-        //    dt.Rows.InsertAt(noneRow, 0); // insert at top
-
-        //    filterByComboBox.DisplayMember = "Target_type";
-        //    filterByComboBox.ValueMember = "Target_type";
-        //    filterByComboBox.DataSource = dt;
-
-        //    filterByComboBox.SelectedIndex = 0; // Select "None"
-
-        //    filterByComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-
-        //    connection.Close();
-        //}
-
-        
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    labelItemCount.Text = $"Showing {count} Items";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error counting items: " + ex.Message);
+            }
+        }
 
         public void connectDatabase()
         {

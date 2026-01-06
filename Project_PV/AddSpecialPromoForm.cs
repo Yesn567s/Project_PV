@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Project_PV
@@ -18,6 +18,9 @@ namespace Project_PV
         public AddSpecialPromoForm()
         {
             InitializeComponent();
+            comboBox1.Items.Add("YesNo");
+            comboBox1.Items.Add("Input");
+            comboBox1.SelectedIndex = 0;
         }
 
         private void buttonInsert_Click(object sender, EventArgs e)
@@ -27,10 +30,18 @@ namespace Project_PV
             hour2 = (int)numericUpDown10.Value;
             minute1 = (int)numericUpDown11.Value;
             minute2 = (int)numericUpDown12.Value;
-            if (textBox1.Text == "" || comboBox1.Text == "")
+            if (textBox1.Text == "" || richTextBox1.Text=="" || comboBox1.Text == "")
             {
-                MessageBox.Show("Lengkapi data promo terlebih dahulu");
-                return;
+                if (textBox1.Text == "")
+                {
+                    MessageBox.Show("Kalau tidak ada nama taruh default 'Promo Biasa'");
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Lengkapi data promo terlebih dahulu");
+                    return;
+                }
             }
             else if (dateTimePicker2.Value <= dateTimePicker1.Value)
             {
@@ -52,18 +63,64 @@ namespace Project_PV
                     string query = "insert into promo_special (Nama_Promo, Kategori, Keterangan, START, END) Values (@namaPromo, @kategori, @keterangan, @start, @end)";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@namaPromo", textBox1.Text.Trim());
-                    cmd.Parameters.AddWithValue("@kategori", comboBox1.Text.Trim());
-                    cmd.Parameters.AddWithValue("@keterangan", textBox2.Text.Trim());
+                    cmd.Parameters.AddWithValue("@kategori", comboBox1.Text);
+                    cmd.Parameters.AddWithValue("@keterangan", richTextBox1.Text);
                     cmd.Parameters.AddWithValue("@start", date1);
                     cmd.Parameters.AddWithValue("@end", date2);
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Special Promo berhasil ditambahkan!");
+                    MessageBox.Show("Promo Special berhasil ditambahkan!");
+                    this.Close();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown9_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown11_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown12_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown10_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Project_PV
         public AddPromoForm()
         {
             InitializeComponent();
+            
         }
 
         private void buttonInsert_Click(object sender, EventArgs e)
@@ -129,6 +130,7 @@ namespace Project_PV
                     cmd.Parameters.AddWithValue("@end", date2);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Promo berhasil ditambahkan!");
+                    this.Close();
                 }
             }
             catch (Exception ex)
@@ -274,31 +276,31 @@ namespace Project_PV
             comboBox4.Text = "";
             if (comboBox3.Text == "Bonus")
             {
-                panel1.Show();
-                panel2.Hide();
-                panel3.Hide();
-                panel4.Hide();
+                panel1.Enabled = true;
+                panel2.Enabled = false;
+                panel3.Enabled = false;
+                panel4.Enabled = false;
             }
             else if (comboBox3.Text == "Grosir")
             {
-                panel1.Hide();
-                panel2.Show();
-                panel3.Hide();
-                panel4.Hide();
+                panel1.Enabled = false;
+                panel2.Enabled = true;
+                panel3.Enabled = false;
+                panel4.Enabled = false;
             }
             else if (comboBox3.Text == "Harga_Jadi")
             {
-                panel1.Hide();
-                panel2.Hide();
-                panel3.Show();
-                panel4.Hide();
+                panel1.Enabled = false;
+                panel2.Enabled = false;
+                panel3.Enabled = true;
+                panel4.Enabled = false;
             }
             else if (comboBox3.Text == "Persen")
             {
-                panel1.Hide();
-                panel2.Hide();
-                panel3.Hide();
-                panel4.Show();
+                panel1.Enabled = false;
+                panel2.Enabled = false;
+                panel3.Enabled = false;
+                panel4.Enabled = true;
             }
         }
 
@@ -316,10 +318,10 @@ namespace Project_PV
             comboBox3.Items.Add("Harga_Jadi");
             comboBox3.Items.Add("Persen");
             textBox2.Hide();
-            panel1.Show();
-            panel2.Hide();
-            panel3.Hide();
-            panel4.Hide();
+            panel1.Enabled = false;
+            panel2.Enabled = false;
+            panel3.Enabled = false;
+            panel4.Enabled = false;
             comboBox2.SelectedIndex = 0;
             comboBox3.SelectedIndex = 0;
             textBox1.Text = "Promo Biasa";
