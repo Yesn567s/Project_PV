@@ -75,7 +75,7 @@ namespace Project_PV
                 ReportDocument reportDoc = new ReportDocument();
 
                 // Load the report file (you'll create this in Crystal Reports designer)
-                // Make sure the path is correct - adjust based on your project structure
+                // Make sure the path is correct - adjust based on your project structures
                 string reportPath = Path.Combine(
                     Application.StartupPath,
                     "Laporan",
