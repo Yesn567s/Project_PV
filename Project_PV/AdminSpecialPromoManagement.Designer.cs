@@ -123,6 +123,9 @@
             this.filterByComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filterByComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.filterByComboBox.FormattingEnabled = true;
+            this.filterByComboBox.Items.AddRange(new object[] {
+            "User",
+            "Manual"});
             this.filterByComboBox.Location = new System.Drawing.Point(831, 20);
             this.filterByComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.filterByComboBox.Name = "filterByComboBox";
