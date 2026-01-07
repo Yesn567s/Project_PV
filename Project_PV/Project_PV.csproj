@@ -189,12 +189,6 @@
       <DependentUpon>FormNota.cs</DependentUpon>
     </Compile>
     <Compile Include="ImagePreloader.cs" />
-    <Compile Include="Laporan\LaporanPenjualanBulananCategory.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LaporanPenjualanBulananCategory.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Laporan\LaporanPenjualanBulananDetailed.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -206,6 +200,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LaporanPenjualanBulananProduct.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Laporan\LaporanPenjualanBulananCategory.cs">
+      <DependentUpon>LaporanPenjualanBulananCategory.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Laporan\LaporanPenjualanBulananSummary.cs">
       <AutoGen>True</AutoGen>
@@ -340,10 +340,6 @@
     <EmbeddedResource Include="FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Laporan\LaporanPenjualanBulananCategory.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>LaporanPenjualanBulananCategory.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Laporan\LaporanPenjualanBulananDetailed.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>LaporanPenjualanBulananDetailed.cs</LastGenOutput>
@@ -351,6 +347,10 @@
     <EmbeddedResource Include="Laporan\LaporanPenjualanBulananProduct.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>LaporanPenjualanBulananProduct.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Laporan\LaporanPenjualanBulananCategory.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LaporanPenjualanBulananCategory.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Laporan\LaporanPenjualanBulananSummary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
