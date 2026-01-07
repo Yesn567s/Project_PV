@@ -162,6 +162,18 @@
       <DependentUpon>AdminPromoManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="CartManager.cs" />
+    <Compile Include="FormLaporanPenjualanBulanan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLaporanPenjualanBulanan.Designer.cs">
+      <DependentUpon>FormLaporanPenjualanBulanan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLaporanPenjualanBulananPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLaporanPenjualanBulananPreview.Designer.cs">
+      <DependentUpon>FormLaporanPenjualanBulananPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormNota.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +181,12 @@
       <DependentUpon>FormNota.cs</DependentUpon>
     </Compile>
     <Compile Include="ImagePreloader.cs" />
+    <Compile Include="Laporan\LaporanPenjualanBulananSummary.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaporanPenjualanBulananSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Laporan\NotaNonMember.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -284,11 +302,21 @@
     <EmbeddedResource Include="FormCheckout.resx">
       <DependentUpon>FormCheckout.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormLaporanPenjualanBulanan.resx">
+      <DependentUpon>FormLaporanPenjualanBulanan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLaporanPenjualanBulananPreview.resx">
+      <DependentUpon>FormLaporanPenjualanBulananPreview.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Laporan\LaporanPenjualanBulananSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LaporanPenjualanBulananSummary.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

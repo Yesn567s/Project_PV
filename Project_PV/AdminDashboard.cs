@@ -121,6 +121,10 @@ namespace Project_PV
             this.Hide();
         }
 
-        
+        private void buttonLaporan_Click(object sender, EventArgs e)
+        {
+            FormLaporanPenjualanBulanan laporanForm = new FormLaporanPenjualanBulanan();
+            laporanForm.Show();
+        }
     }
 }
