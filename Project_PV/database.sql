@@ -21,22 +21,22 @@ USE `db_proyek_pv`;
 DROP TABLE IF EXISTS `cart`;
 
 CREATE TABLE `cart` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `member_id` INT(11) DEFAULT NULL,
-  `session_id` VARCHAR(100) DEFAULT NULL,
-  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP(),
-  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` int(11) DEFAULT NULL,
+  `session_id` varchar(100) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`ID`),
   UNIQUE KEY `unique_member_cart` (`member_id`),
   UNIQUE KEY `unique_session_cart` (`session_id`),
   KEY `idx_cart_member` (`member_id`),
   KEY `idx_cart_session` (`session_id`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`ID`) ON DELETE CASCADE
-) ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `cart` */
 
-INSERT  INTO `cart`(`ID`,`member_id`,`session_id`,`created_at`,`updated_at`) VALUES 
+insert  into `cart`(`ID`,`member_id`,`session_id`,`created_at`,`updated_at`) values 
 (1,10,NULL,'2026-01-06 08:53:40','2026-01-06 09:39:55'),
 (2,NULL,'8d97c347-4cdb-4de8-8232-f5a509743993','2026-01-06 08:59:15','2026-01-06 08:59:15'),
 (3,NULL,'37223ed2-3368-4480-a7ab-3633ef4d6089','2026-01-06 09:33:37','2026-01-06 09:33:37'),
@@ -47,22 +47,22 @@ INSERT  INTO `cart`(`ID`,`member_id`,`session_id`,`created_at`,`updated_at`) VAL
 DROP TABLE IF EXISTS `cart_detail`;
 
 CREATE TABLE `cart_detail` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `cart_id` INT(11) NOT NULL,
-  `produk_id` INT(11) NOT NULL,
-  `Qty` INT(11) NOT NULL DEFAULT 1,
-  `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `cart_id` int(11) NOT NULL,
+  `produk_id` int(11) NOT NULL,
+  `Qty` int(11) NOT NULL DEFAULT 1,
+  `added_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`ID`),
   UNIQUE KEY `unique_cart_product` (`cart_id`,`produk_id`),
   KEY `idx_cart_detail_cart` (`cart_id`),
   KEY `idx_cart_detail_product` (`produk_id`),
   CONSTRAINT `cart_detail_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`ID`) ON DELETE CASCADE,
   CONSTRAINT `cart_detail_ibfk_2` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`ID`) ON DELETE CASCADE
-) ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `cart_detail` */
 
-INSERT  INTO `cart_detail`(`ID`,`cart_id`,`produk_id`,`Qty`,`added_at`) VALUES 
+insert  into `cart_detail`(`ID`,`cart_id`,`produk_id`,`Qty`,`added_at`) values 
 (1,1,16,5,'2026-01-06 08:53:55'),
 (2,1,17,1,'2026-01-06 08:53:59'),
 (3,1,18,1,'2026-01-06 08:54:02'),
@@ -74,15 +74,15 @@ INSERT  INTO `cart_detail`(`ID`,`cart_id`,`produk_id`,`Qty`,`added_at`) VALUES
 DROP TABLE IF EXISTS `kategori`;
 
 CREATE TABLE `kategori` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nama` VARCHAR(100) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nama` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Nama` (`Nama`)
-) ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `kategori` */
 
-INSERT  INTO `kategori`(`ID`,`Nama`) VALUES 
+insert  into `kategori`(`ID`,`Nama`) values 
 (3,'Apparel'),
 (2,'Electronic'),
 (5,'Entertainment'),
@@ -94,20 +94,20 @@ INSERT  INTO `kategori`(`ID`,`Nama`) VALUES
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nama` VARCHAR(100) NOT NULL,
-  `Email` VARCHAR(100) NOT NULL,
-  `PASSWORD` VARCHAR(50) NOT NULL,
-  `Tanggal_Lahir` DATE NOT NULL,
-  `Is_Member` TINYINT(1) NOT NULL,
-  `membership_start` DATE DEFAULT NULL,
-  `membership_end` DATE DEFAULT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nama` varchar(100) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `PASSWORD` varchar(50) NOT NULL,
+  `Tanggal_Lahir` date NOT NULL,
+  `Is_Member` tinyint(1) NOT NULL,
+  `membership_start` date DEFAULT NULL,
+  `membership_end` date DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `member` */
 
-INSERT  INTO `member`(`ID`,`Nama`,`Email`,`PASSWORD`,`Tanggal_Lahir`,`Is_Member`,`membership_start`,`membership_end`) VALUES 
+insert  into `member`(`ID`,`Nama`,`Email`,`PASSWORD`,`Tanggal_Lahir`,`Is_Member`,`membership_start`,`membership_end`) values 
 (1,'Kevin Setiono','kevin@gmail.com','123','2003-08-12',0,NULL,NULL),
 (2,'Budi Santoso','budi@gmail.com','123','1995-11-05',0,NULL,NULL),
 (3,'Cindy Wijaya','cindy@gmail.com','123','2001-06-18',0,NULL,NULL),
@@ -124,21 +124,21 @@ INSERT  INTO `member`(`ID`,`Nama`,`Email`,`PASSWORD`,`Tanggal_Lahir`,`Is_Member`
 DROP TABLE IF EXISTS `produk`;
 
 CREATE TABLE `produk` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nama` VARCHAR(100) NOT NULL,
-  `Merk` VARCHAR(100) DEFAULT NULL,
-  `Harga` INT(11) NOT NULL,
-  `kategori_id` INT(11) NOT NULL,
-  `tag` VARCHAR(255) DEFAULT NULL,
-  `image_url` VARCHAR(500) DEFAULT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nama` varchar(100) NOT NULL,
+  `Merk` varchar(100) DEFAULT NULL,
+  `Harga` int(11) NOT NULL,
+  `kategori_id` int(11) NOT NULL,
+  `tag` varchar(255) DEFAULT NULL,
+  `image_url` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `kategori_id` (`kategori_id`),
   CONSTRAINT `produk_ibfk_1` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`ID`)
-) ENGINE=INNODB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `produk` */
 
-INSERT  INTO `produk`(`ID`,`Nama`,`Merk`,`Harga`,`kategori_id`,`tag`,`image_url`) VALUES 
+insert  into `produk`(`ID`,`Nama`,`Merk`,`Harga`,`kategori_id`,`tag`,`image_url`) values 
 (1,'Sedapmie','Sedaap',3500,1,'Mie Instan','https://solvent-production.s3.amazonaws.com/media/images/products/2021/04/2499a.jpg'),
 (2,'Indomie','Indofood',3500,1,'Mie Instan','https://solvent-production.s3.amazonaws.com/media/images/products/2021/04/2494a.jpg'),
 (3,'Indomie Goreng','Indofood',3500,1,'Mie Instan','https://solvent-production.s3.amazonaws.com/media/images/products/2021/04/2494a.jpg'),
@@ -216,26 +216,26 @@ INSERT  INTO `produk`(`ID`,`Nama`,`Merk`,`Harga`,`kategori_id`,`tag`,`image_url`
 DROP TABLE IF EXISTS `promo`;
 
 CREATE TABLE `promo` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nama_Promo` VARCHAR(100) NOT NULL,
-  `Target_Type` ENUM('Produk','Kategori','Tag','Merk','Global') NOT NULL,
-  `Target_Value` VARCHAR(100) NOT NULL,
-  `Jenis_Promo` ENUM('Harga_Jadi','Persen','Grosir','Bonus') NOT NULL,
-  `Nilai_Potongan` FLOAT DEFAULT 0,
-  `Harga_Baru` INT(11) DEFAULT NULL,
-  `Min_Qty` INT(11) DEFAULT 1,
-  `Bonus_Produk_ID` INT(11) DEFAULT NULL,
-  `Gratis_Qty` INT(11) DEFAULT 0,
-  `START` DATETIME DEFAULT CURRENT_TIMESTAMP(),
-  `END` DATETIME DEFAULT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nama_Promo` varchar(100) NOT NULL,
+  `Target_Type` enum('Produk','Kategori','Tag','Merk','Global') NOT NULL,
+  `Target_Value` varchar(100) NOT NULL,
+  `Jenis_Promo` enum('Harga_Jadi','Persen','Grosir','Bonus') NOT NULL,
+  `Nilai_Potongan` float DEFAULT 0,
+  `Harga_Baru` int(11) DEFAULT NULL,
+  `Min_Qty` int(11) DEFAULT 1,
+  `Bonus_Produk_ID` int(11) DEFAULT NULL,
+  `Gratis_Qty` int(11) DEFAULT 0,
+  `START` datetime DEFAULT current_timestamp(),
+  `END` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Bonus_Produk_ID` (`Bonus_Produk_ID`),
   CONSTRAINT `promo_ibfk_1` FOREIGN KEY (`Bonus_Produk_ID`) REFERENCES `produk` (`ID`)
-) ENGINE=INNODB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `promo` */
 
-INSERT  INTO `promo`(`ID`,`Nama_Promo`,`Target_Type`,`Target_Value`,`Jenis_Promo`,`Nilai_Potongan`,`Harga_Baru`,`Min_Qty`,`Bonus_Produk_ID`,`Gratis_Qty`,`START`,`END`) VALUES 
+insert  into `promo`(`ID`,`Nama_Promo`,`Target_Type`,`Target_Value`,`Jenis_Promo`,`Nilai_Potongan`,`Harga_Baru`,`Min_Qty`,`Bonus_Produk_ID`,`Gratis_Qty`,`START`,`END`) values 
 (1,'Promo Biasa','Produk','Tissue See U','Harga_Jadi',0,1440,1,NULL,0,'2025-07-01 00:00:00','2025-07-01 23:59:00'),
 (2,'Promo Biasa','Produk','Gantungan Kunci','Grosir',0,11000,3,NULL,0,'2025-07-01 00:00:00','2025-07-01 23:59:00'),
 (3,'Promo Biasa','Produk','Beras Raja Lele 5 kg','Harga_Jadi',0,73500,1,NULL,0,'2025-07-01 00:00:00','2025-07-01 23:59:00'),
@@ -459,14 +459,14 @@ INSERT  INTO `promo`(`ID`,`Nama_Promo`,`Target_Type`,`Target_Value`,`Jenis_Promo
 DROP TABLE IF EXISTS `promo_special`;
 
 CREATE TABLE `promo_special` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nama_Promo` VARCHAR(100) NOT NULL,
-  `Kategori` ENUM('YesNo','Input') NOT NULL,
-  `Keterangan` VARCHAR(255) NOT NULL,
-  `START` DATETIME DEFAULT CURRENT_TIMESTAMP(),
-  `END` DATETIME DEFAULT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nama_Promo` varchar(100) NOT NULL,
+  `Kategori` enum('YesNo','Input') NOT NULL,
+  `Keterangan` varchar(255) NOT NULL,
+  `START` datetime DEFAULT current_timestamp(),
+  `END` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `promo_special` */
 
@@ -475,17 +475,17 @@ CREATE TABLE `promo_special` (
 DROP TABLE IF EXISTS `transaksi`;
 
 CREATE TABLE `transaksi` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `member_id` INT(11) DEFAULT NULL,
-  `Tanggal` DATETIME DEFAULT CURRENT_TIMESTAMP(),
-  `Harga_Terpotong` INT(11) DEFAULT 0,
-  `Total` INT(11) NOT NULL DEFAULT 0,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` int(11) DEFAULT NULL,
+  `Tanggal` datetime DEFAULT current_timestamp(),
+  `Harga_Terpotong` int(11) DEFAULT 0,
+  `Total` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`ID`)
-) ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `transaksi` */
 
-INSERT  INTO `transaksi`(`ID`,`member_id`,`Tanggal`,`Harga_Terpotong`,`Total`) VALUES 
+insert  into `transaksi`(`ID`,`member_id`,`Tanggal`,`Harga_Terpotong`,`Total`) values 
 (1,1,'2025-12-01 10:15:00',0,35000),
 (2,2,'2025-12-01 11:22:00',0,78000),
 (3,NULL,'2025-12-02 12:40:00',0,15000),
@@ -497,22 +497,22 @@ INSERT  INTO `transaksi`(`ID`,`member_id`,`Tanggal`,`Harga_Terpotong`,`Total`) V
 DROP TABLE IF EXISTS `transaksi_detail`;
 
 CREATE TABLE `transaksi_detail` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `transaksi_id` INT(11) NOT NULL,
-  `produk_id` INT(11) NOT NULL,
-  `Qty` INT(11) NOT NULL,
-  `Harga` INT(11) NOT NULL,
-  `Diskon` INT(11) DEFAULT NULL,
-  `Diskon_Spesial` INT(11) DEFAULT NULL,
-  `Subtotal` INT(11) GENERATED ALWAYS AS (`Qty` * `Harga`) STORED,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `transaksi_id` int(11) NOT NULL,
+  `produk_id` int(11) NOT NULL,
+  `Qty` int(11) NOT NULL,
+  `Harga` int(11) NOT NULL,
+  `Diskon` int(11) DEFAULT NULL,
+  `Diskon_Spesial` int(11) DEFAULT NULL,
+  `Subtotal` int(11) GENERATED ALWAYS AS (`Qty` * `Harga`) STORED,
   PRIMARY KEY (`ID`),
   KEY `transaksi_id` (`transaksi_id`),
   CONSTRAINT `transaksi_detail_ibfk_1` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksi` (`ID`)
-) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `transaksi_detail` */
 
-INSERT  INTO `transaksi_detail`(`ID`,`transaksi_id`,`produk_id`,`Qty`,`Harga`,`Diskon`,`Diskon_Spesial`) VALUES 
+insert  into `transaksi_detail`(`ID`,`transaksi_id`,`produk_id`,`Qty`,`Harga`,`Diskon`,`Diskon_Spesial`) values 
 (1,1,3,2,5000,NULL,NULL),
 (2,1,5,1,25000,NULL,NULL),
 (3,2,2,1,30000,NULL,NULL),
@@ -522,6 +522,120 @@ INSERT  INTO `transaksi_detail`(`ID`,`transaksi_id`,`produk_id`,`Qty`,`Harga`,`D
 (7,4,7,2,21000,NULL,NULL),
 (8,5,3,3,5000,NULL,NULL),
 (9,5,8,1,39000,NULL,NULL);
+
+/*Table structure for table `laporan_penjualan_bulanan` */
+
+DROP TABLE IF EXISTS `laporan_penjualan_bulanan`;
+
+/*!50001 DROP VIEW IF EXISTS `laporan_penjualan_bulanan` */;
+/*!50001 DROP TABLE IF EXISTS `laporan_penjualan_bulanan` */;
+
+/*!50001 CREATE TABLE  `laporan_penjualan_bulanan`(
+ `BulanTahun` varchar(7) ,
+ `Tahun` int(4) ,
+ `Bulan` int(2) ,
+ `NamaBulan` varchar(9) ,
+ `JumlahTransaksi` bigint(21) ,
+ `TotalItemTerjual` decimal(32,0) ,
+ `TotalPenjualan` decimal(32,0) ,
+ `JumlahMember` bigint(21) ,
+ `TransaksiNonMember` bigint(21) ,
+ `ProdukTerlaris` varchar(100) ,
+ `QtyTerlaris` decimal(32,0) 
+)*/;
+
+/*Table structure for table `laporan_penjualan_bulanan_detail` */
+
+DROP TABLE IF EXISTS `laporan_penjualan_bulanan_detail`;
+
+/*!50001 DROP VIEW IF EXISTS `laporan_penjualan_bulanan_detail` */;
+/*!50001 DROP TABLE IF EXISTS `laporan_penjualan_bulanan_detail` */;
+
+/*!50001 CREATE TABLE  `laporan_penjualan_bulanan_detail`(
+ `TransaksiID` int(11) ,
+ `Tanggal` datetime ,
+ `BulanTahun` varchar(7) ,
+ `NamaPelanggan` varchar(100) ,
+ `Email` varchar(100) ,
+ `NamaProduk` varchar(100) ,
+ `Merk` varchar(100) ,
+ `Kategori` varchar(100) ,
+ `Jumlah` int(11) ,
+ `HargaSatuan` int(11) ,
+ `Subtotal` int(11) ,
+ `TotalTransaksi` int(11) 
+)*/;
+
+/*Table structure for table `v_monthly_sales_detail` */
+
+DROP TABLE IF EXISTS `v_monthly_sales_detail`;
+
+/*!50001 DROP VIEW IF EXISTS `v_monthly_sales_detail` */;
+/*!50001 DROP TABLE IF EXISTS `v_monthly_sales_detail` */;
+
+/*!50001 CREATE TABLE  `v_monthly_sales_detail`(
+ `TransaksiID` int(11) ,
+ `Tanggal` datetime ,
+ `BulanTahun` varchar(7) ,
+ `NamaPelanggan` varchar(100) ,
+ `Email` varchar(100) ,
+ `NamaProduk` varchar(100) ,
+ `Merk` varchar(100) ,
+ `Kategori` varchar(100) ,
+ `Jumlah` int(11) ,
+ `HargaSatuan` int(11) ,
+ `Subtotal` int(11) ,
+ `TotalTransaksi` int(11) 
+)*/;
+
+/*Table structure for table `v_monthly_sales_report` */
+
+DROP TABLE IF EXISTS `v_monthly_sales_report`;
+
+/*!50001 DROP VIEW IF EXISTS `v_monthly_sales_report` */;
+/*!50001 DROP TABLE IF EXISTS `v_monthly_sales_report` */;
+
+/*!50001 CREATE TABLE  `v_monthly_sales_report`(
+ `BulanTahun` varchar(7) ,
+ `Tahun` int(4) ,
+ `Bulan` int(2) ,
+ `NamaBulan` varchar(9) ,
+ `JumlahTransaksi` bigint(21) ,
+ `TotalItemTerjual` decimal(32,0) ,
+ `TotalPenjualan` decimal(32,0) ,
+ `JumlahMember` bigint(21) ,
+ `TransaksiNonMember` bigint(21) ,
+ `ProdukTerlaris` varchar(100) ,
+ `QtyTerlaris` decimal(32,0) 
+)*/;
+
+/*View structure for view laporan_penjualan_bulanan */
+
+/*!50001 DROP TABLE IF EXISTS `laporan_penjualan_bulanan` */;
+/*!50001 DROP VIEW IF EXISTS `laporan_penjualan_bulanan` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_penjualan_bulanan` AS select date_format(`t`.`Tanggal`,'%Y-%m') AS `BulanTahun`,year(`t`.`Tanggal`) AS `Tahun`,month(`t`.`Tanggal`) AS `Bulan`,monthname(`t`.`Tanggal`) AS `NamaBulan`,count(distinct `t`.`ID`) AS `JumlahTransaksi`,sum(`td`.`Qty`) AS `TotalItemTerjual`,sum(`td`.`Subtotal`) AS `TotalPenjualan`,count(distinct `t`.`member_id`) AS `JumlahMember`,count(distinct case when `t`.`member_id` is null then `t`.`ID` end) AS `TransaksiNonMember`,`p`.`Nama` AS `ProdukTerlaris`,sum(`td`.`Qty`) AS `QtyTerlaris` from ((`transaksi` `t` join `transaksi_detail` `td` on(`t`.`ID` = `td`.`transaksi_id`)) join `produk` `p` on(`td`.`produk_id` = `p`.`ID`)) group by date_format(`t`.`Tanggal`,'%Y-%m'),`p`.`ID` order by `t`.`Tanggal` desc,sum(`td`.`Qty`) desc */;
+
+/*View structure for view laporan_penjualan_bulanan_detail */
+
+/*!50001 DROP TABLE IF EXISTS `laporan_penjualan_bulanan_detail` */;
+/*!50001 DROP VIEW IF EXISTS `laporan_penjualan_bulanan_detail` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_penjualan_bulanan_detail` AS select `t`.`ID` AS `TransaksiID`,`t`.`Tanggal` AS `Tanggal`,date_format(`t`.`Tanggal`,'%Y-%m') AS `BulanTahun`,coalesce(`m`.`Nama`,'Non-Member') AS `NamaPelanggan`,coalesce(`m`.`Email`,'-') AS `Email`,`p`.`Nama` AS `NamaProduk`,`p`.`Merk` AS `Merk`,`k`.`Nama` AS `Kategori`,`td`.`Qty` AS `Jumlah`,`td`.`Harga` AS `HargaSatuan`,`td`.`Subtotal` AS `Subtotal`,`t`.`Total` AS `TotalTransaksi` from ((((`transaksi` `t` left join `member` `m` on(`t`.`member_id` = `m`.`ID`)) join `transaksi_detail` `td` on(`t`.`ID` = `td`.`transaksi_id`)) join `produk` `p` on(`td`.`produk_id` = `p`.`ID`)) join `kategori` `k` on(`p`.`kategori_id` = `k`.`ID`)) order by `t`.`Tanggal` desc */;
+
+/*View structure for view v_monthly_sales_detail */
+
+/*!50001 DROP TABLE IF EXISTS `v_monthly_sales_detail` */;
+/*!50001 DROP VIEW IF EXISTS `v_monthly_sales_detail` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_monthly_sales_detail` AS select `t`.`ID` AS `TransaksiID`,`t`.`Tanggal` AS `Tanggal`,date_format(`t`.`Tanggal`,'%Y-%m') AS `BulanTahun`,coalesce(`m`.`Nama`,'Non-Member') AS `NamaPelanggan`,coalesce(`m`.`Email`,'-') AS `Email`,`p`.`Nama` AS `NamaProduk`,`p`.`Merk` AS `Merk`,`k`.`Nama` AS `Kategori`,`td`.`Qty` AS `Jumlah`,`td`.`Harga` AS `HargaSatuan`,`td`.`Subtotal` AS `Subtotal`,`t`.`Total` AS `TotalTransaksi` from ((((`transaksi` `t` left join `member` `m` on(`t`.`member_id` = `m`.`ID`)) join `transaksi_detail` `td` on(`t`.`ID` = `td`.`transaksi_id`)) join `produk` `p` on(`td`.`produk_id` = `p`.`ID`)) join `kategori` `k` on(`p`.`kategori_id` = `k`.`ID`)) order by `t`.`Tanggal` desc */;
+
+/*View structure for view v_monthly_sales_report */
+
+/*!50001 DROP TABLE IF EXISTS `v_monthly_sales_report` */;
+/*!50001 DROP VIEW IF EXISTS `v_monthly_sales_report` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_monthly_sales_report` AS select date_format(`t`.`Tanggal`,'%Y-%m') AS `BulanTahun`,year(`t`.`Tanggal`) AS `Tahun`,month(`t`.`Tanggal`) AS `Bulan`,monthname(`t`.`Tanggal`) AS `NamaBulan`,count(distinct `t`.`ID`) AS `JumlahTransaksi`,sum(`td`.`Qty`) AS `TotalItemTerjual`,sum(`td`.`Subtotal`) AS `TotalPenjualan`,count(distinct `t`.`member_id`) AS `JumlahMember`,count(distinct case when `t`.`member_id` is null then `t`.`ID` end) AS `TransaksiNonMember`,`p`.`Nama` AS `ProdukTerlaris`,sum(`td`.`Qty`) AS `QtyTerlaris` from ((`transaksi` `t` join `transaksi_detail` `td` on(`t`.`ID` = `td`.`transaksi_id`)) join `produk` `p` on(`td`.`produk_id` = `p`.`ID`)) group by date_format(`t`.`Tanggal`,'%Y-%m'),`p`.`ID` order by `t`.`Tanggal` desc,sum(`td`.`Qty`) desc */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
