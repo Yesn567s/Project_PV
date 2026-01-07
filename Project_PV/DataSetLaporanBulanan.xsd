@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetLaporanBulanan"
+           xmlns=""
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+
+	<!-- Summary DataTable -->
+	<xs:element name="Summary">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Period" type="xs:string" minOccurs="0" />
+				<xs:element name="TotalTransactions" type="xs:int" minOccurs="0" />
+				<xs:element name="MemberTransactions" type="xs:int" minOccurs="0" />
+				<xs:element name="NonMemberTransactions" type="xs:int" minOccurs="0" />
+				<xs:element name="TotalItemsSold" type="xs:int" minOccurs="0" />
+				<xs:element name="TotalRevenue" type="xs:decimal" minOccurs="0" />
+				<xs:element name="AverageTransaction" type="xs:decimal" minOccurs="0" />
+				<xs:element name="HighestTransaction" type="xs:decimal" minOccurs="0" />
+				<xs:element name="LowestTransaction" type="xs:decimal" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Daily Breakdown DataTable -->
+	<xs:element name="DailyBreakdown">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TransactionDate" type="xs:date" minOccurs="0" />
+				<xs:element name="DailyTransactions" type="xs:int" minOccurs="0" />
+				<xs:element name="DailyRevenue" type="xs:decimal" minOccurs="0" />
+				<xs:element name="DailyItemsSold" type="xs:int" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Detailed Transactions DataTable -->
+	<xs:element name="DetailedTransactions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TransactionID" type="xs:int" minOccurs="0" />
+				<xs:element name="TransactionDate" type="xs:dateTime" minOccurs="0" />
+				<xs:element name="CustomerName" type="xs:string" minOccurs="0" />
+				<xs:element name="CustomerEmail" type="xs:string" minOccurs="0" />
+				<xs:element name="CustomerType" type="xs:string" minOccurs="0" />
+				<xs:element name="ProductName" type="xs:string" minOccurs="0" />
+				<xs:element name="Brand" type="xs:string" minOccurs="0" />
+				<xs:element name="Category" type="xs:string" minOccurs="0" />
+				<xs:element name="Quantity" type="xs:int" minOccurs="0" />
+				<xs:element name="UnitPrice" type="xs:int" minOccurs="0" />
+				<xs:element name="Subtotal" type="xs:int" minOccurs="0" />
+				<xs:element name="TransactionTotal" type="xs:int" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Product Analysis DataTable -->
+	<xs:element name="ProductAnalysis">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ProductName" type="xs:string" minOccurs="0" />
+				<xs:element name="Brand" type="xs:string" minOccurs="0" />
+				<xs:element name="Category" type="xs:string" minOccurs="0" />
+				<xs:element name="TransactionCount" type="xs:int" minOccurs="0" />
+				<xs:element name="TotalQuantitySold" type="xs:int" minOccurs="0" />
+				<xs:element name="UnitPrice" type="xs:int" minOccurs="0" />
+				<xs:element name="TotalRevenue" type="xs:decimal" minOccurs="0" />
+				<xs:element name="AvgQtyPerTransaction" type="xs:decimal" minOccurs="0" />
+				<xs:element name="RevenuePercentage" type="xs:decimal" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Category Analysis DataTable -->
+	<xs:element name="CategoryAnalysis">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Category" type="xs:string" minOccurs="0" />
+				<xs:element name="TransactionCount" type="xs:int" minOccurs="0" />
+				<xs:element name="UniqueProducts" type="xs:int" minOccurs="0" />
+				<xs:element name="TotalQuantitySold" type="xs:int" minOccurs="0" />
+				<xs:element name="TotalRevenue" type="xs:decimal" minOccurs="0" />
+				<xs:element name="AvgRevenuePerItem" type="xs:decimal" minOccurs="0" />
+				<xs:element name="RevenuePercentage" type="xs:decimal" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

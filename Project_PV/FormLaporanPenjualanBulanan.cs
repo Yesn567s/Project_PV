@@ -80,7 +80,8 @@ namespace Project_PV
 
         private DataSet GetMonthlySalesData(int year, int month, string reportType)
         {
-            DataSet ds = new DataSet("MonthlySalesData");
+            // Create properly named DataSet for Crystal Reports
+            DataSet ds = new DataSet("DataSetLaporanBulanan");
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {

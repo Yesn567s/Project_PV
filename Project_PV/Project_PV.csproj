@@ -162,6 +162,14 @@
       <DependentUpon>AdminPromoManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="CartManager.cs" />
+    <Compile Include="DataSetLaporanBulanan.cs">
+      <DependentUpon>DataSetLaporanBulanan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetLaporanBulanan.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetLaporanBulanan.xsd</DependentUpon>
+    </Compile>
     <Compile Include="FormLaporanPenjualanBulanan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +189,24 @@
       <DependentUpon>FormNota.cs</DependentUpon>
     </Compile>
     <Compile Include="ImagePreloader.cs" />
+    <Compile Include="Laporan\LaporanPenjualanBulananCategory.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaporanPenjualanBulananCategory.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Laporan\LaporanPenjualanBulananDetailed.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaporanPenjualanBulananDetailed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Laporan\LaporanPenjualanBulananProduct.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaporanPenjualanBulananProduct.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Laporan\LaporanPenjualanBulananSummary.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -314,6 +340,18 @@
     <EmbeddedResource Include="FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Laporan\LaporanPenjualanBulananCategory.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LaporanPenjualanBulananCategory.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Laporan\LaporanPenjualanBulananDetailed.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LaporanPenjualanBulananDetailed.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Laporan\LaporanPenjualanBulananProduct.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LaporanPenjualanBulananProduct.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Laporan\LaporanPenjualanBulananSummary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>LaporanPenjualanBulananSummary.cs</LastGenOutput>
@@ -338,6 +376,17 @@
     <EmbeddedResource Include="UserMembershipControl.resx">
       <DependentUpon>UserMembershipControl.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DataSetLaporanBulanan.xsc">
+      <DependentUpon>DataSetLaporanBulanan.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetLaporanBulanan.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetLaporanBulanan.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetLaporanBulanan.xss">
+      <DependentUpon>DataSetLaporanBulanan.xsd</DependentUpon>
+    </None>
     <None Include="DataSetNota.xsc">
       <DependentUpon>DataSetNota.xsd</DependentUpon>
     </None>
