@@ -22,112 +22,95 @@ namespace Project_PV
 
         private void buttonInsert_Click(object sender, EventArgs e)
         {
-            int hour1, hour2, minute1, minute2;
-            hour1 = (int)numericUpDown9.Value;
-            hour2 = (int)numericUpDown10.Value;
-            minute1 = (int)numericUpDown11.Value;
-            minute2 = (int)numericUpDown12.Value;
-            if (textBox1.Text=="" || comboBox2.Text=="" || comboBox3.Text == "" || comboBox1.Text=="" )
+            int hour1 = (int)numericUpDown9.Value;
+            int hour2 = (int)numericUpDown10.Value;
+            int minute1 = (int)numericUpDown11.Value;
+            int minute2 = (int)numericUpDown12.Value;
+
+            // BASIC VALIDATION
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                if(textBox1.Text == "")
-                {
-                    MessageBox.Show("Kalau tidak ada nama taruh default 'Promo Biasa'");
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Lengkapi data promo terlebih dahulu");
-                    return;
-                }
+                MessageBox.Show("Kalau tidak ada nama taruh default 'Promo Biasa'");
+                return;
             }
-            else if (comboBox3.Text == "Bonus")
+
+            if (comboBox2.Text == "" || comboBox3.Text == "")
             {
-                if (comboBox4.Text == "" || numericUpDown1.Value <= 0 || numericUpDown2.Value == 0)
-                {
-                    MessageBox.Show("Lengkapi data promo terlebih dahulu");
-                    return;
-                }
+                MessageBox.Show("Lengkapi data promo terlebih dahulu");
+                return;
             }
-            else if (comboBox3.Text == "Grosir")
+
+            if (dateTimePicker2.Value <= dateTimePicker1.Value)
             {
-                if (numericUpDown3.Value == 0 || numericUpDown4.Value <= 0)
-                {
-                    MessageBox.Show("Lengkapi data promo terlebih dahulu");
-                    return;
-                }
-            }
-            else if (comboBox3.Text == "Persen")
-            {
-                if (numericUpDown5.Value == 0 || numericUpDown6.Value <= 0)
-                {
-                    MessageBox.Show("Lengkapi data promo terlebih dahulu");
-                    return;
-                }
-            }
-            else if (comboBox3.Text == "Harga_Jadi")
-            {
-                if (numericUpDown7.Value == 0 || numericUpDown8.Value <= 0)
-                {
-                    MessageBox.Show("Lengkapi data promo terlebih dahulu");
-                    return;
-                }
-            }
-            else if (dateTimePicker2.Value <= dateTimePicker1.Value) 
-            { 
                 MessageBox.Show("Tanggal akhir harus setelah tanggal mulai");
                 return;
             }
-            else if (hour1 == 24 && minute1 > 0 || hour2 == 24 && minute2 > 0)
+
+            if ((hour1 == 24 && minute1 > 0) || (hour2 == 24 && minute2 > 0))
             {
                 MessageBox.Show("Tidak ada jam lebih dari 24:00");
                 return;
             }
-            //string temp=dateTimePicker1.Value.ToString("yyyy-MM-dd") + " " + hour1.ToString("D2") + ":" + minute1.ToString("D2") + ":00";
-            //DateTime date1=DateTime.Parse(temp);
-            //temp=dateTimePicker2.Value.ToString("yyyy-MM-dd") + " " + hour2.ToString("D2") + ":" + minute2.ToString("D2") + ":00";
-            //DateTime date2=DateTime.Parse(temp);
+
+            DateTime startDate = dateTimePicker1.Value.Date.Add(new TimeSpan(hour1, minute1, 0));
+            DateTime endDate = dateTimePicker2.Value.Date.Add(new TimeSpan(hour2, minute2, 0));
+
             try
             {
-                DateTime date1 = dateTimePicker1.Value.Date.Add(new TimeSpan(hour1, minute1, 0));
-                DateTime date2 = dateTimePicker2.Value.Date.Add(new TimeSpan(hour2, minute2, 0));
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "insert into promo (Nama_Promo, Target_Type, Target_Value, Jenis_Promo, Nilai_Potongan, Harga_Baru, Min_Qty, Bonus_Produk_ID, Gratis_Qty, START, END) Values (@namaPromo, @targetType, @targetValue, @jenisPromo, @nilaiPotongan, @hargaBaru, @minQty, @bonusProdukID, @gratisQty, @start, @end)";
+
+                    string query = @"INSERT INTO promo
+            (Nama_Promo, Target_Type, Target_Value, Jenis_Promo,
+             Nilai_Potongan, Harga_Baru, Min_Qty, Bonus_Produk_ID, Gratis_Qty, START, END)
+            VALUES
+            (@namaPromo, @targetType, @targetValue, @jenisPromo,
+             @nilaiPotongan, @hargaBaru, @minQty, @bonusProdukID, @gratisQty, @start, @end)";
+
                     MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                    // REQUIRED
                     cmd.Parameters.AddWithValue("@namaPromo", textBox1.Text.Trim());
                     cmd.Parameters.AddWithValue("@targetType", comboBox2.Text);
-                    cmd.Parameters.AddWithValue("@targetValue", comboBox2.Text == "Tag" ? textBox2.Text.Trim() : comboBox1.Text);
+                    cmd.Parameters.AddWithValue("@targetValue",
+                        comboBox2.Text == "Tag" ? textBox2.Text.Trim() : comboBox1.Text);
                     cmd.Parameters.AddWithValue("@jenisPromo", comboBox3.Text);
-                    cmd.Parameters.AddWithValue("@nilaiPotongan", comboBox3.Text == "Persen" ? (float)numericUpDown7.Value : 0);
-                    if(comboBox3.Text == "Harga_Jadi")
+                    cmd.Parameters.AddWithValue("@start", startDate);
+                    cmd.Parameters.AddWithValue("@end", endDate);
+
+                    // DEFAULTS (IMPORTANT)
+                    cmd.Parameters.AddWithValue("@nilaiPotongan", 0);
+                    cmd.Parameters.AddWithValue("@hargaBaru", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@minQty", 1);
+                    cmd.Parameters.AddWithValue("@bonusProdukID", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@gratisQty", 0);
+
+                    // PROMO LOGIC
+                    switch (comboBox3.Text)
                     {
-                        cmd.Parameters.AddWithValue("@hargaBaru", (float)numericUpDown7.Value);
+                        case "Persen":
+                            cmd.Parameters["@nilaiPotongan"].Value = (float)numericUpDown5.Value;
+                            cmd.Parameters["@minQty"].Value = (int)numericUpDown8.Value;
+                            break;
+
+                        case "Harga_Jadi":
+                            cmd.Parameters["@hargaBaru"].Value = (int)numericUpDown7.Value;
+                            cmd.Parameters["@minQty"].Value = (int)numericUpDown6.Value;
+                            break;
+
+                        case "Grosir":
+                            cmd.Parameters["@hargaBaru"].Value = (int)numericUpDown3.Value;
+                            cmd.Parameters["@minQty"].Value = (int)numericUpDown4.Value;
+                            break;
+
+                        case "Bonus":
+                            cmd.Parameters["@minQty"].Value = (int)numericUpDown1.Value;
+                            cmd.Parameters["@bonusProdukID"].Value = comboBox4.SelectedValue;
+                            cmd.Parameters["@gratisQty"].Value = (int)numericUpDown2.Value;
+                            break;
                     }
-                    else if(comboBox3.Text=="Grosir")
-                    {
-                        cmd.Parameters.AddWithValue("@hargaBaru", (float)numericUpDown3.Value);
-                    }
-                    if (comboBox3.Text == "Bonus")
-                    {
-                        cmd.Parameters.AddWithValue("@minQty", (int)numericUpDown1.Value);
-                    }
-                    else if (comboBox3.Text == "Grosir")
-                    {
-                        cmd.Parameters.AddWithValue("@minQty", (int)numericUpDown4.Value);
-                    }
-                    else if (comboBox3.Text == "Harga_Jadi")
-                    {
-                        cmd.Parameters.AddWithValue("@minQty", (int)numericUpDown6.Value);
-                    }
-                    else if (comboBox3.Text == "Persen")
-                    {
-                        cmd.Parameters.AddWithValue("@minQty", (int)numericUpDown8.Value);
-                    }
-                    cmd.Parameters.AddWithValue("@bonusProdukID", comboBox3.Text == "Bonus" ? (int)comboBox4.SelectedValue : (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@gratisQty", comboBox3.Text == "Bonus" ? (int)numericUpDown2.Value : 0);
-                    cmd.Parameters.AddWithValue("@start", date1);
-                    cmd.Parameters.AddWithValue("@end", date2);
+
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Promo berhasil ditambahkan!");
                     this.Close();
@@ -137,39 +120,8 @@ namespace Project_PV
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
-            //string namaPromo = textBox1.Text.Trim();
-            //string produk = textBox2.Text;          // misal memilih nama produk
-            //string jenis = comboBox1.Text;            // misal: Diskon / Cashback / Buy 1 Get 1
-            //float promo = (float)numericUpDown1.Value;      // nilai promo (misal 20% / 10000 / dll)
-            //string tag = textBox3.Text; // gabung tag jadi 1 kolom
-
-            //if (namaPromo == "")
-            //{
-            //    MessageBox.Show("Nama promo wajib diisi");
-            //    return;
-            //}
-
-            //using (MySqlConnection conn = new MySqlConnection("Server=localhost;Database=db_proyek_pv;Uid=root;Pwd=;"))
-            //{
-            //    conn.Open();
-
-            //    string query = "INSERT INTO Promo (Nama_Promo, Produk, Jenis, Promo, Tag) VALUES (@namaPromo, @produk, @jenis, @promo, @tag)";
-            //    MySqlCommand cmd = new MySqlCommand(query, conn);
-
-            //    cmd.Parameters.AddWithValue("@namaPromo", namaPromo);
-            //    cmd.Parameters.AddWithValue("@produk", produk);
-            //    cmd.Parameters.AddWithValue("@jenis", jenis);
-            //    cmd.Parameters.AddWithValue("@promo", promo);
-            //    cmd.Parameters.AddWithValue("@tag", tag);
-
-            //    cmd.ExecuteNonQuery();
-
-            //    MessageBox.Show("Promo berhasil ditambahkan!");
-            //    this.Close();
-            //}
-
         }
+
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {

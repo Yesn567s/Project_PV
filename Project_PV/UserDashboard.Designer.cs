@@ -35,11 +35,11 @@ namespace Project_PV
             this.logoLabel = new System.Windows.Forms.Label();
             this.LabelBrand = new System.Windows.Forms.Label();
             this.navPanel = new System.Windows.Forms.Panel();
+            this.cartButton = new System.Windows.Forms.Button();
             this.homeButton = new System.Windows.Forms.Button();
             this.catalogButton = new System.Windows.Forms.Button();
             this.membershipButton = new System.Windows.Forms.Button();
             this.rightPanel = new System.Windows.Forms.Panel();
-            this.cartButton = new System.Windows.Forms.Button();
             this.userLabel = new System.Windows.Forms.Label();
             this.logoutButton = new System.Windows.Forms.Button();
             this.headerBorder = new System.Windows.Forms.Panel();
@@ -95,6 +95,23 @@ namespace Project_PV
             this.navPanel.Name = "navPanel";
             this.navPanel.Size = new System.Drawing.Size(550, 60);
             this.navPanel.TabIndex = 2;
+            // 
+            // cartButton
+            // 
+            this.cartButton.BackColor = System.Drawing.Color.Transparent;
+            this.cartButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cartButton.FlatAppearance.BorderSize = 0;
+            this.cartButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.cartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cartButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cartButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.cartButton.Location = new System.Drawing.Point(392, 15);
+            this.cartButton.Name = "cartButton";
+            this.cartButton.Size = new System.Drawing.Size(80, 30);
+            this.cartButton.TabIndex = 0;
+            this.cartButton.Text = "🛒  Cart";
+            this.cartButton.UseVisualStyleBackColor = false;
+            this.cartButton.Click += new System.EventHandler(this.cartButton_Click);
             // 
             // homeButton
             // 
@@ -156,23 +173,6 @@ namespace Project_PV
             this.rightPanel.Size = new System.Drawing.Size(280, 60);
             this.rightPanel.TabIndex = 3;
             // 
-            // cartButton
-            // 
-            this.cartButton.BackColor = System.Drawing.Color.Transparent;
-            this.cartButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cartButton.FlatAppearance.BorderSize = 0;
-            this.cartButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
-            this.cartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cartButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.cartButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.cartButton.Location = new System.Drawing.Point(392, 15);
-            this.cartButton.Name = "cartButton";
-            this.cartButton.Size = new System.Drawing.Size(80, 30);
-            this.cartButton.TabIndex = 0;
-            this.cartButton.Text = "🛒  Cart";
-            this.cartButton.UseVisualStyleBackColor = false;
-            this.cartButton.Click += new System.EventHandler(this.cartButton_Click);
-            // 
             // userLabel
             // 
             this.userLabel.AutoSize = true;
@@ -216,7 +216,7 @@ namespace Project_PV
             this.contentPanel.Controls.Add(this.contentLabel);
             this.contentPanel.Location = new System.Drawing.Point(0, 60);
             this.contentPanel.Name = "contentPanel";
-            this.contentPanel.Size = new System.Drawing.Size(1200, 640);
+            this.contentPanel.Size = new System.Drawing.Size(1200, 700);
             this.contentPanel.TabIndex = 2;
             // 
             // contentLabel
@@ -233,7 +233,7 @@ namespace Project_PV
             // UserDashboard
             // 
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1184, 661);
+            this.ClientSize = new System.Drawing.Size(1184, 749);
             this.Controls.Add(this.headerPanel);
             this.Controls.Add(this.headerBorder);
             this.Controls.Add(this.contentPanel);

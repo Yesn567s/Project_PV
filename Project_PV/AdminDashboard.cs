@@ -24,9 +24,13 @@ namespace Project_PV
             button1.FlatStyle = FlatStyle.Flat;
             button2.FlatStyle = FlatStyle.Flat;
             buttonPromo.FlatStyle = FlatStyle.Flat;
+            buttonLaporan.FlatStyle = FlatStyle.Flat;
+            buttonPromoSpecial.FlatStyle = FlatStyle.Flat;
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.BorderSize = 0;
             buttonPromo.FlatAppearance.BorderSize = 0;
+            buttonLaporan.FlatAppearance.BorderSize = 0;
+            buttonPromoSpecial.FlatAppearance.BorderSize = 0;
             btnControl_design(button1);
             LoadDashboard();
         }
@@ -54,6 +58,28 @@ namespace Project_PV
             btnControl_design(buttonPromo);
         }
 
+        private void buttonLaporan_Click(object sender, EventArgs e)
+        {
+            FormLaporanPenjualanBulanan laporanForm = new FormLaporanPenjualanBulanan();
+            laporanForm.Show();
+        }
+
+        private void buttonPromoSpecial_Click(object sender, EventArgs e)
+        {
+            if (adminSpecialPromoControl == null)
+            {
+                adminSpecialPromoControl = new AdminSpecialPromoManagement();
+            }
+            LoadUserControl(adminSpecialPromoControl);
+            btnControl_design(buttonPromoSpecial);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FormLogin loginForm = new FormLogin();
+            loginForm.Show();
+            this.Hide();
+        }
 
         // Load User Controls on Button Click
         private void LoadUserControl(UserControl control)
@@ -90,15 +116,6 @@ namespace Project_PV
             LoadUserControl(adminPromoControl);
         }
 
-        private void buttonPromoSpecial_Click(object sender, EventArgs e)
-        {
-            if (adminSpecialPromoControl == null)
-            {
-                adminSpecialPromoControl = new AdminSpecialPromoManagement();
-            }
-            LoadUserControl(adminSpecialPromoControl);
-        }
-
         private void btnControl_design(Button activeButton)
         {
             // Reset all buttons to default style
@@ -108,23 +125,13 @@ namespace Project_PV
             button2.ForeColor = Color.Black;
             buttonPromo.BackColor = Color.White;
             buttonPromo.ForeColor = Color.Black;
+            buttonPromoSpecial.BackColor = Color.White;
+            buttonPromoSpecial.ForeColor = Color.Black;
 
             // Highlight the active button
             activeButton.BackColor = Color.Black;
             activeButton.ForeColor = Color.White;
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            FormLogin loginForm = new FormLogin();
-            loginForm.Show();
-            this.Hide();
-        }
-
-        private void buttonLaporan_Click(object sender, EventArgs e)
-        {
-            FormLaporanPenjualanBulanan laporanForm = new FormLaporanPenjualanBulanan();
-            laporanForm.Show();
-        }
     }
 }
