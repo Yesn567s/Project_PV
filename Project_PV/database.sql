@@ -21,22 +21,22 @@ USE `db_proyek_pv`;
 DROP TABLE IF EXISTS `cart`;
 
 CREATE TABLE `cart` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `member_id` int(11) DEFAULT NULL,
-  `session_id` varchar(100) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `member_id` INT(11) DEFAULT NULL,
+  `session_id` VARCHAR(100) DEFAULT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
   PRIMARY KEY (`ID`),
   UNIQUE KEY `unique_member_cart` (`member_id`),
   UNIQUE KEY `unique_session_cart` (`session_id`),
   KEY `idx_cart_member` (`member_id`),
   KEY `idx_cart_session` (`session_id`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`ID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `cart` */
 
-insert  into `cart`(`ID`,`member_id`,`session_id`,`created_at`,`updated_at`) values 
+INSERT  INTO `cart`(`ID`,`member_id`,`session_id`,`created_at`,`updated_at`) VALUES 
 (1,10,NULL,'2026-01-06 08:53:40','2026-01-06 09:39:55'),
 (2,NULL,'8d97c347-4cdb-4de8-8232-f5a509743993','2026-01-06 08:59:15','2026-01-06 08:59:15'),
 (3,NULL,'37223ed2-3368-4480-a7ab-3633ef4d6089','2026-01-06 09:33:37','2026-01-06 09:33:37'),
@@ -47,22 +47,22 @@ insert  into `cart`(`ID`,`member_id`,`session_id`,`created_at`,`updated_at`) val
 DROP TABLE IF EXISTS `cart_detail`;
 
 CREATE TABLE `cart_detail` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `cart_id` int(11) NOT NULL,
-  `produk_id` int(11) NOT NULL,
-  `Qty` int(11) NOT NULL DEFAULT 1,
-  `added_at` datetime DEFAULT current_timestamp(),
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `cart_id` INT(11) NOT NULL,
+  `produk_id` INT(11) NOT NULL,
+  `Qty` INT(11) NOT NULL DEFAULT 1,
+  `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (`ID`),
   UNIQUE KEY `unique_cart_product` (`cart_id`,`produk_id`),
   KEY `idx_cart_detail_cart` (`cart_id`),
   KEY `idx_cart_detail_product` (`produk_id`),
   CONSTRAINT `cart_detail_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`ID`) ON DELETE CASCADE,
   CONSTRAINT `cart_detail_ibfk_2` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`ID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `cart_detail` */
 
-insert  into `cart_detail`(`ID`,`cart_id`,`produk_id`,`Qty`,`added_at`) values 
+INSERT  INTO `cart_detail`(`ID`,`cart_id`,`produk_id`,`Qty`,`added_at`) VALUES 
 (1,1,16,5,'2026-01-06 08:53:55'),
 (2,1,17,1,'2026-01-06 08:53:59'),
 (3,1,18,1,'2026-01-06 08:54:02'),
@@ -74,15 +74,15 @@ insert  into `cart_detail`(`ID`,`cart_id`,`produk_id`,`Qty`,`added_at`) values
 DROP TABLE IF EXISTS `kategori`;
 
 CREATE TABLE `kategori` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Nama` varchar(100) NOT NULL,
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nama` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Nama` (`Nama`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `kategori` */
 
-insert  into `kategori`(`ID`,`Nama`) values 
+INSERT  INTO `kategori`(`ID`,`Nama`) VALUES 
 (3,'Apparel'),
 (2,'Electronic'),
 (5,'Entertainment'),
@@ -94,20 +94,20 @@ insert  into `kategori`(`ID`,`Nama`) values
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Nama` varchar(100) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `PASSWORD` varchar(50) NOT NULL,
-  `Tanggal_Lahir` date NOT NULL,
-  `Is_Member` tinyint(1) NOT NULL,
-  `membership_start` date DEFAULT NULL,
-  `membership_end` date DEFAULT NULL,
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nama` VARCHAR(100) NOT NULL,
+  `Email` VARCHAR(100) NOT NULL,
+  `PASSWORD` VARCHAR(50) NOT NULL,
+  `Tanggal_Lahir` DATE NOT NULL,
+  `Is_Member` TINYINT(1) NOT NULL,
+  `membership_start` DATE DEFAULT NULL,
+  `membership_end` DATE DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `member` */
 
-insert  into `member`(`ID`,`Nama`,`Email`,`PASSWORD`,`Tanggal_Lahir`,`Is_Member`,`membership_start`,`membership_end`) values 
+INSERT  INTO `member`(`ID`,`Nama`,`Email`,`PASSWORD`,`Tanggal_Lahir`,`Is_Member`,`membership_start`,`membership_end`) VALUES 
 (1,'Kevin Setiono','kevin@gmail.com','123','2003-08-12',0,NULL,NULL),
 (2,'Budi Santoso','budi@gmail.com','123','1995-11-05',0,NULL,NULL),
 (3,'Cindy Wijaya','cindy@gmail.com','123','2001-06-18',0,NULL,NULL),
@@ -124,28 +124,28 @@ insert  into `member`(`ID`,`Nama`,`Email`,`PASSWORD`,`Tanggal_Lahir`,`Is_Member`
 DROP TABLE IF EXISTS `produk`;
 
 CREATE TABLE `produk` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Nama` varchar(100) NOT NULL,
-  `Merk` varchar(100) DEFAULT NULL,
-  `Harga` int(11) NOT NULL,
-  `kategori_id` int(11) NOT NULL,
-  `tag` varchar(255) DEFAULT NULL,
-  `image_url` varchar(500) DEFAULT NULL,
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nama` VARCHAR(100) NOT NULL,
+  `Merk` VARCHAR(100) DEFAULT NULL,
+  `Harga` INT(11) NOT NULL,
+  `kategori_id` INT(11) NOT NULL,
+  `tag` VARCHAR(255) DEFAULT NULL,
+  `image_url` VARCHAR(500) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `kategori_id` (`kategori_id`),
   CONSTRAINT `produk_ibfk_1` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `produk` */
 
-insert  into `produk`(`ID`,`Nama`,`Merk`,`Harga`,`kategori_id`,`tag`,`image_url`) values 
-(1,'Sedapmie','Sedaap',3500,1,'Mie Instan',''),
-(2,'Indomie','Indofood',3500,1,'Mie Instan',''),
-(3,'Indomie Goreng','Indofood',3500,1,'Mie Instan',''),
-(4,'Gula Rose Brand 1 kg','Rose Brand',18500,1,'Sembako, Gula',''),
+INSERT  INTO `produk`(`ID`,`Nama`,`Merk`,`Harga`,`kategori_id`,`tag`,`image_url`) VALUES 
+(1,'Sedapmie','Sedaap',3500,1,'Mie Instan','https://solvent-production.s3.amazonaws.com/media/images/products/2021/04/2499a.jpg'),
+(2,'Indomie','Indofood',3500,1,'Mie Instan','https://solvent-production.s3.amazonaws.com/media/images/products/2021/04/2494a.jpg'),
+(3,'Indomie Goreng','Indofood',3500,1,'Mie Instan','https://solvent-production.s3.amazonaws.com/media/images/products/2021/04/2494a.jpg'),
+(4,'Gula Rose Brand 1 kg','Rose Brand',18500,1,'Sembako, Gula','https://solvent-production.s3.amazonaws.com/media/images/products/2022/08/DSC_0829.JPG'),
 (5,'Gula Rose Brand Hijau 1 kg','Rose Brand',18500,1,'Sembako, Gula','https://c.alfagift.id/product/1/1_A09170277363_20200824132308167_base.jpg'),
 (6,'Minyak Goreng Hemart 900 ml','Hemart',18500,1,'Sembako, Minyak','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/104/MTA-182275096/brd-29831_minyak-goreng-hemart-kemasan-botol-1-liter-free-packing-kardus_full07-99ee99e7.jpg'),
-(7,'Minyak Goreng Fitri 800 ml','Fitri',17500,1,'Sembako, Minyak',''),
+(7,'Minyak Goreng Fitri 800 ml','Fitri',17500,1,'Sembako, Minyak','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/MTA-7097935/fitri_smg-jog-solo_-_fitri_minyak_goreng_sawit_pouch_1800_ml_tbkt_full01_facchq2o.jpg'),
 (8,'Minyak Goreng 800 ml','Umum',17000,1,'Sembako, Minyak','https://c.alfagift.id/product/1/1_A09350045270_20240122094000330_base.jpg'),
 (9,'Beras Raja Lele 5 kg','Raja Lele',80000,1,'Sembako, Beras','https://arti-assets.sgp1.cdn.digitaloceanspaces.com/megaswalayan/products/8abfc71d-1c5a-4bca-baf0-3c5a570cd203.jpg'),
 (10,'Beras Rojo Lele 5 kg','Rojo Lele',80000,1,'Sembako, Beras','https://arti-assets.sgp1.cdn.digitaloceanspaces.com/megaswalayan/products/8abfc71d-1c5a-4bca-baf0-3c5a570cd203.jpg'),
@@ -156,17 +156,17 @@ insert  into `produk`(`ID`,`Nama`,`Merk`,`Harga`,`kategori_id`,`tag`,`image_url`
 (15,'Beras Sumo Kuning 5 kg','Sumo',85000,1,'Sembako, Beras','https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/img/VqbcmM/2025/7/17/d77c48f0-8629-43fd-b2e3-4796ab6816e2.jpg~tplv-aphluv4xwc-resize-jpeg:700:0.jpeg?lk3s=0ccea506&x-expires=1767027165&x-signature=fickjhtchDYMwaO8Cu%2BgIgTC3Dc%3D&x-signature-webp=yGSOIU%2Fz0j8I87pm3qC0cDqaBP8%3D'),
 (16,'Air Cleo 220 ml','Cleo',2000,1,'Minuman, Air Mineral','https://cf.shopee.co.id/file/id-11134207-7rbk0-mam1t88zo31n0e'),
 (17,'Air Cleo 220 ml Isi 24','Cleo',18500,1,'Minuman, Air Mineral','https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/5a08eb1fb35e4a95b8b9ea39d295be2a~tplv-aphluv4xwc-resize-jpeg:700:0.jpeg?lk3s=0ccea506&x-expires=1767027282&x-signature=vIj4NNqqI5qYCq3EYjfK69ty6JE%3D&x-signature-webp=okJLs4ARvWFQB40C17EUU9OdbBA%3D'),
-(18,'Air Pristine 400 ml','Pristine',3500,1,'Minuman, Air Mineral',''),
+(18,'Air Pristine 400 ml','Pristine',3500,1,'Minuman, Air Mineral','https://c.alfagift.id/product/1/1_A8262900002167_20250516142237557_base.jpg'),
 (19,'Cleo Air Mineral 550 ml Isi 6','Cleo',12000,1,'Minuman, Air Mineral','https://solvent-production.s3.amazonaws.com/media/images/products/2021/05/IMG20210201155138.jpg'),
-(20,'Pristine Air Mineral 600 ml','Pristine',4500,1,'Minuman, Air Mineral',''),
+(20,'Pristine Air Mineral 600 ml','Pristine',4500,1,'Minuman, Air Mineral','https://c.alfagift.id/product/1/1_A8262900002167_20250516142237557_base.jpg'),
 (21,'Pristine Air Mineral 1500 ml','Pristine',8000,1,'Minuman, Air Mineral','https://c.alfagift.id/product/1/1_A8262900002167_20250516142237557_base.jpg'),
 (22,'Ameria Biscuit Columbia','Columbia',28000,1,'Biskuit','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4mww39cvVE7VzODsx7qKkZLha3gYWFDjhQ&s'),
 (23,'Biskuit Columbia Toples','Columbia',15000,1,'Biskuit','https://www.sumberpangansukses.com/assets/produk/d98d74dd7aa145fab0216c2bdf72271e.jpg'),
-(24,'Flashdisk Lexar V40 8 GB','Lexar',45000,2,'Flashdisk',''),
+(24,'Flashdisk Lexar V40 8 GB','Lexar',45000,2,'Flashdisk','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0VnRs0D_hBSf4J1p7ISP8faBF7-dJ2-TDVw&s'),
 (25,'Flashdisk Lexar V40 16 GB','Lexar',55000,2,'Flashdisk','https://planetcomputer.co.id/wp-content/uploads/2024/08/67342744_cc42ab57-cf1a-43e9-8667-95a259c3f88d_640_640.jpg'),
 (26,'Flashdisk Lexar V40 32 GB','Lexar',65000,2,'Flashdisk','https://planetcomputer.co.id/wp-content/uploads/2024/08/23867496_5ece3732-b278-42ae-b05d-8d026331f9ff_700_700-600x600.jpg'),
 (27,'Flashdisk Lexar V40 64 GB','Lexar',75000,2,'Flashdisk','https://pegastore.id/media/product/produk-1737532395.jpg'),
-(28,'Kalkulator M&G Mgc-10','M&G',110000,2,'Kalkulator',''),
+(28,'Kalkulator M&G Mgc-10','M&G',110000,2,'Kalkulator','https://halimonline.com/20997-large_default/calculator-mg-12-digits-mgc-10-adg98779.jpg'),
 (29,'Kalkulator Scientific Casio FX-570ES Plus','Casio',451500,2,'Kalkulator','https://www.casio.com/content/dam/casio/product-info/locales/id/id/calc/product/scientific/F/FX/FX5/fx-570esplus-2bu/assets/fx-570ES_PLUS-2BU_F.png.transform/main-visual-pc/image.png'),
 (30,'Kalkulator Scientific Casio FX-82ES Plus','Casio',287000,2,'Kalkulator','https://www.casio.com/content/dam/casio/product-info/locales/id/id/calc/product/scientific/F/FX/FX8/fx-82ESPLUS-2/assets/fx-82ES_PLUS-2_F.png.transform/main-visual-pc/image.png'),
 (31,'Kalkulator Scientific Casio FX-991ES Plus','Casio',481000,2,'Kalkulator','https://www.casio.com/content/dam/casio/product-info/locales/id/id/calc/product/scientific/F/FX/FX9/fx-991esplus-2pk/assets/fx-991ES_PLUS-2PK_F.png.transform/main-visual-pc/image.png'),
@@ -174,68 +174,68 @@ insert  into `produk`(`ID`,`Nama`,`Merk`,`Harga`,`kategori_id`,`tag`,`image_url`
 (33,'Kalkulator Scientific Joyko CC-25BP','Joyko',45000,2,'Kalkulator','https://www.joyko.co.id/image/cache/data/COVER-25-650x650.jpg'),
 (34,'Jete Power Bank B7 10000 Mah','Jete',350000,2,'Power Bank','https://jete.id/wp-content/uploads/2025/03/Desc-Powerbank-JETE-B7-10000-New-Color-18-600x600.jpg'),
 (35,'Vivan Vpb-D11 10.000 Mah','Vivan',250000,2,'Power Bank','https://down-id.img.susercontent.com/file/id-11134207-8224x-mgdspnybrjt584'),
-(36,'Vtec Magnet Set Ms-8074','V-Tec',18000,2,'Magnet',''),
+(36,'Vtec Magnet Set Ms-8074','V-Tec',18000,2,'Magnet','https://images.tokopedia.net/img/cache/500-square/VqbcmM/2025/1/8/8d066233-8265-4282-b5bf-12a44b3f96fd.png'),
 (37,'Kipas Portable','Umum',20000,2,'Elektronik','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/MTA-11951965/kalno_kipas_angin_portable_mini_fan_terbaru_ada_holder_hp_-_mini_fan_usb_charging_rechargeable_l18_random_full01_hmr2qv00.jpg'),
 (38,'Jas Hujan Jaket Celana Elmondo','Elmondo',60000,3,'Jas Hujan','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo_KMIx6pig3UZ0LNFiqukIGbPIZOxk_nPBg&s'),
 (39,'Jas Hujan Elmondo Celana Jaket 935','Elmondo',45000,3,'Jas Hujan','https://down-id.img.susercontent.com/file/id-11134207-7rasg-m3rzjj7rj573fa'),
 (40,'Jas Hujan Cap Kapak','Kapak',48000,3,'Jas Hujan','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaa9SDmJWW_WebUHj7UYtYMPQVYmBgzTA5Ng&s'),
 (41,'Jas Hujan Kiddy Rets','Kiddy',44000,3,'Jas Hujan','https://down-id.img.susercontent.com/file/sg-11134201-22110-hd4pzlm4vsjve0'),
-(42,'Tas Sekolah','Umum',150000,3,'Tas',''),
-(43,'Kaos Kaki Remaja','Umum',12000,3,'Pakaian',''),
-(44,'Celana Pendek','Umum',35000,3,'Pakaian',''),
-(45,'Topi Natal Glitter','Umum',20000,3,'Natal',''),
-(46,'Tissue See U 250 Sheet','See U',8500,4,'Tissue',''),
-(47,'Tissue Basah Mitu Wipes','Mitu',13000,4,'Tissue Basah',''),
-(48,'Tissue Paseo','Paseo',28000,4,'Tissue',''),
-(49,'Tissue Fusia Jumbo 1000 Sheet','Fusia',30000,4,'Tissue',''),
-(50,'Hit Aerosol 600 ml','Hit',38000,4,'Anti Nyamuk',''),
-(51,'Masker Duckbill Alkindo Isi 50','Alkindo',15000,4,'Kesehatan',''),
-(52,'Freshcare','Freshcare',14000,4,'Kesehatan',''),
-(53,'Kifa Sabun Cuci Piring','Kifa',8500,4,'Sabun',''),
-(54,'Lem Tikus Gajah','Gajah',18000,4,'Kebersihan',''),
-(55,'Buku Tulis Kiky 38 Lembar','Kiky',28000,5,'Buku Tulis',''),
-(56,'Buku Tulis Sinar Dunia 32 Lembar','Sidu',30000,5,'Buku Tulis',''),
-(57,'Bolpen Sarasa','Zebra',16000,5,'Alat Tulis',''),
-(58,'Bolpen AE7 1 Lusin','Standard',22000,5,'Alat Tulis',''),
-(59,'Crayon Greebel 55 Warna','Greebel',85000,5,'Alat Tulis',''),
-(60,'Magic Clay','Umum',6000,5,'Mainan',''),
-(61,'Bubble Stick','Umum',8000,5,'Mainan',''),
-(62,'Meja Belajar Anak','Umum',65000,5,'Furniture',''),
-(63,'Aneka Kursi','Umum',35000,5,'Furniture',''),
-(64,'Mangkok Sultan','Sultan',12000,5,'Peralatan Rumah',''),
-(65,'Termos Sultan 2 Cangkir','Sultan',35000,5,'Peralatan Rumah',''),
-(66,'Botol Minum Cetek Sedotan Mix 900 ml','Umum',18000,5,'Botol',''),
-(67,'Gantungan Kunci','Umum',5000,5,'Aksesoris',''),
-(68,'Jam Dinding Mayomi Type 917','Mayomi',30000,5,'Dekorasi',''),
-(69,'HVS Sinarline A4','Sinarline',40000,5,'Kertas',''),
-(70,'HVS Sidu 70 gsm A4','Sidu',42000,5,'Kertas',''),
-(71,'Odner Bantex 1461','Bantex',35000,5,'ATK','');
+(42,'Tas Sekolah','Umum',150000,3,'Tas','https://torch.id/cdn/shop/files/SamataBlack2.jpg?v=1757300726&width=1445'),
+(43,'Kaos Kaki Remaja','Umum',12000,3,'Pakaian','https://img.lazcdn.com/g/p/0d9154f2d8d9c0d0feda2b4a6c29aedb.jpg_720x720q80.jpg'),
+(44,'Celana Pendek','Umum',35000,3,'Pakaian','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/102/MTA-142959621/no_brands_celana_pendek_cowo_boardshort_pantai_boxer_full03_tn4sw094.jpg'),
+(45,'Topi Natal Glitter','Umum',20000,3,'Natal','https://cdn.ruparupa.io/fit-in/400x400/filters:format(webp)/filters:quality(90)/ruparupa-com/image/upload/Products/10590765_3.jpg'),
+(46,'Tissue See U 250 Sheet','See U',8500,4,'Tissue','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//91/MTA-7277202/see-u_see-u_classic_facial_tissue_-250_sheet-_full02_hfmvmlh9.jpg'),
+(47,'Tissue Basah Mitu Wipes','Mitu',13000,4,'Tissue Basah','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//97/MTA-16704537/mitu_mitu_baby_wipes_tisu_basah_-_pink_-50_sheets-_full01_eim6q5h0.jpg'),
+(48,'Tissue Paseo','Paseo',28000,4,'Tissue','https://image.astronauts.cloud/product-images/2024/1/PaseoSmartFacialSoftPack3_894fbed8-4077-47a2-bdc1-f85ddce9f8dc_900x897.jpg'),
+(49,'Tissue Fusia Jumbo 1000 Sheet','Fusia',30000,4,'Tissue','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//105/MTA-71747925/peony_tisu_facial_lembut_isi_180s_2ply_peony_-_fusia_full05_n68nk82k.jpg'),
+(50,'Hit Aerosol 600 ml','Hit',38000,4,'Anti Nyamuk','https://down-id.img.susercontent.com/file/id-11134207-7r98x-lw09ywibwduy3e'),
+(51,'Masker Duckbill Alkindo Isi 50','Alkindo',15000,4,'Kesehatan','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/96/MTA-129630009/alkindo_masker_duckbill_alkindo_4ply_isi_50_pcs_emboss_disposable_50pcs_full05_utpl9yiu.jpg'),
+(52,'Freshcare','Freshcare',14000,4,'Kesehatan','https://res-1.cloudinary.com/dk0z4ums3/image/upload/c_scale,h_500,w_500/v1/production/pharmacy/products/1732609444_freshcare_hot_10_ml'),
+(53,'Kifa Sabun Cuci Piring','Kifa',8500,4,'Sabun','https://img.klikindogrosir.com/images/products/1782090.png'),
+(54,'Lem Tikus Gajah','Gajah',18000,4,'Kebersihan','https://image.astronauts.cloud/product-images/2024/6/13_8f896e40-4e8a-4d90-a19c-14151f692f26_900x900.jpg'),
+(55,'Buku Tulis Kiky 38 Lembar','Kiky',28000,5,'Buku Tulis','https://down-id.img.susercontent.com/file/id-11134207-7r98z-lwuwzzz7o7xm77'),
+(56,'Buku Tulis Sinar Dunia 32 Lembar','Sidu',30000,5,'Buku Tulis','https://siplah.blibli.com/data/images/SMAH-0008-00596/500b8241-be5a-4e8a-b436-4eddc6c11f0c.jpg'),
+(57,'Bolpen Sarasa','Zebra',16000,5,'Alat Tulis','https://img.lazcdn.com/g/ff/kf/S88b74865074c434ab59a51dd427e6414a.jpg_720x720q80.jpg'),
+(58,'Bolpen AE7 1 Lusin','Standard',22000,5,'Alat Tulis','https://smb-padiumkm-images-public-prod.oss-ap-southeast-5.aliyuncs.com/product/image/02102023/64d1c58da8f6af718485e746/651a7331419f30ab8982fb88/774c70b9cc7e3c11762aeeb810f325.jpeg?x-oss-process=image/resize,m_pad,w_432,h_432/quality,Q_70'),
+(59,'Crayon Greebel 55 Warna','Greebel',85000,5,'Alat Tulis','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/MTA-138785705/greebel_greebel_crayon_krayon_kids_oil_pastel_55_warna_-55c-_tdk_berdebu_cerah_utk_anak_sekolah_art-_tdk_beracun_full02_uh0jkusp.jpg'),
+(60,'Magic Clay','Umum',6000,5,'Mainan','https://img.lazcdn.com/g/ff/kf/S26912b104acb4c8fa39df2d2b7b857eeZ.jpg_720x720q80.jpg'),
+(61,'Bubble Stick','Umum',8000,5,'Mainan','https://filebroker-cdn.lazada.co.id/kf/S1e6283810b614e09a671fe89f055beb40.jpg'),
+(62,'Meja Belajar Anak','Umum',65000,5,'Furniture','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/94/MTA-150402881/no_brand_set_meja_belajar_anak_meja_tulis_anak_type_k11-_full01_btwcm98d.jpg'),
+(63,'Aneka Kursi','Umum',35000,5,'Furniture','https://sc04.alicdn.com/kf/H4e974323b1004c458f8cb92e99fd73145.jpg'),
+(64,'Mangkok Sultan','Sultan',12000,5,'Peralatan Rumah','https://img.lazcdn.com/g/p/06d793599c817a1fca28924dffe38e0e.jpg_720x720q80.jpg'),
+(65,'Termos Sultan 2 Cangkir','Sultan',35000,5,'Peralatan Rumah','https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/97/MTA-108135267/tidak_ada_merk_termos_sultan_vacuum_flask_set_botol_minum_cangkir_gift_premium_500_ml_full06_dcg1pyxn.jpg'),
+(66,'Botol Minum Cetek Sedotan Mix 900 ml','Umum',18000,5,'Botol','https://down-id.img.susercontent.com/file/id-11134207-7ras9-m0zi1zuixrc48c'),
+(67,'Gantungan Kunci','Umum',5000,5,'Aksesoris','https://img.lazcdn.com/g/p/c9a8ef327b35b36cc41804c985144888.jpg_720x720q80.jpg'),
+(68,'Jam Dinding Mayomi Type 917','Mayomi',30000,5,'Dekorasi','https://images.tokopedia.net/img/cache/700/VqbcmM/2022/3/19/85f657ce-4c4a-4709-a71d-a1c0422d6939.png'),
+(69,'HVS Sinarline A4','Sinarline',40000,5,'Kertas','https://siplah.blibli.com/data/images/SASH-0240-00438/fc352501-23df-4501-a6a7-9b2ae402a86a.jpg'),
+(70,'HVS Sidu 70 gsm A4','Sidu',42000,5,'Kertas','https://sidu.id/documents/287278/309575/SDC_A470_500_Green+depan.png/bb0d88f9-56a4-4ab4-5bdf-7a57f62b04c0?t=1706770983130'),
+(71,'Odner Bantex 1461','Bantex',35000,5,'ATK','https://images.tokopedia.net/img/cache/700/product-1/2020/7/16/98480860/98480860_d7d28a1d-dea7-4a1a-805f-6626e47d7611_600_600');
 
 /*Table structure for table `promo` */
 
 DROP TABLE IF EXISTS `promo`;
 
 CREATE TABLE `promo` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Nama_Promo` varchar(100) NOT NULL,
-  `Target_Type` enum('Produk','Kategori','Tag','Merk','Global') NOT NULL,
-  `Target_Value` varchar(100) NOT NULL,
-  `Jenis_Promo` enum('Harga_Jadi','Persen','Grosir','Bonus') NOT NULL,
-  `Nilai_Potongan` float DEFAULT 0,
-  `Harga_Baru` int(11) DEFAULT NULL,
-  `Min_Qty` int(11) DEFAULT 1,
-  `Bonus_Produk_ID` int(11) DEFAULT NULL,
-  `Gratis_Qty` int(11) DEFAULT 0,
-  `START` datetime DEFAULT current_timestamp(),
-  `END` datetime DEFAULT NULL,
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nama_Promo` VARCHAR(100) NOT NULL,
+  `Target_Type` ENUM('Produk','Kategori','Tag','Merk','Global') NOT NULL,
+  `Target_Value` VARCHAR(100) NOT NULL,
+  `Jenis_Promo` ENUM('Harga_Jadi','Persen','Grosir','Bonus') NOT NULL,
+  `Nilai_Potongan` FLOAT DEFAULT 0,
+  `Harga_Baru` INT(11) DEFAULT NULL,
+  `Min_Qty` INT(11) DEFAULT 1,
+  `Bonus_Produk_ID` INT(11) DEFAULT NULL,
+  `Gratis_Qty` INT(11) DEFAULT 0,
+  `START` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `END` DATETIME DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Bonus_Produk_ID` (`Bonus_Produk_ID`),
   CONSTRAINT `promo_ibfk_1` FOREIGN KEY (`Bonus_Produk_ID`) REFERENCES `produk` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `promo` */
 
-insert  into `promo`(`ID`,`Nama_Promo`,`Target_Type`,`Target_Value`,`Jenis_Promo`,`Nilai_Potongan`,`Harga_Baru`,`Min_Qty`,`Bonus_Produk_ID`,`Gratis_Qty`,`START`,`END`) values 
+INSERT  INTO `promo`(`ID`,`Nama_Promo`,`Target_Type`,`Target_Value`,`Jenis_Promo`,`Nilai_Potongan`,`Harga_Baru`,`Min_Qty`,`Bonus_Produk_ID`,`Gratis_Qty`,`START`,`END`) VALUES 
 (1,'Promo Biasa','Produk','Tissue See U','Harga_Jadi',0,1440,1,NULL,0,'2025-07-01 00:00:00','2025-07-01 23:59:00'),
 (2,'Promo Biasa','Produk','Gantungan Kunci','Grosir',0,11000,3,NULL,0,'2025-07-01 00:00:00','2025-07-01 23:59:00'),
 (3,'Promo Biasa','Produk','Beras Raja Lele 5 kg','Harga_Jadi',0,73500,1,NULL,0,'2025-07-01 00:00:00','2025-07-01 23:59:00'),
@@ -459,14 +459,14 @@ insert  into `promo`(`ID`,`Nama_Promo`,`Target_Type`,`Target_Value`,`Jenis_Promo
 DROP TABLE IF EXISTS `promo_special`;
 
 CREATE TABLE `promo_special` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Nama_Promo` varchar(100) NOT NULL,
-  `Kategori` enum('YesNo','Input') NOT NULL,
-  `Keterangan` varchar(255) NOT NULL,
-  `START` datetime DEFAULT current_timestamp(),
-  `END` datetime DEFAULT NULL,
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nama_Promo` VARCHAR(100) NOT NULL,
+  `Kategori` ENUM('YesNo','Input') NOT NULL,
+  `Keterangan` VARCHAR(255) NOT NULL,
+  `START` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `END` DATETIME DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `promo_special` */
 
@@ -475,17 +475,17 @@ CREATE TABLE `promo_special` (
 DROP TABLE IF EXISTS `transaksi`;
 
 CREATE TABLE `transaksi` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `member_id` int(11) DEFAULT NULL,
-  `Tanggal` datetime DEFAULT current_timestamp(),
-  `Harga_Terpotong` int(11) DEFAULT 0,
-  `Total` int(11) NOT NULL DEFAULT 0,
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `member_id` INT(11) DEFAULT NULL,
+  `Tanggal` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `Harga_Terpotong` INT(11) DEFAULT 0,
+  `Total` INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `transaksi` */
 
-insert  into `transaksi`(`ID`,`member_id`,`Tanggal`,`Harga_Terpotong`,`Total`) values 
+INSERT  INTO `transaksi`(`ID`,`member_id`,`Tanggal`,`Harga_Terpotong`,`Total`) VALUES 
 (1,1,'2025-12-01 10:15:00',0,35000),
 (2,2,'2025-12-01 11:22:00',0,78000),
 (3,NULL,'2025-12-02 12:40:00',0,15000),
@@ -497,22 +497,22 @@ insert  into `transaksi`(`ID`,`member_id`,`Tanggal`,`Harga_Terpotong`,`Total`) v
 DROP TABLE IF EXISTS `transaksi_detail`;
 
 CREATE TABLE `transaksi_detail` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `transaksi_id` int(11) NOT NULL,
-  `produk_id` int(11) NOT NULL,
-  `Qty` int(11) NOT NULL,
-  `Harga` int(11) NOT NULL,
-  `Diskon` int(11) DEFAULT NULL,
-  `Diskon_Spesial` int(11) DEFAULT NULL,
-  `Subtotal` int(11) GENERATED ALWAYS AS (`Qty` * `Harga`) STORED,
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `transaksi_id` INT(11) NOT NULL,
+  `produk_id` INT(11) NOT NULL,
+  `Qty` INT(11) NOT NULL,
+  `Harga` INT(11) NOT NULL,
+  `Diskon` INT(11) DEFAULT NULL,
+  `Diskon_Spesial` INT(11) DEFAULT NULL,
+  `Subtotal` INT(11) GENERATED ALWAYS AS (`Qty` * `Harga`) STORED,
   PRIMARY KEY (`ID`),
   KEY `transaksi_id` (`transaksi_id`),
   CONSTRAINT `transaksi_detail_ibfk_1` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksi` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `transaksi_detail` */
 
-insert  into `transaksi_detail`(`ID`,`transaksi_id`,`produk_id`,`Qty`,`Harga`,`Diskon`,`Diskon_Spesial`) values 
+INSERT  INTO `transaksi_detail`(`ID`,`transaksi_id`,`produk_id`,`Qty`,`Harga`,`Diskon`,`Diskon_Spesial`) VALUES 
 (1,1,3,2,5000,NULL,NULL),
 (2,1,5,1,25000,NULL,NULL),
 (3,2,2,1,30000,NULL,NULL),
