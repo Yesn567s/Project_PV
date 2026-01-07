@@ -30,6 +30,7 @@ namespace Project_PV
             }
 
             bool member = GlobalData.IsMember;
+            //MessageBox.Show("Member status: " + member.ToString());
 
             if (member){
                 LoadNotaPromoMembership();
@@ -79,7 +80,7 @@ namespace Project_PV
                 string reportPath = Path.Combine(
                     Application.StartupPath,
                     "Laporan",
-                    "NotaNonMember.rpt"
+                    "NotaMember.rpt"
                 );
 
                 if (!File.Exists(reportPath))
