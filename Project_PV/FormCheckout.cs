@@ -399,28 +399,26 @@ namespace Project_PV
                 // Query to get receipt data
                 string query = @"
                     SELECT 
-                        t.ID as TransactionID,
-                        t.Tanggal as TransactionDate,
-                        t.Total as TransactionTotal,
-                        COALESCE(m.Nama, 'Non-Member') as CustomerName,
-                        COALESCE(m.Email, '') as CustomerEmail,
-                        COALESCE(m.Is_Member, 0) as IsMember,
-                        td.ID as DetailID,
-                        p.Nama as ProductName,
-                        p.Merk as Brand,
-                        td.Qty as Quantity,
-                        td.Harga as UnitPrice,
-                        COALESCE(td.Diskon, 0) as Diskon,
-                        COALESCE(td.Diskon_Spesial, 0) as DiskonSpesial,
-                        td.Subtotal,
-                        k.Nama as Category
-                    FROM Transaksi t
-                    LEFT JOIN MEMBER m ON t.member_id = m.ID
-                    INNER JOIN Transaksi_Detail td ON t.ID = td.transaksi_id
-                    INNER JOIN Produk p ON td.produk_id = p.ID
-                    INNER JOIN Kategori k ON p.kategori_id = k.ID
-                    WHERE t.ID = @transactionID
-                    ORDER BY td.ID";
+                    t.ID as TransID,
+                    t.Tanggal as TransDate,
+                    COALESCE(m.Nama, 'Guest') as CustomerName,
+                    p.Nama as ProductName,
+                    p.Merk as Brand,
+                    k.Nama as Category,
+                    td.Qty as Quantity,
+                    td.Harga as UnitPrice,
+                    td.Subtotal,
+                    td.Diskon,
+                    td.Diskon_Spesial,
+                    m.is_member as IsMember,
+                    t.Harga_Terpotong as DiskonTotal
+                FROM Transaksi t
+                LEFT JOIN Member m ON t.member_id = m.ID
+                INNER JOIN Transaksi_Detail td ON t.ID = td.transaksi_id
+                INNER JOIN Produk p ON td.produk_id = p.ID
+                INNER JOIN Kategori k ON p.kategori_id = k.ID
+                WHERE t.ID = @transactionID
+                ORDER BY td.ID";
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
                 adapter.SelectCommand.Parameters.AddWithValue("@transactionID", transactionID);

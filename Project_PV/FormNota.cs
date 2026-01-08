@@ -32,12 +32,42 @@ namespace Project_PV
             bool member = GlobalData.IsMember;
             //MessageBox.Show("Member status: " + member.ToString());
 
-            if (member){
-                LoadNotaPromoMembership();
-            }
-            else
+            try
             {
-                LoadNotaNonMember();
+                // Create instance of your Crystal Report
+                ReportDocument reportDoc = new ReportDocument();
+
+                // Load the report file (you'll create this in Crystal Reports designer)
+                // Make sure the path is correct - adjust based on your project structure
+                string reportPath = Path.Combine(
+                    Application.StartupPath,
+                    "Laporan",
+                    "Nota.rpt"
+                );
+
+                if (!File.Exists(reportPath))
+                {
+                    MessageBox.Show($"Report not found: {reportPath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                reportDoc.Load(reportPath);
+
+                // Set the dataset as data source   
+                reportDoc.SetDataSource(notaDataSet);
+
+                // Assign report to viewer
+                crystalReportViewer1.ReportSource = reportDoc;
+                crystalReportViewer1.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error loading receipt:\n{ex.Message}\n\nMake sure Nota.rpt exists in the Laporan folder.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
@@ -45,12 +75,10 @@ namespace Project_PV
         private bool EnsureReportFilesExist()
         {
             string laporanFolder = Path.Combine(Application.StartupPath, "Laporan");
-            string nonMemberPath = Path.Combine(laporanFolder, "NotaNonMember.rpt");
-            string memberPath = Path.Combine(laporanFolder, "NotaMember.rpt");
+            string nota = Path.Combine(laporanFolder, "Nota.rpt");
 
             List<string> missing = new List<string>();
-            if (!File.Exists(nonMemberPath)) missing.Add("NotaNonMember.rpt");
-            if (!File.Exists(memberPath)) missing.Add("NotaMember.rpt");
+            if (!File.Exists(nota)) missing.Add("Nota.rpt");
 
             if (missing.Count > 0)
             {
@@ -66,88 +94,6 @@ namespace Project_PV
             return true;
         }
 
-        // Jenis nota
-        // Print nota Promo membership
-        private void LoadNotaPromoMembership()
-        {
-            try
-            {
-                // Create instance of your Crystal Report
-                ReportDocument reportDoc = new ReportDocument();
-
-                // Load the report file (you'll create this in Crystal Reports designer)
-                // Make sure the path is correct - adjust based on your project structure
-                string reportPath = Path.Combine(
-                    Application.StartupPath,
-                    "Laporan",
-                    "NotaMember.rpt"
-                );
-
-                if (!File.Exists(reportPath))
-                {
-                    MessageBox.Show($"Report not found: {reportPath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                reportDoc.Load(reportPath);
-
-                // Set the dataset as data source   
-                reportDoc.SetDataSource(notaDataSet);
-
-                // Assign report to viewer
-                crystalReportViewer1.ReportSource = reportDoc;
-                crystalReportViewer1.Refresh();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    $"Error loading receipt:\n{ex.Message}\n\nMake sure NotaMember.rpt exists in the Laporan folder.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-        }
-
-        // Print nota non-member
-        private void LoadNotaNonMember()
-        {
-            try
-            {
-                // Create instance of your Crystal Report
-                ReportDocument reportDoc = new ReportDocument();
-                // Load the report file (you'll create this in Crystal Reports designer)
-                // Make sure the path is correct - adjust based on your project structure
-                string reportPath = Path.Combine(
-                    Application.StartupPath,
-                    "Laporan",
-                    "NotaNonMember.rpt"
-                );
-
-
-                if (!File.Exists(reportPath))
-                {
-                    MessageBox.Show($"Report not found: {reportPath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                reportDoc.Load(reportPath);
-                // Set the dataset as data source   
-                reportDoc.SetDataSource(notaDataSet);
-                // Assign report to viewer
-                crystalReportViewer1.ReportSource = reportDoc;
-                crystalReportViewer1.Refresh();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    $"Error loading receipt:\n{ex.Message}\n\nMake sure NotaNonMember.rpt exists in the Laporan folder.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-        }
 
         // Method to print directly without preview
         public void PrintReceipt()
@@ -155,7 +101,7 @@ namespace Project_PV
             try
             {
                 ReportDocument reportDoc = new ReportDocument();
-                string reportPath = Application.StartupPath + @"\Laporan\NotaMember.rpt";
+                string reportPath = Application.StartupPath + @"\Laporan\Nota.rpt";
 
                 if (!File.Exists(reportPath))
                 {

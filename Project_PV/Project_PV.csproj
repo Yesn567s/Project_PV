@@ -238,17 +238,10 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Laporan\NotaNonMember.cs">
+    <Compile Include="Laporan\Nota.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NotaNonMember.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Laporan\NotaMember.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NotaMember.rpt</DependentUpon>
+      <DependentUpon>Nota.rpt</DependentUpon>
       <SubType>Component</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -340,14 +333,9 @@
     <EmbeddedResource Include="AdminPromoManagement.resx">
       <DependentUpon>AdminPromoManagement.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="Laporan\NotaNonMember.rpt">
+    <Content Include="Laporan\Nota.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>NotaNonMember.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Laporan\NotaMember.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>NotaMember.cs</LastGenOutput>
+      <LastGenOutput>Nota.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="FormCheckout.resx">

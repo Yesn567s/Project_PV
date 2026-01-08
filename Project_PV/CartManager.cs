@@ -349,8 +349,9 @@ namespace Project_PV
 
             foreach (CartItem ci in baseItems)
             {
-                Promo pr = GetBestPromoForProduct(ci.ProductID, ci.Quantity);
-
+                Promo pr = null;
+                if (GlobalData.IsMember)
+                pr = GetBestPromoForProduct(ci.ProductID, ci.Quantity);
                 if (pr == null)
                 {
                     // no promo

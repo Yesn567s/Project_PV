@@ -16,14 +16,14 @@ namespace Project_PV.Laporan {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class NotaNonMember : ReportClass {
+    public class Nota : ReportClass {
         
-        public NotaNonMember() {
+        public Nota() {
         }
         
         public override string ResourceName {
             get {
-                return "NotaNonMember.rpt";
+                return "Nota.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Project_PV.Laporan {
         
         public override string FullResourceName {
             get {
-                return "Project_PV.Laporan.NotaNonMember.rpt";
+                return "Project_PV.Laporan.Nota.rpt";
             }
             set {
                 // Do nothing
@@ -66,7 +66,7 @@ namespace Project_PV.Laporan {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[2];
             }
@@ -74,7 +74,7 @@ namespace Project_PV.Laporan {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,33 +82,17 @@ namespace Project_PV.Laporan {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
-            get {
-                return this.ReportDefinition.Sections[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
-            get {
-                return this.ReportDefinition.Sections[5];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
-                return this.ReportDefinition.Sections[6];
+                return this.ReportDefinition.Sections[4];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedNotaNonMember : Component, ICachedReport {
+    public class CachedNota : Component, ICachedReport {
         
-        public CachedNotaNonMember() {
+        public CachedNota() {
         }
         
         [Browsable(false)]
@@ -145,7 +129,7 @@ namespace Project_PV.Laporan {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            NotaNonMember rpt = new NotaNonMember();
+            Nota rpt = new Nota();
             rpt.Site = this.Site;
             return rpt;
         }
