@@ -641,7 +641,31 @@ namespace Project_PV
 
         public static int GetSubtotal()
         {
+            // Return raw subtotal (unit price * qty) without applying item-level promos
             return GetCartItems().Sum(item => item.Subtotal);
+        }
+
+        // Returns subtotal after applying item-level promos (Harga_Jadi, Persen, Grosir) but excluding bonus freebies
+        public static int GetEffectiveSubtotalAfterItemPromos()
+        {
+            try
+            {
+                var displayItems = GetCartDisplayItems();
+                return displayItems.Where(d => !d.IsBonusItem).Sum(d => d.EffectiveSubtotal);
+            }
+            catch
+            {
+                return GetCartItems().Sum(item => item.Subtotal);
+            }
+        }
+
+        // Returns total savings coming from item-level promos (raw subtotal - effective subtotal)
+        public static int GetItemLevelSavings()
+        {
+            int raw = GetSubtotal();
+            int effective = GetEffectiveSubtotalAfterItemPromos();
+            int savings = raw - effective;
+            return savings > 0 ? savings : 0;
         }
 
         // Get total number of items (quantity sum)
@@ -665,11 +689,44 @@ namespace Project_PV
             cmd.ExecuteNonQuery();
         }
 
-        // Calculate discount (if member)
-        public static int CalculateDiscount(bool isMember, decimal discountPercentage = 5)
+        // Get configured member discount percent from promo table (global Persen promo). Returns 0 if none.
+        public static decimal GetMemberDiscountPercent()
+        {
+            decimal percent = 0m;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT Nilai_Potongan
+                        FROM promo
+                        WHERE Target_Type = 'Global'
+                          AND Jenis_Promo = 'Persen'
+                          AND NOW() BETWEEN START AND COALESCE(END, NOW())
+                        ORDER BY ID DESC
+                        LIMIT 1";
+
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        percent = Convert.ToDecimal(result);
+                    }
+                }
+            }
+            catch { }
+            return percent;
+        }
+
+        // Calculate discount (if member) using configured member discount percent from DB
+        public static int CalculateDiscount(bool isMember)
         {
             if (!isMember) return 0;
-            return (int)(GetSubtotal() * (discountPercentage / 100));
+            decimal percent = GetMemberDiscountPercent();
+            if (percent <= 0) return 0;
+            // discount applies to effective subtotal after item-level promos
+            return (int)Math.Round(GetEffectiveSubtotalAfterItemPromos() * (percent / 100m));
         }
 
         // Calculate tax (considers member discount when provided)
@@ -677,9 +734,9 @@ namespace Project_PV
         {
             // Indonesia typically doesn't add VAT at retail for small items
             // But if needed, you can set taxRate (e.g., 11 for 11% PPN)
-            int subtotal = GetSubtotal();
+            int effectiveSubtotal = GetEffectiveSubtotalAfterItemPromos();
             int discount = CalculateDiscount(isMember); // respect member discount
-            return (int)((subtotal - discount) * (taxRate / 100));
+            return (int)((effectiveSubtotal - discount) * (taxRate / 100));
         }
 
         // Get final total

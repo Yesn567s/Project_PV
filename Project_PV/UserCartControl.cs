@@ -335,28 +335,55 @@ namespace Project_PV
 
         private void UpdateOrderSummary()
         {
-            int subtotal = CartManager.GetSubtotal();
-            int discount = CartManager.CalculateDiscount(isMember, 5); // 5% discount for members
-            int tax = CartManager.CalculateTax(isMember, 0); // No tax for now
-            int total = subtotal - discount + tax;
+            // Raw subtotal (unit price * qty)
+            int rawSubtotal = CartManager.GetSubtotal();
+
+            // Effective subtotal after item-level promos (Harga_Jadi, Persen, Grosir)
+            int effectiveSubtotal = CartManager.GetEffectiveSubtotalAfterItemPromos();
+
+            // Savings from item-level promos
+            int itemSavings = CartManager.GetItemLevelSavings();
+
+            // Member discount (applies on effective subtotal)
+            int memberDiscount = CartManager.CalculateDiscount(isMember);
+
+            // Total discount to display = item-level savings + member discount
+            int totalDiscount = itemSavings + memberDiscount;
+
+            // Tax (if applicable)
+            int tax = CartManager.CalculateTax(isMember, 0);
+
+            // Final total: effective subtotal minus member discount plus tax
+            int total = effectiveSubtotal - memberDiscount + tax;
 
             // Update labels
-            // ensure label can show full text and is visible
             subtotalAmountLabel.AutoSize = true;
             subtotalAmountLabel.Visible = true;
             subtotalAmountLabel.ForeColor = Color.Black;
-            subtotalAmountLabel.Text = $"Rp {subtotal:N0}";
+            subtotalAmountLabel.Text = $"Rp {rawSubtotal:N0}";
 
-            if (isMember && discount > 0)
+            // Show discount panel when member or when there are item-level savings
+            bool showDiscountPanel = isMember || itemSavings > 0;
+            if (showDiscountPanel)
             {
                 discountPanel.Visible = true;
                 membershipDiscountLabel.Visible = true;
                 discountAmountLabel.Visible = true;
                 discountAmountLabel.AutoSize = true;
                 discountAmountLabel.ForeColor = Color.Green;
-                discountAmountLabel.Text = $"-Rp {discount:N0}";
-                memberLabel.Text = "Member Discount";
-                discountAppliedLabel.Text = "5% discount applied";
+
+                // Display combined discount amount (item promos + member discount)
+                discountAmountLabel.Text = totalDiscount > 0 ? $"-Rp {totalDiscount:N0}" : "Rp 0";
+
+                memberLabel.Text = isMember ? "Membership Discount" : "Discounts";
+
+                decimal pct = CartManager.GetMemberDiscountPercent();
+                if (pct > 0 && isMember)
+                    discountAppliedLabel.Text = $"{pct}% discount applied";
+                else if (itemSavings > 0)
+                    discountAppliedLabel.Text = $"Item promos: -Rp {itemSavings:N0}";
+                else
+                    discountAppliedLabel.Text = string.Empty;
             }
             else
             {

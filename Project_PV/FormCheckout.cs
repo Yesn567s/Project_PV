@@ -1,4 +1,4 @@
-﻿using MySqlConnector;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,38 +43,47 @@ namespace Project_PV
 
         private void DisplayOrderSummary()
         {
-            var cartItems = CartManager.GetCartItems();
-            int subtotal = CartManager.GetSubtotal();
-            int discount = CartManager.CalculateDiscount(isMember, 5);
-            // apply special discount after member discount: compute on remaining amount
-            int specialDiscountAmount = (int)Math.Round((subtotal - discount) * (promoSpecialDiscountPercent / 100m));
-            int total = subtotal - discount - specialDiscountAmount;
+            var baseItems = CartManager.GetCartItems();
+
+            // Raw subtotal (unit price * qty) shown to user
+            int rawSubtotal = CartManager.GetSubtotal();
+
+            // Effective subtotal after item-level promos
+            int effectiveSubtotal = CartManager.GetEffectiveSubtotalAfterItemPromos();
+
+            // Item-level savings
+            int itemSavings = CartManager.GetItemLevelSavings();
+
+            // Member discount (applies to effective subtotal)
+            int memberDiscount = isMember ? CartManager.CalculateDiscount(isMember) : 0;
+
+            // Special promo discount applies after member discount on the effective subtotal
+            int specialDiscountAmount = (int)Math.Round((effectiveSubtotal - memberDiscount) * (promoSpecialDiscountPercent / 100m));
+
+            // Final total: effective subtotal minus member discount and special discount
+            int total = effectiveSubtotal - memberDiscount - specialDiscountAmount;
 
             // Display summary in labels
-            lblSubtotal.Text = $"Rp {subtotal:N0}";
-            // update special discount label value (if present on the form)
-            // If the developer added a label named SpecialDiscountlabelvalue, update it
+            lblSubtotal.Text = $"Rp {rawSubtotal:N0}";
+
+            // update special discount label value
             SpecialDiscountlabelvalue.Text = specialDiscountAmount > 0 ? $"-Rp {specialDiscountAmount:N0}" : "Rp 0";
             SpecialDiscountlabelvalue.Visible = specialDiscountAmount > 0;
-            // also hide or show the label caption if present
             SpecialDiscountLabel.Visible = specialDiscountAmount > 0;
-            if (isMember && discount > 0)
-            {
-                if (promoSpecialDiscountPercent > 0)
-                    lblDiscount.Text = $"-Rp {discount:N0}\nPromo -{promoSpecialDiscountPercent}%: -Rp {specialDiscountAmount:N0}";
-                else
-                    lblDiscount.Text = $"-Rp {discount:N0}";
-            }
-            else
-            {
-                if (promoSpecialDiscountPercent > 0)
-                    lblDiscount.Text = $"Promo -{promoSpecialDiscountPercent}%: -Rp {specialDiscountAmount:N0}";
-                else
-                    lblDiscount.Text = "Rp 0";
-            }
+
+            // Build discount display text matching calculation
+            var discountLines = new List<string>();
+            if (itemSavings > 0)
+                discountLines.Add($"-Rp {itemSavings:N0}");
+            if (memberDiscount > 0)
+                discountLines.Add($"Member: -Rp {memberDiscount:N0}");
+            if (promoSpecialDiscountPercent > 0 && specialDiscountAmount > 0)
+                discountLines.Add($"Promo -{promoSpecialDiscountPercent}%: -Rp {specialDiscountAmount:N0}");
+
+            lblDiscount.Text = discountLines.Count > 0 ? string.Join("\n", discountLines) : "Rp 0";
 
             lblTotal.Text = $"Rp {total:N0}";
-            lblItemCount.Text = $"{cartItems.Count} items ({CartManager.GetItemCount()} total)";
+            lblItemCount.Text = $"{baseItems.Count} items ({CartManager.GetItemCount()} total)";
 
             if (GlobalData.IsMember)
             {
@@ -223,26 +232,27 @@ namespace Project_PV
                     try
                     {
                         // Calculate totals and per-line discounts
-                        var cartItems = CartManager.GetCartItems();
 
-                        decimal memberPercent = isMember ? 5m : 0m;
+                        // compute per-line discounts using display items (which already include item-level promos)
+                        var displayItems = CartManager.GetCartDisplayItems().Where(d => !d.IsBonusItem).ToList();
 
                         int subtotal = CartManager.GetSubtotal();
+
+                        decimal memberPercent = isMember ? CartManager.GetMemberDiscountPercent() : 0m;
 
                         int totalMemberDiscount = 0;
                         int totalSpecialDiscount = 0;
 
-                        // compute per-line discounts where special discount is applied after member discount
                         var perLineDiscounts = new List<Tuple<int,int,int>>(); // productId, memberDisc, specialDisc
-                        foreach (var item in cartItems)
+                        foreach (var di in displayItems)
                         {
-                            int lineTotal = item.UnitPrice * item.Quantity;
+                            int lineTotal = di.EffectiveSubtotal; // already respects Harga_Jadi/Persen/Grosir
                             int memberDiscLine = (int)Math.Round(lineTotal * (memberPercent / 100m));
                             // special discount is applied on (lineTotal - memberDiscLine)
                             int specialDiscLine = (int)Math.Round((lineTotal - memberDiscLine) * (promoSpecialDiscountPercent / 100m));
                             totalMemberDiscount += memberDiscLine;
                             totalSpecialDiscount += specialDiscLine;
-                            perLineDiscounts.Add(Tuple.Create(item.ProductID, memberDiscLine, specialDiscLine));
+                            perLineDiscounts.Add(Tuple.Create(di.Item.ProductID, memberDiscLine, specialDiscLine));
                         }
 
                         int hargaTerpotong = totalMemberDiscount + totalSpecialDiscount;
@@ -269,9 +279,10 @@ namespace Project_PV
                             INSERT INTO Transaksi_Detail (transaksi_id, produk_id, Qty, Harga, Diskon, Diskon_Spesial)
                             VALUES (@transaksiID, @produkID, @qty, @harga, @diskon, @diskon_spesial)";
 
-                        foreach (var item in cartItems)
+                        // insert using base cart items to reflect quantities in Cart_Detail but match discounts by product id
+                        var baseItems = CartManager.GetCartItems();
+                        foreach (var item in baseItems)
                         {
-                            // find computed discounts for this product
                             var tuple = perLineDiscounts.FirstOrDefault(t => t.Item1 == item.ProductID);
                             int memberDiscLine = tuple != null ? tuple.Item2 : 0;
                             int specialDiscLine = tuple != null ? tuple.Item3 : 0;
