@@ -21,6 +21,7 @@ namespace Project_PV
         private Dictionary<string, string> promoSpecialResponses = new Dictionary<string, string>();
         private Dictionary<string, string> promoSpecialTypes = new Dictionary<string, string>();
         private decimal promoSpecialDiscountPercent = 0m;
+        private List<int> promosToConsume = new List<int>();
 
         public FormCheckout(int memberID, bool isMember)
         {
@@ -109,13 +110,14 @@ namespace Project_PV
             promoSpecialResponses.Clear();
             promoSpecialTypes.Clear();
             promoSpecialDiscountPercent = 0m;
+            promosToConsume.Clear();
 
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = @"SELECT ID, Nama_Promo, Kategori, Keterangan FROM promo_special WHERE START <= NOW() AND (END IS NULL OR END >= NOW())";
+                string sql = @"SELECT ID, Nama_Promo, Kategori, Keterangan, Berlaku FROM promo_special WHERE START <= NOW() AND (END IS NULL OR END >= NOW())";
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -126,6 +128,16 @@ namespace Project_PV
                             string kategori = reader.GetString("Kategori");
                             string keterangan = reader.GetString("Keterangan");
 
+                            int? berlaku = null;
+                            if (!reader.IsDBNull(reader.GetOrdinal("Berlaku")))
+                            {
+                                berlaku = reader.GetInt32("Berlaku");
+                            }
+
+                            // If berlaku is explicitly 0 then promo is exhausted -> skip
+                            if (berlaku.HasValue && berlaku.Value == 0)
+                                continue;
+
                             string key = id + ":" + name;
 
                             if (string.Equals(kategori, "YesNo", StringComparison.OrdinalIgnoreCase))
@@ -133,6 +145,11 @@ namespace Project_PV
                                 var dr = MessageBox.Show(keterangan, name, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                 promoSpecialResponses[key] = (dr == DialogResult.Yes) ? "Yes" : "No";
                                 promoSpecialTypes[key] = "YesNo";
+                                // only consume if it has a positive limit (>0). If berlaku is null or -1 treat as unlimited (no consume)
+                                if (dr == DialogResult.Yes && berlaku.HasValue && berlaku.Value > 0)
+                                {
+                                    promosToConsume.Add(id);
+                                }
                             }
                             else if (string.Equals(kategori, "Input", StringComparison.OrdinalIgnoreCase))
                             {
@@ -145,6 +162,10 @@ namespace Project_PV
                                 else
                                 {
                                     promoSpecialResponses[key] = input;
+                                    if (!string.IsNullOrWhiteSpace(input) && berlaku.HasValue && berlaku.Value > 0)
+                                    {
+                                        promosToConsume.Add(id);
+                                    }
                                 }
                                 promoSpecialTypes[key] = "Input";
                             }
@@ -263,6 +284,18 @@ namespace Project_PV
                             cmdDetail.Parameters.AddWithValue("@diskon", memberDiscLine);
                             cmdDetail.Parameters.AddWithValue("@diskon_spesial", specialDiscLine);
                             cmdDetail.ExecuteNonQuery();
+                        }
+
+                        // Decrement Berlaku for consumed promos (only when Berlaku > 0)
+                        if (promosToConsume != null && promosToConsume.Count > 0)
+                        {
+                            string updateBerlakuSql = "UPDATE promo_special SET Berlaku = Berlaku - 1 WHERE ID = @id AND Berlaku IS NOT NULL AND Berlaku > 0";
+                            foreach (int promoId in promosToConsume.Distinct())
+                            {
+                                MySqlCommand cmdUpdate = new MySqlCommand(updateBerlakuSql, conn, transaction);
+                                cmdUpdate.Parameters.AddWithValue("@id", promoId);
+                                cmdUpdate.ExecuteNonQuery();
+                            }
                         }
 
                         transaction.Commit();

@@ -463,6 +463,7 @@ CREATE TABLE `promo_special` (
   `Nama_Promo` varchar(100) NOT NULL,
   `Kategori` enum('YesNo','Input') NOT NULL,
   `Keterangan` varchar(255) NOT NULL,
+  `Berlaku` int(11) DEFAULT NULL,
   `START` datetime DEFAULT current_timestamp(),
   `END` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
@@ -478,7 +479,7 @@ CREATE TABLE `transaksi` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `member_id` int(11) DEFAULT NULL,
   `Tanggal` datetime DEFAULT current_timestamp(),
-  `Harga_Terpotong` int(11) DEFAULT 0,
+  `Harga_Terpotong` int(11) NOT NULL DEFAULT 0,
   `Total` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -502,8 +503,8 @@ CREATE TABLE `transaksi_detail` (
   `produk_id` int(11) NOT NULL,
   `Qty` int(11) NOT NULL,
   `Harga` int(11) NOT NULL,
-  `Diskon` int(11) DEFAULT NULL,
-  `Diskon_Spesial` int(11) DEFAULT NULL,
+  `Diskon` int(11) NOT NULL DEFAULT 0,
+  `Diskon_Spesial` int(11) NOT NULL DEFAULT 0,
   `Subtotal` int(11) GENERATED ALWAYS AS (`Qty` * `Harga`) STORED,
   PRIMARY KEY (`ID`),
   KEY `transaksi_id` (`transaksi_id`),
@@ -513,15 +514,15 @@ CREATE TABLE `transaksi_detail` (
 /*Data for the table `transaksi_detail` */
 
 insert  into `transaksi_detail`(`ID`,`transaksi_id`,`produk_id`,`Qty`,`Harga`,`Diskon`,`Diskon_Spesial`) values 
-(1,1,3,2,5000,NULL,NULL),
-(2,1,5,1,25000,NULL,NULL),
-(3,2,2,1,30000,NULL,NULL),
-(4,2,4,2,24000,NULL,NULL),
-(5,3,1,1,15000,NULL,NULL),
-(6,4,6,1,70000,NULL,NULL),
-(7,4,7,2,21000,NULL,NULL),
-(8,5,3,3,5000,NULL,NULL),
-(9,5,8,1,39000,NULL,NULL);
+(1,1,3,2,5000,0,0),
+(2,1,5,1,25000,0,0),
+(3,2,2,1,30000,0,0),
+(4,2,4,2,24000,0,0),
+(5,3,1,1,15000,0,0),
+(6,4,6,1,70000,0,0),
+(7,4,7,2,21000,0,0),
+(8,5,3,3,5000,0,0),
+(9,5,8,1,39000,0,0);
 
 /*Table structure for table `laporan_penjualan_bulanan` */
 

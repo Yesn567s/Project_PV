@@ -30,11 +30,16 @@ namespace Project_PV
             hour2 = (int)numericUpDown10.Value;
             minute1 = (int)numericUpDown11.Value;
             minute2 = (int)numericUpDown12.Value;
-            if (textBox1.Text == "" || richTextBox1.Text=="" || comboBox1.Text == "")
+            if (textBox1.Text == "" || richTextBox1.Text=="" || comboBox1.Text == "" || numericUpDown1.Value==0)
             {
                 if (textBox1.Text == "")
                 {
                     MessageBox.Show("Kalau tidak ada nama taruh default 'Promo Biasa'");
+                    return;
+                }
+                if(numericUpDown1.Value == 0)
+                {
+                    MessageBox.Show("Kalau berlaku ke semua isi '-1'");
                     return;
                 }
                 else
@@ -60,11 +65,12 @@ namespace Project_PV
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "insert into promo_special (Nama_Promo, Kategori, Keterangan, START, END) Values (@namaPromo, @kategori, @keterangan, @start, @end)";
+                    string query = "insert into promo_special (Nama_Promo, Kategori, Keterangan,Berlaku, START, END) Values (@namaPromo, @kategori, @keterangan,@berlaku, @start, @end)";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@namaPromo", textBox1.Text.Trim());
                     cmd.Parameters.AddWithValue("@kategori", comboBox1.Text);
                     cmd.Parameters.AddWithValue("@keterangan", richTextBox1.Text);
+                    cmd.Parameters.AddWithValue("@berlaku", (int)numericUpDown1.Value);
                     cmd.Parameters.AddWithValue("@start", date1);
                     cmd.Parameters.AddWithValue("@end", date2);
                     cmd.ExecuteNonQuery();
