@@ -86,10 +86,36 @@ namespace Project_PV
                 "1 item in your cart" :
                 $"{totalQty} items in your cart";
 
-            foreach (var di in displayItems)
+            // Aggregate bonus display items by product id so identical bonus products stack visually
+            var normalItems = displayItems.Where(d => !d.IsBonusItem).ToList();
+            var bonusGroups = displayItems.Where(d => d.IsBonusItem)
+                                          .GroupBy(d => d.Item.ProductID)
+                                          .Select(g =>
+                                          {
+                                              var first = g.First();
+                                              var aggregated = new CartManager.CartDisplayItem
+                                              {
+                                                  Item = first.Item,
+                                                  AppliedPromo = first.AppliedPromo,
+                                                  EffectiveUnitPrice = 0,
+                                                  EffectiveSubtotal = 0,
+                                                  IsBonusItem = true
+                                              };
+                                              aggregated.Item.Quantity = g.Sum(x => x.Item.Quantity);
+                                              return aggregated;
+                                          }).ToList();
+
+            // render normal items first, then aggregated bonus items
+            foreach (var di in normalItems)
             {
                 Panel itemPanel = CreateCartItemPanel(di);
                 itemsFlowLayoutPanel.Controls.Add(itemPanel);
+            }
+
+            foreach (var bi in bonusGroups)
+            {
+                Panel bonusPanel = CreateCartItemPanel(bi);
+                itemsFlowLayoutPanel.Controls.Add(bonusPanel);
             }
         }
 

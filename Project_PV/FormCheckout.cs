@@ -44,6 +44,7 @@ namespace Project_PV
         private void DisplayOrderSummary()
         {
             var baseItems = CartManager.GetCartItems();
+            var displayItems = CartManager.GetCartDisplayItems();
 
             // Raw subtotal (unit price * qty) shown to user
             int rawSubtotal = CartManager.GetSubtotal();
@@ -83,7 +84,10 @@ namespace Project_PV
             lblDiscount.Text = discountLines.Count > 0 ? string.Join("\n", discountLines) : "Rp 0";
 
             lblTotal.Text = $"Rp {total:N0}";
-            lblItemCount.Text = $"{baseItems.Count} items ({CartManager.GetItemCount()} total)";
+            // Show number of displayed lines (including bonus items) and total quantity (including bonus quantities)
+            int displayedLines = displayItems.Count;
+            int displayedQty = displayItems.Sum(d => d.Item.Quantity);
+            lblItemCount.Text = $"{displayedLines} items ({displayedQty} total)";
 
             if (GlobalData.IsMember)
             {
@@ -233,10 +237,12 @@ namespace Project_PV
                     {
                         // Calculate totals and per-line discounts
 
-                        // compute per-line discounts using display items (which already include item-level promos)
-                        var displayItems = CartManager.GetCartDisplayItems().Where(d => !d.IsBonusItem).ToList();
+                        // compute per-line discounts using display items (which include item-level promos and bonus items)
+                        var displayItemsAll = CartManager.GetCartDisplayItems();
+                        var chargeableDisplayItems = displayItemsAll.Where(d => !d.IsBonusItem).ToList();
 
-                        int subtotal = CartManager.GetSubtotal();
+                        int subtotalRaw = CartManager.GetSubtotal();
+                        int effectiveSubtotal = CartManager.GetEffectiveSubtotalAfterItemPromos();
 
                         decimal memberPercent = isMember ? CartManager.GetMemberDiscountPercent() : 0m;
 
@@ -244,21 +250,21 @@ namespace Project_PV
                         int totalSpecialDiscount = 0;
 
                         var perLineDiscounts = new List<Tuple<int,int,int>>(); // productId, memberDisc, specialDisc
-                        foreach (var di in displayItems)
+                        foreach (var di in chargeableDisplayItems)
                         {
                             int lineTotal = di.EffectiveSubtotal; // already respects Harga_Jadi/Persen/Grosir
                             int memberDiscLine = (int)Math.Round(lineTotal * (memberPercent / 100m));
-                            // special discount is applied on (lineTotal - memberDiscLine)
                             int specialDiscLine = (int)Math.Round((lineTotal - memberDiscLine) * (promoSpecialDiscountPercent / 100m));
                             totalMemberDiscount += memberDiscLine;
                             totalSpecialDiscount += specialDiscLine;
                             perLineDiscounts.Add(Tuple.Create(di.Item.ProductID, memberDiscLine, specialDiscLine));
                         }
 
-                        int hargaTerpotong = totalMemberDiscount + totalSpecialDiscount;
+                        // compute final total based on effective subtotal
+                        int total = effectiveSubtotal - totalMemberDiscount - totalSpecialDiscount;
 
-                        // compute final total from subtotal minus discounts
-                        int total = subtotal - totalMemberDiscount - totalSpecialDiscount;
+                        // hargaTerpotong should represent total discount amount from raw subtotal
+                        int hargaTerpotong = subtotalRaw - total;
 
                         // 1. Insert into Transaksi table (with Harga_Terpotong)
                         string insertTransaksi = @"
@@ -279,21 +285,39 @@ namespace Project_PV
                             INSERT INTO Transaksi_Detail (transaksi_id, produk_id, Qty, Harga, Diskon, Diskon_Spesial)
                             VALUES (@transaksiID, @produkID, @qty, @harga, @diskon, @diskon_spesial)";
 
-                        // insert using base cart items to reflect quantities in Cart_Detail but match discounts by product id
-                        var baseItems = CartManager.GetCartItems();
-                        foreach (var item in baseItems)
+                        // insert using display items so bonus freebies are also recorded
+                        // First insert chargeable/displayable items (non-bonus)
+                        foreach (var di in displayItemsAll.Where(d => !d.IsBonusItem))
                         {
-                            var tuple = perLineDiscounts.FirstOrDefault(t => t.Item1 == item.ProductID);
+                            var tuple = perLineDiscounts.FirstOrDefault(t => t.Item1 == di.Item.ProductID);
                             int memberDiscLine = tuple != null ? tuple.Item2 : 0;
                             int specialDiscLine = tuple != null ? tuple.Item3 : 0;
 
                             MySqlCommand cmdDetail = new MySqlCommand(insertDetail, conn, transaction);
                             cmdDetail.Parameters.AddWithValue("@transaksiID", transactionID);
-                            cmdDetail.Parameters.AddWithValue("@produkID", item.ProductID);
-                            cmdDetail.Parameters.AddWithValue("@qty", item.Quantity);
-                            cmdDetail.Parameters.AddWithValue("@harga", item.UnitPrice);
+                            cmdDetail.Parameters.AddWithValue("@produkID", di.Item.ProductID);
+                            cmdDetail.Parameters.AddWithValue("@qty", di.Item.Quantity);
+                            // store original unit price in Harga column
+                            cmdDetail.Parameters.AddWithValue("@harga", di.Item.UnitPrice);
                             cmdDetail.Parameters.AddWithValue("@diskon", memberDiscLine);
                             cmdDetail.Parameters.AddWithValue("@diskon_spesial", specialDiscLine);
+                            cmdDetail.ExecuteNonQuery();
+                        }
+
+                        // Aggregate bonus items by product id and insert single rows with price 0
+                        var bonusGroups = displayItemsAll.Where(d => d.IsBonusItem)
+                                                       .GroupBy(d => d.Item.ProductID)
+                                                       .Select(g => new { ProductID = g.Key, Qty = g.Sum(x => x.Item.Quantity) });
+
+                        foreach (var bg in bonusGroups)
+                        {
+                            MySqlCommand cmdDetail = new MySqlCommand(insertDetail, conn, transaction);
+                            cmdDetail.Parameters.AddWithValue("@transaksiID", transactionID);
+                            cmdDetail.Parameters.AddWithValue("@produkID", bg.ProductID);
+                            cmdDetail.Parameters.AddWithValue("@qty", bg.Qty);
+                            cmdDetail.Parameters.AddWithValue("@harga", 0);
+                            cmdDetail.Parameters.AddWithValue("@diskon", 0);
+                            cmdDetail.Parameters.AddWithValue("@diskon_spesial", 0);
                             cmdDetail.ExecuteNonQuery();
                         }
 
