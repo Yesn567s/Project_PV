@@ -162,6 +162,14 @@
       <DependentUpon>AdminPromoManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="CartManager.cs" />
+    <Compile Include="DataTransaksi.cs">
+      <DependentUpon>DataTransaksi.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataTransaksi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataTransaksi.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSetLaporanBulanan.cs">
       <DependentUpon>DataSetLaporanBulanan.xsd</DependentUpon>
     </Compile>
@@ -169,6 +177,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetLaporanBulanan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FormLaporanTransaksi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLaporanTransaksi.Designer.cs">
+      <DependentUpon>FormLaporanTransaksi.cs</DependentUpon>
     </Compile>
     <Compile Include="FormLaporanPenjualanBulanan.cs">
       <SubType>Form</SubType>
@@ -189,6 +203,13 @@
       <DependentUpon>FormNota.cs</DependentUpon>
     </Compile>
     <Compile Include="ImagePreloader.cs" />
+    <Compile Include="Laporan\LaporanTransaksi.cs">
+      <DependentUpon>LaporanTransaksi.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Laporan\LaporanPenjualanBulananDetailed.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -332,6 +353,9 @@
     <EmbeddedResource Include="FormCheckout.resx">
       <DependentUpon>FormCheckout.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormLaporanTransaksi.resx">
+      <DependentUpon>FormLaporanTransaksi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLaporanPenjualanBulanan.resx">
       <DependentUpon>FormLaporanPenjualanBulanan.cs</DependentUpon>
     </EmbeddedResource>
@@ -343,6 +367,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Laporan\LaporanTransaksi.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LaporanTransaksi.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Laporan\LaporanPenjualanBulananDetailed.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -384,6 +413,17 @@
     <EmbeddedResource Include="UserMembershipControl.resx">
       <DependentUpon>UserMembershipControl.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DataTransaksi.xsc">
+      <DependentUpon>DataTransaksi.xsd</DependentUpon>
+    </None>
+    <None Include="DataTransaksi.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataTransaksi.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataTransaksi.xss">
+      <DependentUpon>DataTransaksi.xsd</DependentUpon>
+    </None>
     <None Include="DataSetLaporanBulanan.xsc">
       <DependentUpon>DataSetLaporanBulanan.xsd</DependentUpon>
     </None>

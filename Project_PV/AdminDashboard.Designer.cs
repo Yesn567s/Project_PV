@@ -30,6 +30,8 @@
         {
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.buttonLaporanTransaksi = new System.Windows.Forms.Button();
+            this.buttonLaporan = new System.Windows.Forms.Button();
             this.buttonPromoSpecial = new System.Windows.Forms.Button();
             this.buttonPromo = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -41,7 +43,6 @@
             this.brandLabel = new System.Windows.Forms.Label();
             this.ContentPanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonLaporan = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.panel7.SuspendLayout();
             this.panelHeader.SuspendLayout();
@@ -61,6 +62,7 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panel7.Controls.Add(this.buttonLaporanTransaksi);
             this.panel7.Controls.Add(this.buttonLaporan);
             this.panel7.Controls.Add(this.buttonPromoSpecial);
             this.panel7.Controls.Add(this.buttonPromo);
@@ -70,6 +72,28 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(147, 1500);
             this.panel7.TabIndex = 26;
+            // 
+            // buttonLaporanTransaksi
+            // 
+            this.buttonLaporanTransaksi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLaporanTransaksi.Location = new System.Drawing.Point(12, 379);
+            this.buttonLaporanTransaksi.Name = "buttonLaporanTransaksi";
+            this.buttonLaporanTransaksi.Size = new System.Drawing.Size(125, 64);
+            this.buttonLaporanTransaksi.TabIndex = 5;
+            this.buttonLaporanTransaksi.Text = "Laporan Transaksi";
+            this.buttonLaporanTransaksi.UseVisualStyleBackColor = true;
+            this.buttonLaporanTransaksi.Click += new System.EventHandler(this.buttonLaporanTransaksi_Click);
+            // 
+            // buttonLaporan
+            // 
+            this.buttonLaporan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLaporan.Location = new System.Drawing.Point(11, 309);
+            this.buttonLaporan.Name = "buttonLaporan";
+            this.buttonLaporan.Size = new System.Drawing.Size(125, 64);
+            this.buttonLaporan.TabIndex = 4;
+            this.buttonLaporan.Text = "Laporan Bulanan";
+            this.buttonLaporan.UseVisualStyleBackColor = true;
+            this.buttonLaporan.Click += new System.EventHandler(this.buttonLaporan_Click);
             // 
             // buttonPromoSpecial
             // 
@@ -156,7 +180,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label1.Location = new System.Drawing.Point(763, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 21);
+            this.label1.Size = new System.Drawing.Size(133, 28);
             this.label1.TabIndex = 4;
             this.label1.Text = "Administrator";
             // 
@@ -166,7 +190,7 @@
             this.logoLabel.Font = new System.Drawing.Font("Segoe UI", 18F);
             this.logoLabel.Location = new System.Drawing.Point(50, 11);
             this.logoLabel.Name = "logoLabel";
-            this.logoLabel.Size = new System.Drawing.Size(47, 32);
+            this.logoLabel.Size = new System.Drawing.Size(59, 41);
             this.logoLabel.TabIndex = 2;
             this.logoLabel.Text = "📖";
             // 
@@ -177,7 +201,7 @@
             this.brandLabel.ForeColor = System.Drawing.Color.Black;
             this.brandLabel.Location = new System.Drawing.Point(94, 16);
             this.brandLabel.Name = "brandLabel";
-            this.brandLabel.Size = new System.Drawing.Size(108, 21);
+            this.brandLabel.Size = new System.Drawing.Size(132, 28);
             this.brandLabel.TabIndex = 3;
             this.brandLabel.Text = "Admin Panel";
             // 
@@ -197,24 +221,13 @@
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(27, 24);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 21);
+            this.label2.Size = new System.Drawing.Size(137, 28);
             this.label2.TabIndex = 6;
             this.label2.Text = "Content Area";
             // 
-            // buttonLaporan
-            // 
-            this.buttonLaporan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLaporan.Location = new System.Drawing.Point(11, 309);
-            this.buttonLaporan.Name = "buttonLaporan";
-            this.buttonLaporan.Size = new System.Drawing.Size(125, 64);
-            this.buttonLaporan.TabIndex = 4;
-            this.buttonLaporan.Text = "Laporan Bulanan";
-            this.buttonLaporan.UseVisualStyleBackColor = true;
-            this.buttonLaporan.Click += new System.EventHandler(this.buttonLaporan_Click);
-            // 
             // AdminDashboard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
@@ -252,5 +265,6 @@
         private System.Windows.Forms.Button buttonPromo;
         private System.Windows.Forms.Button buttonPromoSpecial;
         private System.Windows.Forms.Button buttonLaporan;
+        private System.Windows.Forms.Button buttonLaporanTransaksi;
     }
 }

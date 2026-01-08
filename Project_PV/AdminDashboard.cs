@@ -25,11 +25,13 @@ namespace Project_PV
             button2.FlatStyle = FlatStyle.Flat;
             buttonPromo.FlatStyle = FlatStyle.Flat;
             buttonLaporan.FlatStyle = FlatStyle.Flat;
+            buttonLaporanTransaksi.FlatStyle = FlatStyle.Flat;
             buttonPromoSpecial.FlatStyle = FlatStyle.Flat;
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.BorderSize = 0;
             buttonPromo.FlatAppearance.BorderSize = 0;
             buttonLaporan.FlatAppearance.BorderSize = 0;
+            buttonLaporanTransaksi.FlatAppearance.BorderSize = 0;
             buttonPromoSpecial.FlatAppearance.BorderSize = 0;
             btnControl_design(button1);
             LoadDashboard();
@@ -61,6 +63,12 @@ namespace Project_PV
         private void buttonLaporan_Click(object sender, EventArgs e)
         {
             FormLaporanPenjualanBulanan laporanForm = new FormLaporanPenjualanBulanan();
+            laporanForm.Show();
+        }
+
+        private void buttonLaporanTransaksi_Click(object sender, EventArgs e)
+        {
+            FormLaporanTransaksi laporanForm = new FormLaporanTransaksi();
             laporanForm.Show();
         }
 
@@ -133,5 +141,6 @@ namespace Project_PV
             activeButton.ForeColor = Color.White;
         }
 
+        
     }
 }

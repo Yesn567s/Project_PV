@@ -87,7 +87,7 @@ namespace Project_PV
                     fileName = "LaporanPenjualanBulananCategory.rpt";
                     break;
                 default:
-                    fileName = "LaporanPenjualanBulananSummary.rpt";
+                    fileName = "LaporanTransaksi.rpt";
                     break;
             }
 
