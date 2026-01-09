@@ -293,14 +293,47 @@ namespace Project_PV
                             int memberDiscLine = tuple != null ? tuple.Item2 : 0;
                             int specialDiscLine = tuple != null ? tuple.Item3 : 0;
 
+                            // Keep Harga as original unit price in DB per user's request.
+                            int hargaOriginal = di.Item.UnitPrice;
+                            int qty = di.Item.Quantity;
+
+                            // Determine effective unit price used for display (for grosir average across qty)
+                            int effectiveUnitForCalc = di.EffectiveUnitPrice;
+                            if (di.AppliedPromo != null && di.AppliedPromo.Jenis_Promo == "Grosir")
+                            {
+                                if (qty > 0)
+                                    effectiveUnitForCalc = (int)Math.Round(di.EffectiveSubtotal / (double)qty);
+                            }
+
+                            // Per-unit item promo saving (original - effective)
+                            int perUnitItemSaving = hargaOriginal - effectiveUnitForCalc;
+                            if (perUnitItemSaving < 0) perUnitItemSaving = 0;
+
+                            // memberDiscLine and specialDiscLine are totals for the line; convert to per-unit
+                            int perUnitMemberDisc = 0;
+                            int perUnitSpecialDisc = 0;
+                            if (qty > 0)
+                            {
+                                perUnitMemberDisc = (int)Math.Round(memberDiscLine / (double)qty);
+                                perUnitSpecialDisc = (int)Math.Round(specialDiscLine / (double)qty);
+                            }
+
+                            // Diskon should be the amount saved per unit (item promo + member discount per unit)
+                            int diskonPerUnit = perUnitItemSaving + perUnitMemberDisc;
+                            if (diskonPerUnit < 0) diskonPerUnit = 0;
+
+                            // Diskon_Spesial store per-unit special discount
+                            int diskonSpesialPerUnit = perUnitSpecialDisc;
+
                             MySqlCommand cmdDetail = new MySqlCommand(insertDetail, conn, transaction);
                             cmdDetail.Parameters.AddWithValue("@transaksiID", transactionID);
                             cmdDetail.Parameters.AddWithValue("@produkID", di.Item.ProductID);
-                            cmdDetail.Parameters.AddWithValue("@qty", di.Item.Quantity);
-                            // store original unit price in Harga column
-                            cmdDetail.Parameters.AddWithValue("@harga", di.Item.UnitPrice);
-                            cmdDetail.Parameters.AddWithValue("@diskon", memberDiscLine);
-                            cmdDetail.Parameters.AddWithValue("@diskon_spesial", specialDiscLine);
+                            cmdDetail.Parameters.AddWithValue("@qty", qty);
+                            // store original unit price
+                            cmdDetail.Parameters.AddWithValue("@harga", hargaOriginal);
+                            // store per-unit discounts
+                            cmdDetail.Parameters.AddWithValue("@diskon", diskonPerUnit);
+                            cmdDetail.Parameters.AddWithValue("@diskon_spesial", diskonSpesialPerUnit);
                             cmdDetail.ExecuteNonQuery();
                         }
 
